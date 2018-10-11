@@ -24,9 +24,9 @@ You can find the most recent version of this guide [here](https://github.com/fac
 - Run `yarn add mongoose --save`
 - Run `yarn add mongodb --save`
 
-- In the project root of the project run mkdir data
+- In the project root of the project run `mkdir data`
 
-- Next run `mongod --dbpath \$PATH_TO_PROJECT\data`
+- Next run `mongod --dbpath ./data`
     - I added the data directory to store all of our db stuff
     - You should see a message `waiting for connections on port 27017`
 
