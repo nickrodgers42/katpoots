@@ -28,3 +28,50 @@ You can find the most recent version of this guide [here](https://github.com/fac
     - You should see a message `waiting for connections on port 27017`
 
 - Finally, open another terminal and run the command `mongo`, this will open up a shell to manually do operations on our databases
+
+
+## MongoDB Schemas:
+
+### Links:
+* [Link](https://mongoosejs.com/docs/schematypes.html#strings) to Schema docs. <br>
+* [Example](https://thinkster.io/tutorials/node-json-api/creating-the-user-model) of creating a Model <br>
+* [Most Helpful Data](https://www.youtube.com/watch?v=dQw4w9WgXcQ) I found <br>
+* Left a Lot of Comments in `src/data/models/answer.js`
+
+### Types:
+
+Type | Description |
+--- | --- |
+String | self-explanatory
+Number | self-explanatory
+Date | not hooked into mongoose change, if you change it with a method you must tell mongoose about the change manually
+Buffer |  idk to be honest
+Boolean | plain JavaScript booleans
+Mixed | harder to maintain, but can have multiple things
+ObjectId | idk
+Array | holds arrays of SchemaTypes or arrays of subdocuments
+Decimal128 | 128-bit decimal floating points
+Map | keys must be strings
+
+### Generic Schema Example:
+```javascript
+// this would be held in models/*.js
+// * is is upper camelcase
+
+var mongoose *Schema = require('mongoose')
+
+var *Schema = new mongoose.Schema({
+    varname1: Type,
+    varname2: Type,
+    //...
+})
+
+module.exports = *Schema;
+```
+
+To register the model with the application, put `require('./models/*);` above the required `app.use(require('./routes'));` in the file **app.js**.
+
+### Schema Methods
+
+Can have methods, getters, and setters
+
