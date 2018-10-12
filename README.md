@@ -13,3 +13,5 @@ You can find the most recent version of this guide [here](https://github.com/fac
 - Install Yarn
 - Run `yarn` command
 - Run `yarn start` to run the project
+
+## Starting to work on Schemas
