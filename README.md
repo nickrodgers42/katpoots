@@ -50,7 +50,7 @@ var *Schema = new mongoose.Schema({
     //...
 })
 
-mongoose.model('*', *Schema);
+module.exports = *Schema;
 ```
 
 To register the model with the application, put `require('./models/*);` above the required `app.use(require('./routes'));` in the file **app.js**.
