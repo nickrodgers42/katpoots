@@ -13,7 +13,8 @@ async function createAnswer(req, res, next) {
 }
 
 async function getAnswer(req, res, next) {
-  console.log(req.params.answerId);
-  res.send("hello world");
+  const models = await db.connect();
+  const answer = await models.answer.findById(req.params.answerId);
+  res.json(answer);
   next();
 }
