@@ -1,8 +1,8 @@
-var mongoose = require("mongoose");
+let mongoose = require('mongoose');
 
-var uniqueValidator = require("mongoose-unique-validator");
+let uniqueValidator = require('mongoose-unique-validator');
 
-var UserSchema = new mongoose.Schema({
+let UserSchema = new mongoose.Schema({
   // --- MVP Required --- //
 
   // must have a username
@@ -24,7 +24,7 @@ var UserSchema = new mongoose.Schema({
 });
 
 //if the uniqueValidator defined above is found, has the message somewhere
-UserSchema.plugin(uniqueValidator, { message: "something is not unique" });
+UserSchema.plugin(uniqueValidator, { message: 'something is not unique' });
 
 //once the database links all of this, this is all that is needed
 module.exports = UserSchema;
