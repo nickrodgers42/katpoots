@@ -28,7 +28,7 @@
     "restify-plugins": "^1.6.0"
   },
   "scripts": {
-    "start-api": "babel src/api -d src/core/api; babel src/data -d src/core/data; node src/core/api",
+    "start-api": "babel src/api -d src/core/api && babel src/data -d src/core/data && node src/core/api",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
