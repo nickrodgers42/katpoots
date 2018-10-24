@@ -19,7 +19,17 @@ var UserSchema = new mongoose.Schema({
   // must have password
   password: {
     type: String,
-    requried: true //----------------------------------//
+    required: true 
+  }
+  //owned quizzes, editable by them
+  ownedQuizzes: {
+    type: [mongoose.SchemaTypes.ObjectId],
+    // doesn't necessarily need to own ANY quizzes, but field must exist
+    required: true,
+    default: []
+  }
+
+  //----------------------------------//
     // --- once we're done with MVP --- //
     //----------------------------------//
     // all scores from all quizzes
@@ -28,8 +38,6 @@ var UserSchema = new mongoose.Schema({
     // numberOfQuizzes: {type: Number, default: 0},
     // // average score
     // averageScore: {type: Number, default: 0},
-
-  }
 }); //if the uniqueValidator defined above is found, has the message somewhere
 
 UserSchema.plugin(uniqueValidator, {
