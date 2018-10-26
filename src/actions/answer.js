@@ -1,4 +1,4 @@
-import fetch from "cross-fetch";
+import axios from "axios";
 
 export const REQUEST_ANSWER = "REQUEST_ANSWER";
 function requestAnswer(answerId) {
@@ -16,8 +16,9 @@ function getAnswer(answer) {
 function fetchAnswer(answerId) {
   return dispatch => {
     dispatch(requestAnswer(answerId));
-    return fetch(`http://localhost:3004/answers/${answerId}`)
-      .then(res => res.json())
+    return axios
+      .get(`/api/answers/${answerId}`)
+      .then(res => res.data)
       .then(answer => dispatch(getAnswer(answer)));
   };
 }
