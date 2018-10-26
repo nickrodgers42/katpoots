@@ -90,6 +90,10 @@ If you want to add yourself or some other user, go into Postman and make a post 
     "password": "super_secret_pswd"
 }
 
+Make sure you have a mongodb open and you are running yarn start-api
+
+---------------------------------------------------
+
 Want to see if your user got added to the database?
 
 Open a new shell and run the following commands:
