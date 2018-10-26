@@ -75,3 +75,27 @@ To register the model with the application, put `require('./models/*);` above th
 
 Can have methods, getters, and setters
 
+### Bcrypt
+Allows for password hashing!
+simply run `yarn add bcrypt`
+
+### Adding a user with Postman
+If you want to add yourself or some other user, go into Postman and make a post request, go to body and click the 'raw' tab, then select json text. A user takes the form of this json object:
+
+{
+    "firstName": "Dwight",
+    "lastName": "Shrute",
+    "email": "email@email.com",
+    "username": "blahblah",
+    "password": "super_secret_pswd"
+}
+
+Want to see if your user got added to the database?
+
+Open a new shell and run the following commands:
+    `mongo`
+    `use group10`
+    `db.users.find().pretty()`
+
+I am using the email address to determine whether or not the account is added to the database. If the email already exists in mongo then it is not added. You can also test this with Postman.
+
