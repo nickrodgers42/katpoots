@@ -4,6 +4,7 @@ import logo from "./logo.svg";
 import configureStore from "./store";
 import Answer from "./components/answer/answer";
 import "./App.css";
+import JoinCard from "./components/joinCard.jsx";
 
 const store = configureStore();
 
@@ -20,6 +21,7 @@ class App extends Component {
           <p className="App-intro">
             To get started, edit <code>src/App.js</code> and save to reload.
           </p>
+          <JoinCard />
         </div>
       </Provider>
     );
