@@ -1,19 +1,19 @@
-const db = require('../../data/db');
+import { loadModels } from "../../data/models";
 
 module.exports = function(server) {
-  server.get('/answers/:answerId', getAnswer);
-  server.post('/answers', createAnswer);
+  server.get("/api/answers/:answerId", getAnswer);
+  server.post("/api/answers", createAnswer);
 };
 
 async function createAnswer(req, res, next) {
-  const models = await db.connect();
-  const answer = await new models.answer({ text: 'test' }).save();
+  const models = await loadModels();
+  const answer = await new models.answer({ text: "test" }).save();
   res.json(answer);
   next();
 }
 
 async function getAnswer(req, res, next) {
-  const models = await db.connect();
+  const models = await loadModels();
   const answer = await models.answer.findById(req.params.answerId);
   res.json(answer);
   next();
