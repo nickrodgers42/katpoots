@@ -17,11 +17,11 @@ let UserSchema = new mongoose.Schema({
   //owned quizzes, no proctor class needed
   quizzes: [mongoose.SchemaTypes.ObjectId],
 
-  firstName: { type: String, default: "", required: true },
+  firstName: { type: String, required: true },
 
-  lastName: { type: String, default: "", required: true },
+  lastName: { type: String, required: true },
 
-  email: { type: String, default: "", required: true, unique: true }
+  email: { type: String, required: true, unique: true }
 
   //----------------------------------//
   // --- once we're done with MVP --- //
