@@ -1,13 +1,17 @@
-import React, { Component } from "react";
+import React from "react";
 import 'typeface-roboto';
 import Card from "@material-ui/core/Card";
 import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
-import { CardContent, TextField, Button, CardActions } from "@material-ui/core";
+import { CardContent, TextField, Button, CardActions, CardHeader, Grid } from "@material-ui/core";
 
 const styles = {
     card: {
-        maxWidth: 400,
+        maxWidth: 500,
+    },
+    cardActions: {
+        textAlign: 'right',
+        width: '100%'
     },
 };
 
@@ -15,20 +19,27 @@ function JoinCard(props) {
     const { classes } = props; 
     return (
         <Card className={classes.card}>
+            <CardHeader
+                title="Join a Quiz"
+            ></CardHeader>
             <CardContent>
-                <h1>Join a Game</h1>
                 <TextField
                     variant="outlined"
                     label="Quiz PIN"
                     />
             </CardContent>
             <CardActions>
-                <Button 
-                    variant="contained"
-                    color="primary"
-                >
-                    Join
-                </Button>
+                <Grid>
+                    <Grid item>
+                        <Button 
+                            variant="contained"
+                            color="primary"
+                            size="large"
+                        >
+                            Join
+                        </Button>
+                    </Grid>
+                </Grid>
             </CardActions>
         </Card>
     )
