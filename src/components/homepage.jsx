@@ -40,11 +40,11 @@ function HomePage(props) {
                         </Typography>
                     </Grid>
                     <Grid item>
-                        <Button>Sign Up</Button>
+                        <Button>Log In</Button>
                         <Button
                             variant="contained"
                         >   
-                            Login
+                            Sign Up
                         </Button>
                     </Grid>
                 </Grid>
