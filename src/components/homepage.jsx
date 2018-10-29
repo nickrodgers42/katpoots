@@ -9,10 +9,10 @@ import { Typography, Button } from "@material-ui/core";
 
 const styles = ({
     root: {
-        flexGrow: 1,
+        // flexGrow: 1,
     },
     grid: {
-        height: "100vh",
+        height: "90vh",
     },
     grow: {
         flexGrow: 1,
@@ -40,7 +40,7 @@ function HomePage(props) {
                         </Typography>
                     </Grid>
                     <Grid item>
-                        <Button>Log In</Button>
+                        <Button color="inherit">Log In</Button>
                         <Button
                             variant="contained"
                         >   
