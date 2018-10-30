@@ -5,8 +5,8 @@ module.exports = function(server) {
   server.post("/api/register", createUser);
   server.post("/api/login", passport.authenticate("local", { failureRedirect: "/login" }), signIn);
   server.get("/api/logout", logout);
+  server.get("/api/user/:userId", getUser);
 };
-
 async function createUser(req, res, next) {
   try {
     const models = await loadModels();
@@ -19,6 +19,27 @@ async function createUser(req, res, next) {
     res.status(500).send({ error: e.message });
     next(e);
   }
+}
+
+async function getUser(req, res, next){
+  const models = await loadModels();
+  const User = await models.user;
+  const user = await User.findById(req.params.userId)
+    .populate({
+      path: "quizzes",
+      populate:{
+        path:'questions',
+        populate:{
+          path:'answers'
+        }
+      }
+    });
+  if (!user) {
+      res.status(404).send({ error: `User with ID ${req.params.userId} not found!` });
+      return next();
+    }
+  res.json(user);
+  next();
 }
 
 function signIn(req, res, next) {

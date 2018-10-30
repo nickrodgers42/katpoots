@@ -94,12 +94,41 @@ Make sure you have a mongodb open and you are running yarn start-api
 
 ---------------------------------------------------
 
-Want to see if your user got added to the database?
+### API controllers and different paths.
 
-Open a new shell and run the following commands:
-    `mongo`
-    `use group10`
-    `db.users.find().pretty()`
+Each class has 4 different methods in its controller
+    -add
+    -remove
+    -modify
+    -get
 
-I am using the email address to determine whether or not the account is added to the database. If the email already exists in mongo then it is not added. You can also test this with Postman.
+User is a bit different but not by much.
+
+Delete requires the parent ID.
+    *Not only do we need to delete it from existence, we have to make the parent forget he ever had that child.
+
+User:
+    getting a user: `.get("/api/user/:userId")`
+    creating a user: `.post("/api/register")`
+    signing in: `.post("/api/logout")`
+    logging out `.post("/api/logout")`
+
+Quiz:
+    getting a quiz: `.get("/api/quiz/:quizId/")`
+    creating a quiz: `.post("/api/quiz/:userId)`
+    deleting a quiz: `.delete("/api/quiz/:userId/:quizId)`
+    updating a quiz: `.put("/api/quiz/:quizId")`
+
+Question:
+    getting a question: `.get("/api/question/:questionId")`
+    creating a question: `.post("/api/question/:quizId")`
+    deleting a question: `.delete("/api/question/:quizId/:questionId)`
+    updating a question: `.put("/api/question/:questionId")`
+
+Answer:
+    getting an answer: `.get("/api/answer/:answerId")`
+    creating an answer: `.post("/api/answer/:questionId)`
+    deleting an answer: `.delete("/api/answer/:questionId/:answerId")`
+    updating an answer: `.put("/api/answer/:answerId")`
+
 

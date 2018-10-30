@@ -3,13 +3,13 @@ let mongoose = require('mongoose');
 // below is to make sure nothing is identical, that could cause issue
 let uniqueValidator = require('mongoose-unique-validator');
 
-let QuizSchema = new mongoose.Schema({
+var QuizSchema = new mongoose.Schema({
   owner: mongoose.SchemaTypes.ObjectId,
-  title: String,
-  date: Date,
+  quizTitle: {type:String, required:true},
+  date: {type:Date, default:Date.now},
   closed: Boolean,
   //array of questions that will follow the Question schema
-  questions: [mongoose.SchemaTypes.ObjectId],
+  questions: [{type:mongoose.SchemaTypes.ObjectId, ref:'question'}],
   //array of users that will represent who is in the quiz
   users: [mongoose.SchemaTypes.ObjectId]
 });

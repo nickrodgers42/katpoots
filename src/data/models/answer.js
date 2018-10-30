@@ -7,13 +7,15 @@ let AnswerSchema = new mongoose.Schema({
   // position in question spot
   position: Number,
   // array of voters picking this answer
-  text: { type: String, required: true },
+  answerText: { type: String, required: true },
   // to retrieve a specific question
   questionId: Number,
   // keep track of how many votes received
   voteCount: { type: Number, default: 0 },
   // array of voterids on this answer
-  voterIds: [mongoose.SchemaTypes.ObjectId]
+  voterIds: [mongoose.SchemaTypes.ObjectId],
+
+  correctAnswer: {type:Boolean, default: false}
 });
 
 //if the uniqueValidator defined above is found, has the message somewhere

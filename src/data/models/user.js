@@ -15,7 +15,7 @@ let UserSchema = new mongoose.Schema({
   // must have password
   password: { type: String, requried: true },
   //owned quizzes, no proctor class needed
-  quizzes: [mongoose.SchemaTypes.ObjectId],
+  quizzes: [{type:mongoose.SchemaTypes.ObjectId, ref: 'quiz' }],
 
   firstName: { type: String, required: true },
 

@@ -3,9 +3,8 @@ let uniqueValidator = require('mongoose-unique-validator');
 
 let QuestionSchema = new mongoose.Schema({
   questionId: Number,
-  text: { type: String, required: true },
-  answers: [mongoose.SchemaTypes.ObjectId],
-  quizId: Number
+  questionText: { type: String, required: true },
+  answers: [{type:mongoose.SchemaTypes.ObjectId, ref:'answer'}],
 });
 
 QuestionSchema.plugin(uniqueValidator, { message: 'something is not unique' });
