@@ -36,6 +36,13 @@ let UserSchema = new mongoose.Schema({
   // averageScore: {type: Number, default: 0},
 });
 
+UserSchema.pre("remove", async function(){ 
+  const quizzes = await mongoose.models["quiz"].find({"parent":this._id});
+  for(let quiz of quizzes){
+    quiz.remove();
+  }
+});
+
 UserSchema.pre("save", async function() {
   if (!this.isModified("password") || !this.isNew) return;
   const salt = await bcrypt.genSaltAsync(10);

@@ -104,31 +104,31 @@ Each class has 4 different methods in its controller
 
 User is a bit different but not by much.
 
-Delete requires the parent ID.
-    *Not only do we need to delete it from existence, we have to make the parent forget he ever had that child.
+I tried to make all of the paths the same format, they all take the id of the object you are referencing exept for create which takes the parents id
 
 User:
-    getting a user: `.get("/api/user/:userId")`
     creating a user: `.post("/api/register")`
+    getting a user: `.get("/api/user/:userId")`
     signing in: `.post("/api/logout")`
     logging out `.post("/api/logout")`
+    deleting a user `.delete("/api/user/:userId")`
 
 Quiz:
-    getting a quiz: `.get("/api/quiz/:quizId/")`
     creating a quiz: `.post("/api/quiz/:userId)`
-    deleting a quiz: `.delete("/api/quiz/:userId/:quizId)`
+    deleting a quiz: `.delete("/api/quiz/:quizId)`
+    getting a quiz: `.get("/api/quiz/:quizId/")`
     updating a quiz: `.put("/api/quiz/:quizId")`
 
 Question:
-    getting a question: `.get("/api/question/:questionId")`
     creating a question: `.post("/api/question/:quizId")`
-    deleting a question: `.delete("/api/question/:quizId/:questionId)`
+    deleting a question: `.delete("/api/question/:questionId)`
+    getting a question: `.get("/api/question/:questionId")`
     updating a question: `.put("/api/question/:questionId")`
 
 Answer:
-    getting an answer: `.get("/api/answer/:answerId")`
     creating an answer: `.post("/api/answer/:questionId)`
-    deleting an answer: `.delete("/api/answer/:questionId/:answerId")`
+    deleting an answer: `.delete("/api/answer/:answerId")`
+    getting an answer: `.get("/api/answer/:answerId")`
     updating an answer: `.put("/api/answer/:answerId")`
 
 

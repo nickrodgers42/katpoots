@@ -6,6 +6,7 @@ module.exports = function(server) {
   server.post("/api/login", passport.authenticate("local", { failureRedirect: "/login" }), signIn);
   server.get("/api/logout", logout);
   server.get("/api/user/:userId", getUser);
+  server.delete("/api/user/:userId", deleteUser);
 };
 async function createUser(req, res, next) {
   try {
@@ -50,5 +51,18 @@ function signIn(req, res, next) {
 function logout(req, res, next) {
   req.logout();
   res.redirect("/");
+  next();
+}
+
+async function deleteUser(req, res, next){
+  const models = await loadModels();
+  const User = await models.user;
+  const user = await User.findById(req.params.userId);
+  if (!user) {
+    res.status(404).send({ error: `User with ID ${req.params.userId} not found!` });
+    return next();
+  }
+  user.delete();
+  res.json({"success":"true"});
   next();
 }

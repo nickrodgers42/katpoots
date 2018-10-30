@@ -15,7 +15,9 @@ let AnswerSchema = new mongoose.Schema({
   // array of voterids on this answer
   voterIds: [mongoose.SchemaTypes.ObjectId],
 
-  correctAnswer: {type:Boolean, default: false}
+  correctAnswer: {type:Boolean, default: false},
+
+  parent: {type:mongoose.SchemaTypes.ObjectId}
 });
 
 //if the uniqueValidator defined above is found, has the message somewhere

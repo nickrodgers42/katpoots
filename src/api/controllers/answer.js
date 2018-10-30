@@ -4,7 +4,7 @@ import { ensureLoggedIn } from "connect-ensure-login";
 module.exports = function(server) {
   server.get("/api/answer/:answerId", getAnswer);
   server.post("/api/answer/:questionId", createAnswer);
-  server.delete("/api/answer/:questionId/:answerId", deleteAnswer);
+  server.delete("/api/answer/:answerId", deleteAnswer);
   server.put("/api/answer/:answerId", updateAnswer);
 };
 
@@ -19,7 +19,8 @@ async function createAnswer(req, res, next) {
 }
   const newAnswer = new Answer({
     answerText: req.body.answerText,
-    correctAnswer: req.body.correctAnswer
+    correctAnswer: req.body.correctAnswer,
+    parent: question._id
   });
   question.answers.push(newAnswer);
   await question.save();
@@ -49,16 +50,16 @@ async function deleteAnswer(req, res, next){
   const models = await loadModels();
   const Question = await models.question;
   const Answer = await models.answer;
-  const question = await Question.findById(req.params.questionId);
-  if (!question) {
-    res.status(404).send({ error: `Question with ID ${req.params.questionId} not found!` });
-    return next();
-  }
   const answer = await Answer.findById(req.params.answerId);
   if (!answer) {
     res.status(404).send({ error: `Answer with ID ${req.params.answerId} not found!` });
     return next();
   } 
+  const question = await Question.findById(answer.parent);
+  if (!question) {
+    res.status(404).send({ error: `Question with ID ${answer.parent} not found!` });
+    return next();
+  }
   question.answers.pop(answer);
   answer.remove();
   await question.save();
