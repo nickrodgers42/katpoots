@@ -1,12 +1,16 @@
 import React from "react";
-import { withStyles } from "@material-ui/core";
+import { withStyles, Typography } from "@material-ui/core";
 import { Form, Field } from "react-final-form";
 import TextField from "../text-field/text-field";
 import Button from "@material-ui/core/Button";
 import PropTypes from "prop-types";
 import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
+import { CardContent, CardActions } from "@material-ui/core/";
 import Grid from "@material-ui/core/Grid";
+import 'typeface-roboto';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+
 
 const styles = theme => ({
   root: {
@@ -20,11 +24,11 @@ const styles = theme => ({
     display: "flex",
     flexWrap: "wrap"
   },
+  grid: {
+    height: "90vh",
+  },
   textField: {
     width: 400
-  },
-  button: {
-    margin: 20
   }
 });
 
@@ -42,8 +46,28 @@ const Register = props => {
   const { classes } = props;
   return (
     <Grid container className={classes.root} spacing={16}>
+     <AppBar position="static">
+            <Toolbar>
+                <Grid 
+                    container
+                    justify="flex-start"
+                    spacing={24}
+                >
+                    <Grid item>
+                        <Typography
+                            variant="h6"
+                            color="inherit"
+                            className={classes.grow}
+                            onClick={ props.homepageRedirect }
+                        >
+                            KatPoots
+                        </Typography>
+                    </Grid>
+                </Grid>
+            </Toolbar>
+          </AppBar>
       <Grid item xs={12}>
-        <Grid container justify="center" spacing={4}>
+        <Grid container className={classes.grid} justify="center" alignItems="center" spacing={4}>
           <Form
             className={classes.container}
             onSubmit={props.onSubmit}
@@ -53,7 +77,12 @@ const Register = props => {
               <form onSubmit={handleSubmit}>
                 <Card className={classes.card}>
                   <CardContent>
-                    <h1>Register</h1>
+                    <Typography
+                      variant="h3"
+                      color="inherit"
+                    >
+                      Sign Up
+                    </Typography>
                     <div>
                       <Field
                         className={classes.textField}
@@ -99,28 +128,32 @@ const Register = props => {
                         label="username"
                       />
                     </div>
-                    <div className="buttons">
+                  </CardContent>
+                  <CardActions>
+                    <Grid container justify = "space-between">
+                  <Button
+                        variant="outlined"
+                        color="secondary"
+                        className={classes.button}
+                        type="button"
+                        onClick={reset}
+                        disabled={submitting || pristine}
+                        size="large"
+                      >
+                        Reset
+                      </Button>
                       <Button
                         variant="contained"
                         color="primary"
                         className={classes.button}
                         type="submit"
                         disabled={submitting || pristine}
+                        size="large"
                       >
                         Submit
                       </Button>
-                      <Button
-                        variant="contained"
-                        color="secondary"
-                        className={classes.button}
-                        type="button"
-                        onClick={reset}
-                        disabled={submitting || pristine}
-                      >
-                        Reset
-                      </Button>
-                    </div>
-                  </CardContent>
+                      </Grid>
+                  </CardActions>
                 </Card>
               </form>
             )}

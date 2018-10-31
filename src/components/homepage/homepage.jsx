@@ -7,7 +7,6 @@ import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import { Typography, Button } from "@material-ui/core";
 import PropTypes from 'prop-types';
-import { BrowserRouter as Router, Route } from "react-router-dom";
 
 const styles = ({
     root: {
@@ -34,7 +33,7 @@ function HomePage(props) {
                 >
                     <Grid item>
                         <Typography
-                            variant="title"
+                            variant="h6"
                             color="inherit"
                             className={classes.grow}
                         >

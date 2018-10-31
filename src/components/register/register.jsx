@@ -9,6 +9,7 @@ class Register extends Component {
     super(props);
     this.handleRefreshClick = this.handleRefreshClick.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+    this.homepageRedirect = this.homepageRedirect.bind(this);
   }
 
   onSubmit(values) {
@@ -19,10 +20,17 @@ class Register extends Component {
     e.preventDefault();
   }
 
+  homepageRedirect() {
+    this.props.history.push('/');
+  }
+
   render() {
     return (
       <div>
-        <RegisterForm onSubmit={this.onSubmit} />
+        <RegisterForm 
+          onSubmit={this.onSubmit}
+          homepageRedirect={this.homepageRedirect}
+        />
       </div>
     );
   }
