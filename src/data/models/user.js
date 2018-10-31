@@ -15,7 +15,7 @@ let UserSchema = new mongoose.Schema({
   // must have password
   password: { type: String, requried: true },
   //owned quizzes, no proctor class needed
-  quizzes: [mongoose.SchemaTypes.ObjectId],
+  quizzes: [{type:mongoose.SchemaTypes.ObjectId, ref: 'quiz' }],
 
   firstName: { type: String, required: true },
 
@@ -34,6 +34,13 @@ let UserSchema = new mongoose.Schema({
   // numberOfQuizzesOwned: {type: Number, default: 0}
   // // average score
   // averageScore: {type: Number, default: 0},
+});
+
+UserSchema.pre("remove", async function(){ 
+  const quizzes = await mongoose.models["quiz"].find({"parent":this._id});
+  for(let quiz of quizzes){
+    quiz.remove();
+  }
 });
 
 UserSchema.pre("save", async function() {
