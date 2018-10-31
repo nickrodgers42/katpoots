@@ -18,7 +18,7 @@ const styles = theme => ({
   },
   card: {
     backgroundColor: theme.backgroundColor,
-    maxWidth: 800
+    width: 400
   },
   container: {
     display: "flex",
@@ -26,9 +26,6 @@ const styles = theme => ({
   },
   grid: {
     height: "90vh",
-  },
-  textField: {
-    width: 400
   }
 });
 
@@ -85,47 +82,47 @@ const Register = props => {
                     </Typography>
                     <div>
                       <Field
-                        className={classes.textField}
                         name="firstName"
                         component={TextField}
                         type="text"
                         label="First Name"
+                        fullWidth
                       />
                     </div>
                     <div>
                       <Field
-                        className={classes.textField}
                         name="lastName"
                         component={TextField}
                         type="text"
                         label="Last Name"
+                        fullWidth
                       />
                     </div>
                     <div>
                       <Field
-                        className={classes.textField}
                         name="email"
                         component={TextField}
                         type="email"
                         label="Email"
+                        fullWidth
                       />
                     </div>
                     <div>
                       <Field
-                        className={classes.textField}
                         name="password"
                         component={TextField}
                         type="password"
-                        label="password"
+                        label="Password"
+                        fullWidth
                       />
                     </div>
                     <div>
                       <Field
-                        className={classes.textField}
                         name="username"
                         component={TextField}
                         type="text"
-                        label="username"
+                        label="Username"
+                        fullWidth
                       />
                     </div>
                   </CardContent>
@@ -134,7 +131,6 @@ const Register = props => {
                   <Button
                         variant="outlined"
                         color="secondary"
-                        className={classes.button}
                         type="button"
                         onClick={reset}
                         disabled={submitting || pristine}
@@ -145,7 +141,6 @@ const Register = props => {
                       <Button
                         variant="contained"
                         color="primary"
-                        className={classes.button}
                         type="submit"
                         disabled={submitting || pristine}
                         size="large"

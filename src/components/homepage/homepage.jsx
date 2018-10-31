@@ -41,7 +41,12 @@ function HomePage(props) {
                         </Typography>
                     </Grid>
                     <Grid item>
-                        <Button color="inherit">Log In</Button>
+                        <Button 
+                            color="inherit"
+                            onClick={ props.loginRedirect }
+                        >
+                            Log In
+                        </Button>
                         <Button
                             variant="contained"
                             onClick={ props.signUpRedirect }
