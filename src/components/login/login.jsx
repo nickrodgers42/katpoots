@@ -1,19 +1,18 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { registerUser } from "../../actions/register";
-import RegisterForm from "./register-form";
+import LoginForm from "./login-form";
+import { loginUser } from "../../actions/login";
 
-class Register extends Component {
+class Login extends Component {
   constructor(props) {
     super(props);
-    this.handleRefreshClick = this.handleRefreshClick.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.homepageRedirect = this.homepageRedirect.bind(this);
   }
 
   onSubmit(values) {
-    this.props.dispatch(registerUser(values, this.props.history));
+    this.props.dispatch(loginUser(values, this.props.history));
   }
 
   handleRefreshClick(e) {
@@ -21,26 +20,23 @@ class Register extends Component {
   }
 
   homepageRedirect() {
-    this.props.history.push('/');
+    this.props.history.push("/");
   }
 
   render() {
     return (
       <div>
-        <RegisterForm 
-          onSubmit={this.onSubmit}
-          homepageRedirect={this.homepageRedirect}
-        />
+        <LoginForm onSubmit={this.onSubmit} homepageRedirect={this.homepageRedirect} />
       </div>
     );
   }
 }
 
-Register.propTypes = {
+Login.propTypes = {
   user: PropTypes.object,
   dispatch: PropTypes.func.isRequired
 };
 
 export default connect(state => {
   return { user: state.user };
-})(Register);
+})(Login);
