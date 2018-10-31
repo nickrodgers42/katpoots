@@ -5,7 +5,6 @@ import "./index.css";
 import HomepagePage from "./components/homepage/homepagePage";
 import registerServiceWorker from "./registerServiceWorker";
 import Register from "./components/register/register";
-import QuizList from "./components/userpage/quizList"
 import configureStore from "./store";
 import { Provider } from "react-redux";
 
@@ -15,7 +14,7 @@ ReactDOM.render(
   <Provider store={store}>
     <Router>
       <div>
-        <Route exact path="/" component={QuizList} />
+        <Route exact path="/" component={HomepagePage} />
         <Route path="/register" component={Register} />
       </div>
     </Router>
