@@ -7,10 +7,9 @@ import PropTypes from "prop-types";
 import Card from "@material-ui/core/Card";
 import { CardContent, CardActions } from "@material-ui/core/";
 import Grid from "@material-ui/core/Grid";
-import 'typeface-roboto';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-
+import "typeface-roboto";
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
 
 const styles = theme => ({
   root: {
@@ -25,7 +24,7 @@ const styles = theme => ({
     flexWrap: "wrap"
   },
   grid: {
-    height: "90vh",
+    height: "90vh"
   }
 });
 
@@ -43,28 +42,19 @@ const Register = props => {
   const { classes } = props;
   return (
     <Grid container className={classes.root} spacing={16}>
-     <AppBar position="static">
-            <Toolbar>
-                <Grid 
-                    container
-                    justify="flex-start"
-                    spacing={24}
-                >
-                    <Grid item>
-                        <Typography
-                            variant="h6"
-                            color="inherit"
-                            className={classes.grow}
-                            onClick={ props.homepageRedirect }
-                        >
-                            KatPoots
-                        </Typography>
-                    </Grid>
-                </Grid>
-            </Toolbar>
-          </AppBar>
+      <AppBar position="static">
+        <Toolbar>
+          <Grid container justify="flex-start" spacing={24}>
+            <Grid item>
+              <Typography variant="h6" color="inherit" className={classes.grow} onClick={props.homepageRedirect}>
+                KatPoots
+              </Typography>
+            </Grid>
+          </Grid>
+        </Toolbar>
+      </AppBar>
       <Grid item xs={12}>
-        <Grid container className={classes.grid} justify="center" alignItems="center" spacing={4}>
+        <Grid container className={classes.grid} justify="center" alignItems="center" spacing={8}>
           <Form
             className={classes.container}
             onSubmit={props.onSubmit}
@@ -74,61 +64,28 @@ const Register = props => {
               <form onSubmit={handleSubmit}>
                 <Card className={classes.card}>
                   <CardContent>
-                    <Typography
-                      variant="h3"
-                      color="inherit"
-                    >
+                    <Typography variant="h3" color="inherit">
                       Sign Up
                     </Typography>
                     <div>
-                      <Field
-                        name="firstName"
-                        component={TextField}
-                        type="text"
-                        label="First Name"
-                        fullWidth
-                      />
+                      <Field name="firstName" component={TextField} type="text" label="First Name" fullWidth />
                     </div>
                     <div>
-                      <Field
-                        name="lastName"
-                        component={TextField}
-                        type="text"
-                        label="Last Name"
-                        fullWidth
-                      />
+                      <Field name="lastName" component={TextField} type="text" label="Last Name" fullWidth />
                     </div>
                     <div>
-                      <Field
-                        name="email"
-                        component={TextField}
-                        type="email"
-                        label="Email"
-                        fullWidth
-                      />
+                      <Field name="email" component={TextField} type="email" label="Email" fullWidth />
                     </div>
                     <div>
-                      <Field
-                        name="password"
-                        component={TextField}
-                        type="password"
-                        label="Password"
-                        fullWidth
-                      />
+                      <Field name="username" component={TextField} type="text" label="Username" fullWidth />
                     </div>
                     <div>
-                      <Field
-                        name="username"
-                        component={TextField}
-                        type="text"
-                        label="Username"
-                        fullWidth
-                      />
+                      <Field name="password" component={TextField} type="password" label="Password" fullWidth />
                     </div>
                   </CardContent>
                   <CardActions>
-                    <Grid container justify = "space-between">
-                  <Button
+                    <Grid container justify="space-between">
+                      <Button
                         variant="outlined"
                         color="secondary"
                         type="button"
@@ -147,7 +104,7 @@ const Register = props => {
                       >
                         Submit
                       </Button>
-                      </Grid>
+                    </Grid>
                   </CardActions>
                 </Card>
               </form>
