@@ -1,11 +1,18 @@
 import { loadModels } from "../../data/models";
 import passport from "passport";
+import { ensureLoggedIn } from "connect-ensure-login";
 
 module.exports = function(server) {
+  server.get("/api/user", ensureLoggedIn(), getUser);
   server.post("/api/register", createUser);
   server.post("/api/login", passport.authenticate("local", { failureRedirect: "/login" }), signIn);
   server.get("/api/logout", logout);
 };
+
+async function getUser(req, res, next) {
+  res.json(req.user);
+  next();
+}
 
 async function createUser(req, res, next) {
   try {
