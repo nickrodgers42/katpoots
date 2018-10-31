@@ -34,14 +34,18 @@ function HomePage(props) {
             </Grid>
             <Grid item>
               {user.username ? (
-                <div>
-                  <Typography variant="h6" color="inherit" className={classes.grow}>{`Welcome ${
-                    user.username
-                  }!`}</Typography>
-                  <Button color="inherit" onClick={logout}>
-                    Log Out
-                  </Button>
-                </div>
+                <Grid container justify="space-between" spacing={16}>
+                  <Grid item>
+                    <Typography variant="h6" color="inherit" className={classes.grow}>{`Welcome ${
+                      user.username
+                    }!`}</Typography>
+                  </Grid>
+                  <Grid item>
+                    <Button variant="contained" onClick={logout}>
+                      Log Out
+                    </Button>
+                  </Grid>
+                </Grid>
               ) : (
                 <div>
                   <Button color="inherit" onClick={props.loginRedirect}>
