@@ -14,7 +14,7 @@ const QuizList = props => {
     const {classes} = props;
     return (
         <div>
-            <QuizLink quizlink = {testData}/>
+            <QuizLink quizname = {testData.quizname}/>
         </div>
     )
 }

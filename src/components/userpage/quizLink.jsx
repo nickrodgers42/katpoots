@@ -13,7 +13,7 @@ const styles = theme => ({
         margin: 5
     },
     greenC: {
-        color: 'yellow'
+        backgroundColor: green[500]
     }
 });
 
@@ -23,25 +23,24 @@ const QuizLink = props => {
     return (
         <form>
             <div>
-                <label> This is a Test, I need halp with passing props </label>
+                <label> {props.quizname} </label>
                 <Button 
                     className={classes.button} 
                     variant="fab" 
-                    color={yellow} 
+                    color="primary" 
                     aria-label="Edit">
                     <CreateIcon />
                 </Button>
                 <Button 
                     className={classes.button} 
                     variant="fab" 
-                    color= {red}
+                    color= "secondary"
                     aria-label="Delete">
                     <DeleteIcon />
                 </Button>
                 <Button 
-                    className={classes.button} 
+                    className={[classes.button, classes.greenC]} 
                     variant="fab" 
-                    color={green}
                     aria-label="Play">
                     <PlayArrowRounded />
                 </Button>
