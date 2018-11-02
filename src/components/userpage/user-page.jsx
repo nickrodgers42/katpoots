@@ -2,7 +2,6 @@ import React from 'react'
 import {withStyles} from '@material-ui/core/styles'
 import ObjList from '../item-containers/objList'
 import Grid from '@material-ui/core/Grid'
-import { Paper } from '@material-ui/core';
 
 const styles = theme => ({
     root: {
