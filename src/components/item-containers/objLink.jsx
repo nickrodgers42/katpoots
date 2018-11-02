@@ -32,14 +32,15 @@ const styles = theme => ({
         display: 'flex',
         flexDirection: 'row',
         alignItems: 'center',
-        margin: '20px',
-        padding: '10px'
+        margin: '10px',
+        padding: '10px',
         
     },
     backColor: {
         backgroundColor: '#8fcfff',
-        boxShadow: '2px 2px 2px rgba(0, 0, 0, .4)',
-        display: 'inline-block'
+        // boxShadow: '2px 2px 2px rgba(1, 1, 1, .4)',
+        display: 'inline-block',
+        borderRadius: 100,
     }
 });
 

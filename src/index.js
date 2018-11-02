@@ -6,6 +6,7 @@ import HomepagePage from "./components/homepage/homepagePage";
 import registerServiceWorker from "./registerServiceWorker";
 import Register from "./components/register/register";
 import ObjList from "./components/item-containers/objList";
+import UserPage from "./components/userpage/user-page";
 import configureStore from "./store";
 import { Provider } from "react-redux";
 
@@ -18,6 +19,7 @@ ReactDOM.render(
         <Route exact path="/" component={HomepagePage} />
         <Route path="/register" component={Register} />
         <Route path="/user/list" component={ObjList}/>
+        <Route path="/user/" component={UserPage}/>
       </div>
     </Router>
   </Provider>,
