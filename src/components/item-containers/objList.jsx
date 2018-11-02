@@ -1,22 +1,22 @@
 import React from "react";
 import { withStyles } from "@material-ui/core";
-import QuizLink from "./quizLink"
+import ObjLink from "./objLink"
 
 const styles = theme => ({
 
 })
 
 const testData = {
-    quizname: "this is a test"
+    objname: "Obj Title"
 };
 
-const QuizList = props => {
+const ObjList = props => {
     const {classes} = props;
     return (
         <div>
-            <QuizLink quizname = {testData.quizname}/>
+            <ObjLink objname = {testData.objname}/>
         </div>
     )
 }
 
-export default withStyles(styles)(QuizList)
+export default withStyles(styles)(ObjList)
