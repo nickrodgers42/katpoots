@@ -7,7 +7,7 @@ const styles = theme => ({
 })
 
 const testData = {
-    quizname: "this is a test"
+    quizname: "Quiz Title"
 };
 
 const QuizList = props => {

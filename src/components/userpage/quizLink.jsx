@@ -23,6 +23,23 @@ const styles = theme => ({
     },
     iconColor: {
         color: '#fff',
+    },
+    quizname: {
+        fontSize: 40,
+        marginRight: '10px'
+    },
+    flex: {
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+        margin: '20px',
+        padding: '10px'
+        
+    },
+    backColor: {
+        backgroundColor: '#8fcfff',
+        boxShadow: '2px 2px 2px rgba(0, 0, 0, .4)',
+        display: 'inline-block'
     }
 });
 
@@ -30,9 +47,9 @@ const styles = theme => ({
 const QuizLink = props => {
     const {classes} = props;
     return (
-        <form>
-            <div>
-                <label> {props.quizname} </label>
+        <form className={classes.backColor}>
+            <div className= {classes.flex}>
+                <label className = {classes.quizname}>{props.quizname}: </label>
                 <Button 
                     className={[classes.button, classes.yellow]} 
                     variant="fab" 
