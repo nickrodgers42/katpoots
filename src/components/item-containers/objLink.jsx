@@ -24,7 +24,7 @@ const styles = theme => ({
     iconColor: {
         color: '#fff',
     },
-    quizname: {
+    objTitle: {
         fontSize: 40,
         marginRight: '10px'
     },
@@ -44,12 +44,12 @@ const styles = theme => ({
 });
 
 
-const QuizLink = props => {
+const ObjLink = props => {
     const {classes} = props;
     return (
         <form className={classes.backColor}>
             <div className= {classes.flex}>
-                <label className = {classes.quizname}>{props.quizname}: </label>
+                <label className = {classes.objTitle}>{props.objname}: </label>
                 <Button 
                     className={[classes.button, classes.yellow]} 
                     variant="fab" 
@@ -75,4 +75,4 @@ const QuizLink = props => {
     )
 }
 
-export default withStyles(styles)(QuizLink)
+export default withStyles(styles)(ObjLink)

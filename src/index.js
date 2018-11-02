@@ -5,7 +5,7 @@ import "./index.css";
 import HomepagePage from "./components/homepage/homepagePage";
 import registerServiceWorker from "./registerServiceWorker";
 import Register from "./components/register/register";
-import QuizList from "./components/userpage/quizList";
+import ObjList from "./components/item-containers/objList";
 import configureStore from "./store";
 import { Provider } from "react-redux";
 
@@ -17,7 +17,7 @@ ReactDOM.render(
       <div>
         <Route exact path="/" component={HomepagePage} />
         <Route path="/register" component={Register} />
-        <Route path="/user/quiz" component={QuizList}/>
+        <Route path="/user/list" component={ObjList}/>
       </div>
     </Router>
   </Provider>,
