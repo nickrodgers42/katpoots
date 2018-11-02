@@ -1,14 +1,15 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter as Router, Route } from "react-router-dom";
 import "./index.css";
-import HomepagePage from "./components/homepage/homepagePage";
 import registerServiceWorker from "./registerServiceWorker";
+
 import Register from "./components/register/register";
 import ObjList from "./components/item-containers/objList";
 import UserPage from "./components/userpage/user-page";
+
 import configureStore from "./store";
 import { Provider } from "react-redux";
+import App from "./App";
 
 const store = configureStore();
 
