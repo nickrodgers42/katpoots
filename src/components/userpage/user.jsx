@@ -6,7 +6,7 @@ import UserPage from "./user-page";
 
 class User extends Component {
   componentWillMount() {
-    this.props.getQuizzes();
+    this.props.fetchQuizzes();
   }
 
   render() {
@@ -23,8 +23,8 @@ export default connect(
   state => ({
     quizzes: state.quiz.quizzes
   }),
-  dispatch => ({
-    getQuizzes: () => dispatch(fetchQuizzes()),
-    deleteQuiz: id => dispatch(deleteQuiz(id))
-  })
+  {
+    fetchQuizzes,
+    deleteQuiz
+  }
 )(User);
