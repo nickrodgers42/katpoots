@@ -6,7 +6,7 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import HomepagePage from "./components/homepage/homepagePage";
 import Register from "./components/register/register";
 import Login from "./components/login/login";
-import UserPage from "./components/userpage/user-page"
+import User from "./components/userpage/user";
 
 class App extends Component {
   constructor(props) {
@@ -29,7 +29,7 @@ class App extends Component {
           <Route exact path="/" component={HomepagePage} />
           <Route path="/register" component={Register} />
           <Route path="/login" component={Login} />
-          <Route path="/user/" component={UserPage} />
+          <Route path="/user/" component={User} />
         </div>
       </Router>
     );
