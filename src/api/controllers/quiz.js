@@ -7,12 +7,18 @@ module.exports = function(server) {
     server.post("/api/quiz/:userId/", createQuiz);
     server.delete('/api/quiz/:quizId', deleteQuiz);
     server.put('/api/quiz/:quizId/', updateQuiz)
-    server.get('/api/quizzes/:userId/', getQuizzes);
+    server.get('/api/quizzes/', getQuizzes);
 };
 
 async function getQuizzes(req, res, next){
     try{
-        console.log(req);
+        const models = await loadModels();
+        const quiz = await models.quiz.find({parent:req.user._id});
+        res.json(quiz);
+        next();
+    } catch(e){
+        res.status(500).send({ error: e.message });
+        next(e);
     }
 }
 
