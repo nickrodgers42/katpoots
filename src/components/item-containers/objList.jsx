@@ -1,22 +1,24 @@
 import React from "react";
 import { withStyles } from "@material-ui/core";
-import ObjLink from "./objLink"
+import ObjLink from "./objLink";
+import PropTypes from "prop-types";
 
-const styles = theme => ({
-
-})
-
-const testData = {
-    objname: "Obj Title"
-};
+const styles = theme => ({});
 
 const ObjList = props => {
-    const {classes} = props;
-    return (
-        <div>
-            <ObjLink objname = {testData.objname}/>
-        </div>
-    )
-}
+  const { classes, items } = props;
+  return (
+    <div>
+      {items.map(item => (
+        <ObjLink key={item._id} title={item.title} onDelete={() => props.onDelete(item._id)} />
+      ))}
+    </div>
+  );
+};
 
-export default withStyles(styles)(ObjList)
+ObjList.propTypes = {
+  items: PropTypes.array.isRequired,
+  onDelete: PropTypes.func.isRequired
+};
+
+export default withStyles(styles)(ObjList);
