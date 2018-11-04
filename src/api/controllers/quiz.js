@@ -1,5 +1,4 @@
 import {loadModels} from "../../data/models"
-import {_} from "lodash";
 
 const express = require('express');
 
@@ -8,7 +7,14 @@ module.exports = function(server) {
     server.post("/api/quiz/:userId/", createQuiz);
     server.delete('/api/quiz/:quizId', deleteQuiz);
     server.put('/api/quiz/:quizId/', updateQuiz)
+    server.get('/api/quizzes/:userId/', getQuizzes);
 };
+
+async function getQuizzes(req, res, next){
+    try{
+        console.log(req);
+    }
+}
 
 async function getQuiz(req, res, next) {
     try{
@@ -70,7 +76,7 @@ async function deleteQuiz(req, res, next){
             res.status(404).send({ error: `User with ID ${req.params.userId} not found!` });
             return next();
         }
-        user.quizzes.remove(_.pull(user.quizzes, quiz._id));
+        user.quizzes.remove(quiz._id);
         quiz.remove();
         await user.save();
         res.json({"success":"true"});

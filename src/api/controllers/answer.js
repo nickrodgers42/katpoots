@@ -1,6 +1,5 @@
 import { loadModels } from "../../data/models";
 import { ensureLoggedIn } from "connect-ensure-login";
-import {_} from "lodash";
 
 module.exports = function(server) {
   server.get("/api/answer/:answerId", getAnswer);
@@ -65,7 +64,7 @@ async function deleteAnswer(req, res, next){
       res.status(404).send({ error: `Question with ID ${answer.parent} not found!` });
       return next();
     }
-    question.answers.remove(_.pull(question.answers, answer._id));
+    question.answers.remove(answer._id);
     answer.remove();
     await question.save();
     res.json({"success":"true"});
