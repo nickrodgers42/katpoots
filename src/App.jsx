@@ -7,6 +7,7 @@ import HomepagePage from "./components/homepage/homepagePage";
 import Register from "./components/register/register";
 import Login from "./components/login/login";
 import User from "./components/userpage/user";
+import Quiz from "./components/quiz/quiz";
 
 class App extends Component {
   constructor(props) {
@@ -30,6 +31,7 @@ class App extends Component {
           <Route path="/register" component={Register} />
           <Route path="/login" component={Login} />
           <Route path="/user/" component={User} />
+          <Route path="/quiz" component={Quiz} />
         </div>
       </Router>
     );

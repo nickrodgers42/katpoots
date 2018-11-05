@@ -3,6 +3,7 @@ import axios from "axios";
 // This is the action's type, the reducer uses this to know how to change the state
 // We export it here so that we can use it in the reducer
 export const GET_QUIZZES = "GET_QUIZZES";
+export const NEXT_QUESTION = "NEXT_QUESTION";
 
 // We don't need to export these because they don't have any side-effects
 // Because we will dispatch ge fetchQuizzes action after to update the state
@@ -14,6 +15,12 @@ const ADD_QUIZ = "ADD_QUIZ";
 function getQuizzes(quizzes) {
   return { type: GET_QUIZZES, quizzes };
 }
+
+export const nextQuestion = index => dispatch =>
+  dispatch({
+    type: NEXT_QUESTION,
+    index: index + 1
+  });
 
 export const deleteQuiz = id => dispatch => {
   axios

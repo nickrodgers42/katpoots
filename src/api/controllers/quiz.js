@@ -25,12 +25,20 @@ async function getQuizzes(req, res, next) {
 async function getQuiz(req, res, next) {
   try {
     const models = await loadModels();
-    const quiz = await models.quiz.findById(req.params.quizId).populate({
+    let quiz = await models.quiz.findById(req.params.quizId).populate({
       path: "questions",
       populate: {
         path: "answers"
       }
     });
+    if (!quiz) {
+      quiz = await models.quiz.findOne().populate({
+        path: "questions",
+        populate: {
+          path: "answers"
+        }
+      });
+    }
     if (!quiz) {
       res.status(404).send({ error: `Quiz with ID ${quizId} not found!` });
       return next();
