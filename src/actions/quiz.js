@@ -3,17 +3,42 @@ import axios from "axios";
 // This is the action's type, the reducer uses this to know how to change the state
 // We export it here so that we can use it in the reducer
 export const GET_QUIZZES = "GET_QUIZZES";
+export const NEXT_QUESTION = "NEXT_QUESTION";
 
 // We don't need to export these because they don't have any side-effects
 // Because we will dispatch ge fetchQuizzes action after to update the state
 // So there isn't anything for the reducer to do
 const DELETE_QUIZ = "DELETE_QUIZ";
 const ADD_QUIZ = "ADD_QUIZ";
+const EDIT_QUIZ = "EDIT_QUIZ";
+
+export const editQuiz = (id) => dispatch => {
+  let title = prompt('New Quiz Name?');
+  const quiz = {
+    title
+  }
+  axios
+    .put(`/api/quiz/${id}`, quiz)
+    .then(res =>
+      dispatch({
+        type: EDIT_QUIZ,
+        quiz: res.data
+      })
+    )
+
+    .then(() => dispatch(fetchQuizzes()));
+};
 
 // This is what we dispatch internally to this file's actions
 function getQuizzes(quizzes) {
   return { type: GET_QUIZZES, quizzes };
 }
+
+export const nextQuestion = index => dispatch =>
+  dispatch({
+    type: NEXT_QUESTION,
+    index: index + 1
+  });
 
 export const deleteQuiz = id => dispatch => {
   axios

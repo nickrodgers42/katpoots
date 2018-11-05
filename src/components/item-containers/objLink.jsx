@@ -49,7 +49,11 @@ const ObjLink = props => {
     <form className={classes.backColor}>
       <div className={classes.flex}>
         <label className={classes.objTitle}>{props.title}: </label>
-        <Button className={`${classes.button} ${classes.yellow}`} variant="fab" color="primary" aria-label="Edit">
+        <Button className={`${classes.button} ${classes.yellow}`} 
+          variant="fab" 
+          color="primary" 
+          aria-label="Edit"
+          onClick={props.onEdit}>
           <CreateIcon className={classes.iconColor} />
         </Button>
         <Button
@@ -71,7 +75,8 @@ const ObjLink = props => {
 
 ObjLink.propTypes = {
   title: PropTypes.string.isRequired,
-  onDelete: PropTypes.func.isRequired
+  onDelete: PropTypes.func.isRequired,
+  onEdit: PropTypes.func.isRequired
 };
 
 export default withStyles(styles)(ObjLink);

@@ -13,11 +13,19 @@ function getAnswer(answer) {
   };
 }
 
+// export const VOTE = "VOTE";
+// function vote(answerId) {
+//   return dispatch => {
+//     return axios
+//       .put()
+//   }
+// }
+
 function fetchAnswer(answerId) {
   return dispatch => {
     dispatch(requestAnswer(answerId));
     return axios
-      .get(`/api/answers/${answerId}`)
+      .get(`/api/answer/${answerId}`)
       .then(res => res.data)
       .then(answer => dispatch(getAnswer(answer)));
   };

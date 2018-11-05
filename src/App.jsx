@@ -7,7 +7,7 @@ import HomepagePage from "./components/homepage/homepagePage";
 import Register from "./components/register/register";
 import Login from "./components/login/login";
 import User from "./components/userpage/user";
-import QuizCreation from "./components/quiz-creation/quiz-creation";
+import Quiz from "./components/quiz/quiz";
 
 class App extends Component {
   constructor(props) {
@@ -30,7 +30,8 @@ class App extends Component {
           <Route exact path="/" component={HomepagePage} />
           <Route path="/register" component={Register} />
           <Route path="/login" component={Login} />
-          <Route path="/user/" component={User} />
+          <Route path="/user" component={User} />
+          <Route path="/quiz/:quizId" component={Quiz} />
         </div>
       </Router>
     );
