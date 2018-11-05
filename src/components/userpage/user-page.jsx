@@ -33,13 +33,13 @@ const UserPage = props => {
         <h2>Holds the logobar?</h2>
       </Grid>
       <Grid container spacing={24}>
+      <Grid item>
+            <CreateQuiz />
+        </Grid>
         <Grid item>
           <ObjList items={quizzes} onDelete={deleteQuiz} onEdit={editQuiz} />
         </Grid>
         <Grid item>Will Hold Something Else 1?</Grid>
-        <Grid item>
-            <CreateQuiz />
-        </Grid>
       </Grid>
     </div>
   );
