@@ -25,7 +25,7 @@ const styles = theme => ({
 });
 
 const UserPage = props => {
-  const { classes, quizzes, deleteQuiz } = props;
+  const { classes, quizzes, deleteQuiz, editQuiz } = props;
   return (
     <div>
       <Grid>
@@ -33,7 +33,7 @@ const UserPage = props => {
       </Grid>
       <Grid container spacing={24}>
         <Grid item>
-          <ObjList items={quizzes} onDelete={deleteQuiz} />
+          <ObjList items={quizzes} onDelete={deleteQuiz} onEdit={editQuiz} />
         </Grid>
         <Grid item>Will Hold Something Else 1?</Grid>
         <Grid item>Will Hold Something Else 1?</Grid>
