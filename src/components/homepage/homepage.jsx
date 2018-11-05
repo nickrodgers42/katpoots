@@ -7,6 +7,7 @@ import { withStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import { Typography, Button } from "@material-ui/core";
 import PropTypes from "prop-types";
+import AppBarComponent from "../appbar/appbar-class";
 
 const styles = {
   root: {
@@ -24,42 +25,7 @@ function HomePage(props) {
   const { classes, user, logout } = props;
   return (
     <div className={classes.root}>
-      <AppBar position="static">
-        <Toolbar>
-          <Grid container justify="space-between" spacing={24}>
-            <Grid item>
-              <Typography variant="h6" color="inherit" className={classes.grow}>
-                KatPoots
-              </Typography>
-            </Grid>
-            <Grid item>
-              {user.username ? (
-                <Grid container justify="space-between" spacing={16}>
-                  <Grid item>
-                    <Typography variant="h6" color="inherit" className={classes.grow}>{`Welcome ${
-                      user.username
-                    }!`}</Typography>
-                  </Grid>
-                  <Grid item>
-                    <Button variant="contained" onClick={logout}>
-                      Log Out
-                    </Button>
-                  </Grid>
-                </Grid>
-              ) : (
-                <div>
-                  <Button color="inherit" onClick={props.loginRedirect}>
-                    Log In
-                  </Button>
-                  <Button variant="contained" onClick={props.signUpRedirect}>
-                    Sign Up
-                  </Button>
-                </div>
-              )}
-            </Grid>
-          </Grid>
-        </Toolbar>
-      </AppBar>
+      <AppBarComponent history={ props.history } user={ props.user }/>
       <Grid className={classes.grid} container justify="center" alignItems="center">
         <JoinCard />
       </Grid>
@@ -69,6 +35,7 @@ function HomePage(props) {
 
 HomePage.propTypes = {
   signUpRedirect: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired,
   logout: PropTypes.func.isRequired,
   user: PropTypes.object
 };

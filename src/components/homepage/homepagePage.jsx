@@ -32,6 +32,7 @@ class HomepagePage extends Component {
           logout={this.logout}
           signUpRedirect={this.signUpRedirect}
           loginRedirect={this.loginRedirect}
+          history= {this.props.history}
           user={user}
         />
       </div>

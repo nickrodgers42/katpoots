@@ -26,7 +26,11 @@ class Login extends Component {
   render() {
     return (
       <div>
-        <LoginForm onSubmit={this.onSubmit} homepageRedirect={this.homepageRedirect} />
+        <LoginForm 
+          onSubmit={this.onSubmit} 
+          history= {this.props.history}
+          homepageRedirect={this.homepageRedirect} 
+        />
       </div>
     );
   }
@@ -38,5 +42,6 @@ Login.propTypes = {
 };
 
 export default connect(state => {
+  console.log(state);
   return { user: state.user };
 })(Login);

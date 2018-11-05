@@ -10,7 +10,7 @@ import Grid from "@material-ui/core/Grid";
 import 'typeface-roboto';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-
+import AppBarComponent from '../appbar/appbar';
 
 
 const styles = theme => ({
@@ -44,26 +44,7 @@ function LoginForm(props) {
     const { classes } = props;
     return(
         <Grid container className={classes.root}>
-            <AppBar position="static">
-                <Toolbar>
-                    <Grid 
-                        container
-                        justify="flex-start"
-                        spacing={24}
-                    >
-                        <Grid item>
-                            <Typography
-                                variant="h6"
-                                color="inherit"
-                                className={classes.grow}
-                                onClick={ props.homepageRedirect }
-                            >
-                                KatPoots
-                            </Typography>
-                        </Grid>
-                    </Grid>
-                </Toolbar>
-            </AppBar>
+            <AppBarComponent history={props.history} />
         <Grid 
             container 
             className={classes.grid}
@@ -124,6 +105,7 @@ function LoginForm(props) {
 
 LoginForm.propTypes = {
     classes: PropTypes.object.isRequired,
+    history: PropTypes.object.isRequired,
     onSubmit: PropTypes.func.isRequired
 };
 
