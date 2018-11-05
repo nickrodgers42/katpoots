@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { fetchQuizzes, deleteQuiz } from "../../actions/quiz";
+import { fetchQuizzes, deleteQuiz, editQuiz } from "../../actions/quiz";
 import UserPage from "./user-page";
 
 class User extends Component {
@@ -10,8 +10,8 @@ class User extends Component {
   }
 
   render() {
-    const { quizzes, deleteQuiz } = this.props;
-    return <UserPage quizzes={quizzes} deleteQuiz={deleteQuiz} />;
+    const { quizzes, deleteQuiz, editQuiz } = this.props;
+    return <UserPage quizzes={quizzes} deleteQuiz={deleteQuiz} editQuiz={editQuiz} />;
   }
 }
 
@@ -25,6 +25,7 @@ export default connect(
   }),
   {
     fetchQuizzes,
-    deleteQuiz
+    deleteQuiz,
+    editQuiz
   }
 )(User);
