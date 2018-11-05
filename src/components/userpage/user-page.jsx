@@ -39,7 +39,6 @@ const UserPage = props => {
         <Grid item>Will Hold Something Else 1?</Grid>
         <Grid item>
             <CreateQuiz />
-            
         </Grid>
       </Grid>
     </div>
