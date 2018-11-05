@@ -33,10 +33,10 @@ class Answer extends Component {
   }
 
   render() {
-    const { answer } = this.props;
+    const { answer, vote } = this.props;
     return (
       <div>
-        <AnswerCard answer={answer} />
+        <AnswerCard answer={answer} vote={vote} />
       </div>
     );
   }
@@ -45,7 +45,8 @@ class Answer extends Component {
 Answer.propTypes = {
   answer: PropTypes.object,
   answerId: PropTypes.string.isRequired,
-  dispatch: PropTypes.func.isRequired
+  dispatch: PropTypes.func.isRequired,
+  vote: PropTypes.func.isRequired
 };
 
 export default connect(state => {

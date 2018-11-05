@@ -15,12 +15,12 @@ const styles = {
 };
 
 function AnswerCard(props) {
-  const { classes, answer } = props;
+  const { classes, answer, vote } = props;
   return (
     <Card className={classes.card}>
-      <CardActionArea className={classes.media}>
+      <CardActionArea className={classes.media} onClick={vote}>
         <CardContent>
-          <Typography component="p">{answer.text}</Typography>
+          <Typography component="p">{answer.answerText}</Typography>
         </CardContent>
       </CardActionArea>
     </Card>
@@ -29,7 +29,8 @@ function AnswerCard(props) {
 
 AnswerCard.propTypes = {
   classes: PropTypes.object.isRequired,
-  answer: PropTypes.object.isRequired
+  answer: PropTypes.object.isRequired,
+  vote: PropTypes.func.isRequired
 };
 
 export default withStyles(styles)(AnswerCard);
