@@ -1,5 +1,4 @@
-const express = require('express');
-import {_} from "lodash";
+const express = require('express');;
 import {loadModels} from "../../data/models"
 import { model } from 'mongoose';
 
@@ -47,7 +46,7 @@ async function deleteQuestion(req, res, next){
             res.status(404).send({ error: `Quiz with ID ${question.parent} not found!` });
             return next();
         }
-        quiz.questions.remove(_.pull(quiz.questions, question._id));
+        quiz.questions.remove(question._id);
         question.remove();
         await quiz.save();
         res.json({"success":"true"});

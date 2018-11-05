@@ -1,3 +1,12 @@
 {
-  "ignore": ["src/core/*"]
+  "ignore": [
+    "src/core/*",
+    "src/actions",
+    "src/reducers",
+    "src/sagas",
+    "src/registerServiceWorker.js",
+    "src/rootReducer.js",
+    "src/store.js",
+    "src/index.js"
+  ]
 }
