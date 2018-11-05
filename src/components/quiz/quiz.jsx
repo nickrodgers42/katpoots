@@ -13,7 +13,13 @@ class Quiz extends Component {
   }
 
   componentWillMount() {
-    this.props.fetchQuestions(this.props.quizId);
+    const {
+      fetchQuestions,
+      match: {
+        params: { quizId }
+      }
+    } = this.props;
+    fetchQuestions(this.props.quizId || quizId);
   }
 
   handleNext = () => {
@@ -46,7 +52,7 @@ Quiz.propTypes = {
 
 export default connect(
   state => ({
-    quizId: state.quiz._id || "5bdf7921157831c6139764d0",
+    quizId: state.quiz._id,
     questions: state.question.questions,
     activeStep: state.quiz.activeStep,
     voteCount: state.question.voteCount

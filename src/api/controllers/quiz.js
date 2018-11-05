@@ -32,14 +32,6 @@ async function getQuiz(req, res, next) {
       }
     });
     if (!quiz) {
-      quiz = await models.quiz.findOne().populate({
-        path: "questions",
-        populate: {
-          path: "answers"
-        }
-      });
-    }
-    if (!quiz) {
       res.status(404).send({ error: `Quiz with ID ${quizId} not found!` });
       return next();
     }
