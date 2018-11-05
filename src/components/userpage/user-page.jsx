@@ -1,6 +1,7 @@
 import React from "react";
 import { withStyles } from "@material-ui/core";
 import ObjList from "../item-containers/objList";
+import CreateQuiz from "../userpage/create-quiz";
 import Grid from "@material-ui/core/Grid";
 import PropTypes from "prop-types";
 
@@ -32,10 +33,12 @@ const UserPage = props => {
         <h2>Holds the logobar?</h2>
       </Grid>
       <Grid container spacing={24}>
+      <Grid item>
+            <CreateQuiz />
+        </Grid>
         <Grid item>
           <ObjList items={quizzes} onDelete={deleteQuiz} onEdit={editQuiz} />
         </Grid>
-        <Grid item>Will Hold Something Else 1?</Grid>
         <Grid item>Will Hold Something Else 1?</Grid>
       </Grid>
     </div>

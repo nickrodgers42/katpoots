@@ -38,7 +38,6 @@ const styles = theme => ({
   },
   backColor: {
     backgroundColor: "#8fcfff",
-    // boxShadow: '2px 2px 2px rgba(1, 1, 1, .4)',
     display: "inline-block",
     borderRadius: 100
   }
