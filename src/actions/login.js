@@ -17,6 +17,6 @@ export function loginUser(values, history) {
       .post(`/api/login`, values)
       .then(res => res.data)
       .then(user => dispatch(response(user)))
-      .then(() => history.push("/user/quiz"));
+      .then(() => history.push("/user"));
   };
 }

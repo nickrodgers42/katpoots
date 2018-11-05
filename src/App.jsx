@@ -30,7 +30,7 @@ class App extends Component {
           <Route exact path="/" component={HomepagePage} />
           <Route path="/register" component={Register} />
           <Route path="/login" component={Login} />
-          <Route path="/user/" component={User} />
+          <Route path="/user" component={User} />
           <Route path="/quiz/:quizId" component={Quiz} />
         </div>
       </Router>
