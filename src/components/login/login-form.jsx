@@ -8,8 +8,6 @@ import Card from "@material-ui/core/Card";
 import { CardContent, CardActions } from "@material-ui/core/";
 import Grid from "@material-ui/core/Grid";
 import 'typeface-roboto';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
 import AppBarComponent from '../appbar/appbar';
 
 

@@ -19,18 +19,18 @@ function Appbar(props) {
         <AppBar position="static">
             <Toolbar>
                 <Grid container justify="space-between" spacing={24}>
-                <Grid item>
+                <Grid item
+                    onClick={props.homepageRedirect}                
+                >
                     <Typography 
                         variant="h6" 
                         color="inherit" 
-                        className={classes.grow}
-                        onClick={props.homepageRedirect}
                     >
-                    KatPoots
+                        KatPoots
                     </Typography>
                 </Grid>
                 <Grid item>
-                    {user.username ? (
+                    {user && user.username ? (
                     <Grid container justify="space-between" spacing={16}>
                         <Grid item>
                         <Typography variant="h6" color="inherit" className={classes.grow}>{`Welcome ${
@@ -38,7 +38,7 @@ function Appbar(props) {
                         }!`}</Typography>
                         </Grid>
                         <Grid item>
-                        <Button variant="contained" onClick={props.logout}>
+                        <Button variant="contained" onClick={logout}>
                             Log Out
                         </Button>
                         </Grid>
@@ -61,7 +61,9 @@ function Appbar(props) {
 }
 
 Appbar.propTypes = {
-    signUpRedirect: PropTypes.object.isRequired,
+    signUpRedirect: PropTypes.func.isRequired,
+    homepageRedirect: PropTypes.func.isRequired,
+    loginRedirect: PropTypes.func.isRequired,
     logout: PropTypes.func.isRequired,
     user: PropTypes.object
 };
