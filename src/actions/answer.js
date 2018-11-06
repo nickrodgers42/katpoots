@@ -13,6 +13,12 @@ function getAnswer(answer) {
   };
 }
 
+export const GET_ALL_ANSWERS = "GET_ALL_ANSWERS";
+function getAllAnswers(answers){
+  console.log(answers);
+  return {type: GET_ALL_ANSWERS, answers};
+}
+
 // export const VOTE = "VOTE";
 // function vote(answerId) {
 //   return dispatch => {
@@ -20,6 +26,15 @@ function getAnswer(answer) {
 //       .put()
 //   }
 // }
+
+export function fetchAllAnswers(quizId){
+  return dispatch => {
+    return axios
+      .get(`/api/allAnswers/${quizId}`)
+      .then(res => res.data)
+      .then(answers => dispatch(getAllAnswers(answers)));
+  };
+}
 
 function fetchAnswer(answerId) {
   return dispatch => {

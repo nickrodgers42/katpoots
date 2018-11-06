@@ -6,6 +6,7 @@ module.exports = function(server) {
   server.post("/api/answer/:questionId", createAnswer);
   server.delete("/api/answer/:answerId", deleteAnswer);
   server.put("/api/answer/:answerId", updateAnswer);
+  server.get("/api/allAnswers/:quizId", getAllAnswers);
   // server.put("/api/vote/:answerId", vote);
 };
 
@@ -16,6 +17,18 @@ module.exports = function(server) {
 
 //   }
 // }
+
+async function getAllAnswers(req, res, next){
+  try {
+    const models = await loadModels();
+    const answers = await models.answer.find({ quizParent: req.params.quizId });
+    res.json(answers);
+    next();
+  } catch (e) {
+    res.status(500).send({ error: e.message });
+    next(e);
+  }
+}
 
 async function createAnswer(req, res, next) {
   try {
@@ -28,7 +41,8 @@ async function createAnswer(req, res, next) {
     const newAnswer = new models.answer({
       answerText: req.body.answerText,
       correctAnswer: req.body.correctAnswer,
-      parent: question._id
+      parent: question._id,
+      quizParent: question.parent
     });
 
     question.answers.push(newAnswer);
