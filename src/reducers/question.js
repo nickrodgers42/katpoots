@@ -1,4 +1,4 @@
-import { GET_QUESTIONS, INCREASE_VOTE_COUNT, RESET_VOTE_COUNT } from "../actions/question";
+import { GET_QUESTIONS, INCREASE_VOTE_COUNT, RESET_VOTE_COUNT, VOTE_COUNTED, RESET_VOTES } from "../actions/question";
 
 const initialState = {
   questions: [],
@@ -10,8 +10,10 @@ export default function question(state = initialState, action) {
     case GET_QUESTIONS:
       return { ...state, questions: action.questions };
     case INCREASE_VOTE_COUNT:
+    case VOTE_COUNTED:
       return { ...state, voteCount: state.voteCount + 1 };
     case RESET_VOTE_COUNT:
+    case RESET_VOTES:
       return { ...state, voteCount: 0 };
     default:
       return state;
