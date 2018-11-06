@@ -4,6 +4,7 @@ import axios from "axios";
 // We export it here so that we can use it in the reducer
 export const GET_QUIZZES = "GET_QUIZZES";
 export const NEXT_QUESTION = "NEXT_QUESTION";
+export const GO_TO_NEXT_QUESTION = "GO_TO_NEXT_QUESTION";
 
 // We don't need to export these because they don't have any side-effects
 // Because we will dispatch ge fetchQuizzes action after to update the state
@@ -38,6 +39,12 @@ export const nextQuestion = index => dispatch =>
   dispatch({
     type: NEXT_QUESTION,
     index: index + 1
+  });
+
+export const goToNextQuestion = index => dispatch =>
+  dispatch({
+    type: GO_TO_NEXT_QUESTION,
+    index
   });
 
 export const deleteQuiz = id => dispatch => {
