@@ -8,7 +8,6 @@ import Card from "@material-ui/core/Card";
 import { CardContent, CardActions } from "@material-ui/core/";
 import Grid from "@material-ui/core/Grid";
 import "typeface-roboto";
-import AppBarComponent from "../appbar/appbar-class";
 
 const styles = theme => ({
   root: {
@@ -41,7 +40,6 @@ function LoginForm(props) {
   const { classes } = props;
   return (
     <Grid container className={classes.root}>
-      <AppBarComponent history={props.history} />
       <Grid container className={classes.grid} justify="center" alignItems="center">
         <Form
           className={classes.container}

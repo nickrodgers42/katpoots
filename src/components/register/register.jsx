@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { registerUser } from "../../actions/register";
 import RegisterForm from "./register-form";
+import AppBarComponent from "../appbar/appbar-class";
+
 
 class Register extends Component {
   constructor(props) {
@@ -27,6 +29,7 @@ class Register extends Component {
   render() {
     return (
       <div>
+        <AppBarComponent history={this.props.history} />
         <RegisterForm 
           onSubmit={this.onSubmit}
           homepageRedirect={this.homepageRedirect}
