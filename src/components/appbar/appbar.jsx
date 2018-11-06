@@ -20,9 +20,9 @@ function Appbar(props) {
             <Toolbar>
                 <Grid container justify="space-between" spacing={24}>
                 <Grid item
-                    onClick={props.homepageRedirect}                
                 >
                     <Typography 
+                        onClick={props.homepageRedirect}                
                         variant="h6" 
                         color="inherit" 
                     >
