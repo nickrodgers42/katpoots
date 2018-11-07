@@ -64,7 +64,6 @@ class CreateQuestions extends Component {
                 this.state.answers[i].answerText = '';
                 this.state.answers[i].correctAnswer = false;
                 if (answerText !== ''){
-                    console.log('in create an answer');
                     const newAnswer = {
                         answerText,
                         correctAnswer,
@@ -94,7 +93,6 @@ class CreateQuestions extends Component {
 
         //case where question already exists, we are updating
         if (question){
-            console.log('in edit question');
             let questionText = question.questionText;
             const editedQuestion = {
                 questionText:questionText
@@ -108,7 +106,6 @@ class CreateQuestions extends Component {
                 this.state.answers[i].answerText = '';
                 this.state.answers[i].correctAnswer = false;
                 if (answerText !== ''){
-                    console.log('creating an answer inside of edit question');
                     const newAnswer = {
                         answerText,
                         correctAnswer,
@@ -120,8 +117,6 @@ class CreateQuestions extends Component {
 
         //case where answer already exists
         if (answers){
-            console.log('editing an answer');
-            console.log(answers);
             for(let answer of answers){
                 let answerText = answer.answerText;
                 let correctAnswer = answer.correctAnswer;
