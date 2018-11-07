@@ -2,8 +2,7 @@ import { GET_QUESTIONS, INCREASE_VOTE_COUNT, RESET_VOTE_COUNT } from "../actions
 
 const initialState = {
   questions: [],
-  voteCount: 0,
-  currentQuestion: null
+  voteCount: 0
 };
 
 export default function question(state = initialState, action) {
