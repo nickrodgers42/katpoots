@@ -15,8 +15,32 @@ function getAnswer(answer) {
 
 export const GET_ALL_ANSWERS = "GET_ALL_ANSWERS";
 function getAllAnswers(answers){
-  console.log(answers);
   return {type: GET_ALL_ANSWERS, answers};
+}
+
+export const EDIT_ANSWER = "EDIT_ANSWER";
+export const editAnswer = (answer, answerId, quizId) => dispatch => {
+  axios
+    .put(`/api/answer/${answerId}`, answer)
+    .then(res =>
+      dispatch({
+        type: EDIT_ANSWER,
+        payload: res.data
+      })
+    )
+    .then(() => dispatch(fetchAllAnswers(quizId)));
+};
+
+export const ADD_ANSWER = "ADD_ANSWER";
+export const addAnswer = (answer, questionId, quizId) => dispatch => {
+  axios
+    .post(`/api/answer/${questionId}`, answer)
+    .then(res =>
+      dispatch({
+        type: ADD_ANSWER,
+        payload: res.data
+      })
+    )
 }
 
 // export const VOTE = "VOTE";

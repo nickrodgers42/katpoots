@@ -23,6 +23,19 @@ export const editQuestion = (newQuestion, questionId, quizId) => dispatch => {
     .then(() => dispatch(fetchQuestions(quizId)));
 };
 
+const ADD_QUESTION = "ADD_QUESTION";
+export const addQuestion = (question, quizId) => dispatch => {
+  axios
+    .post(`/api/question/${quizId}`, question)
+    .then(res =>
+      dispatch({
+        type: ADD_QUESTION,
+        question: res.data
+      })
+    )
+    .then(() => dispatch(fetchQuestions(quizId)));
+};
+
 export const increaseVoteCount = () => dispatch => dispatch({ type: INCREASE_VOTE_COUNT });
 export const resetVoteCount = () => dispatch => dispatch({ type: RESET_VOTE_COUNT });
 

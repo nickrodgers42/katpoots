@@ -1,7 +1,6 @@
 import React from "react";
 import { withStyles } from "@material-ui/core";
 import Modal from '@material-ui/core/Modal';
-import PropTypes from "prop-types";
 import Typography from '@material-ui/core/Typography'
 import TextField from '@material-ui/core/TextField';
 import Checkbox from '@material-ui/core/Checkbox';
@@ -24,7 +23,7 @@ const styles = theme => ({
 });
 
 const QuestionModal = props =>{
-    const {handleClose, open, classes, question, handleChange, handleSave} = props;
+    const {handleClose, open, classes, question, handleChange, answers, handleSave, handleChangeAnswer, handleCheck} = props;
     return(
     <Modal
         open={open}
@@ -42,10 +41,13 @@ const QuestionModal = props =>{
             <TextField
                 required
                 label="Answer 1"
+                defaultValue = {answers[0] ? answers[0].answerText: null}
+                onChange={handleChangeAnswer(answers[0], 0)}
             />
             <FormControlLabel
                 control={<Checkbox
-                    checked={false}
+                    onChange={handleCheck(answers[0], 0)}
+                    defaultChecked={answers[0] ? answers[0].correctAnswer: false}
                 />
                 }
                 label="Correct?"
@@ -55,10 +57,13 @@ const QuestionModal = props =>{
             <TextField
                 required
                 label="Answer 2"
+                defaultValue = {answers[1] ? answers[1].answerText: null}
+                onChange={handleChangeAnswer(answers[1], 1)}
             />
             <FormControlLabel
                 control={<Checkbox
-                    checked={false}
+                    onChange={handleCheck(answers[1], 1)}
+                    defaultChecked={answers[1] ? answers[1].correctAnswer: false}
                 />
                 }
                 label="Correct?"
@@ -67,10 +72,13 @@ const QuestionModal = props =>{
             <div>
             <TextField
                 label="Answer 3"
+                defaultValue = {answers[2] ? answers[2].answerText: null}
+                onChange={handleChangeAnswer(answers[2], 2)}
             />
             <FormControlLabel
                 control={<Checkbox
-                    checked={false}
+                    onChange={handleCheck(answers[2], 2)}
+                    defaultChecked={answers[2] ? answers[2].correctAnswer: false}
                 />
                 }
                 label="Correct?"
@@ -79,10 +87,13 @@ const QuestionModal = props =>{
             <div>
             <TextField
                 label="Answer 4"
+                defaultValue = {answers[3] ? answers[3].answerText: null}
+                onChange={handleChangeAnswer(answers[3], 3)}
             />
             <FormControlLabel
                 control={<Checkbox
-                    checked={false}
+                    onChange={answers[3] ? handleCheck(answers[3], 3):null}
+                    defaultChecked={answers[3] ? answers[3].correctAnswer: false}
                 />
                 }
                 label="Correct?"
@@ -90,7 +101,7 @@ const QuestionModal = props =>{
             </div>
             </Typography>
             <button onClick={handleClose}> cancel </button>
-            <button onClick={() => handleSave(question)}> save </button>
+            <button onClick={() => handleSave(question, answers)}> save </button>
         </div>
     </Modal>
     )
