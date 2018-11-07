@@ -10,6 +10,17 @@ import PropTypes from "prop-types";
 const styles = {
     grow: {
         flexGrow: 1
+    },
+    logo: {
+        height: "50px",
+        verticalAlign: "middle"
+    },
+    appTitle: {
+        display: "inline-block",
+        paddingLeft: "10px"
+    },
+    pointer: {
+        cursor: "pointer"
     }
 };
 
@@ -18,16 +29,18 @@ function Appbar(props) {
     return(
         <AppBar position="static">
             <Toolbar>
-                <Grid container justify="space-between" spacing={24}>
-                <Grid item
-                >
-                    <Typography 
-                        onClick={props.homepageRedirect}                
-                        variant="h6" 
-                        color="inherit" 
-                    >
-                        KatPoots
-                    </Typography>
+                <Grid container justify="space-between" alignItems="center" spacing={24}>
+                <Grid item>
+                    <div onClick={props.homepageRedirect} className={classes.pointer}>
+                        <img src={require("../../iconWhite.png")} className={classes.logo} alt="cat logo"/>
+                        <Typography 
+                            variant="h6" 
+                            color="inherit" 
+                            className={classes.appTitle}
+                        >
+                            KatPoots
+                        </Typography>
+                    </div>
                 </Grid>
                 <Grid item>
                     {user && user.username ? (
