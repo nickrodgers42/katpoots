@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import LoginForm from "./login-form";
 import { loginUser } from "../../actions/login";
+import AppBarComponent from "../appbar/appbar-class";
+
 
 class Login extends Component {
   constructor(props) {
@@ -26,7 +28,12 @@ class Login extends Component {
   render() {
     return (
       <div>
-        <LoginForm onSubmit={this.onSubmit} homepageRedirect={this.homepageRedirect} />
+      <AppBarComponent history={this.props.history} />
+        <LoginForm 
+          onSubmit={this.onSubmit} 
+          history= {this.props.history}
+          homepageRedirect={this.homepageRedirect} 
+        />
       </div>
     );
   }

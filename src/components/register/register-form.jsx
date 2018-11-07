@@ -8,8 +8,6 @@ import Card from "@material-ui/core/Card";
 import { CardContent, CardActions } from "@material-ui/core/";
 import Grid from "@material-ui/core/Grid";
 import "typeface-roboto";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
 
 const styles = theme => ({
   root: {
@@ -42,17 +40,6 @@ const Register = props => {
   const { classes } = props;
   return (
     <Grid container className={classes.root} spacing={16}>
-      <AppBar position="static">
-        <Toolbar>
-          <Grid container justify="flex-start" spacing={24}>
-            <Grid item>
-              <Typography variant="h6" color="inherit" className={classes.grow} onClick={props.homepageRedirect}>
-                KatPoots
-              </Typography>
-            </Grid>
-          </Grid>
-        </Toolbar>
-      </AppBar>
       <Grid item xs={12}>
         <Grid container className={classes.grid} justify="center" alignItems="center" spacing={8}>
           <Form
