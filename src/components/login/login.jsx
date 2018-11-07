@@ -45,6 +45,5 @@ Login.propTypes = {
 };
 
 export default connect(state => {
-  console.log(state);
   return { user: state.user };
 })(Login);
