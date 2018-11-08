@@ -7,7 +7,6 @@ const styles = theme => ({});
 
 const ObjList = props => {
   const { classes, items } = props;
-  console.log(items);
   return (
     <div>
       {items.map(item => (
