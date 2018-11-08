@@ -12,7 +12,6 @@ const styles = theme => ({
   },
   card: {
     backgroundColor: theme.backgroundColor,
-    maxwidth: 300
   },
   container: {
     display: "flex",

@@ -13,8 +13,7 @@ const styles = theme => ({
     flexgrow: 1
   },
   card: {
-    backgroundColor: theme.backgroundColor,
-    maxwidth: 300
+    backgroundColor: theme.backgroundColor
   },
   container: {
     display: "flex",
@@ -32,9 +31,6 @@ const QuizPage = props => {
   const { classes, questions, voteCount, activeStep, onClick, vote } = props;
   return (
     <div>
-      <Grid>
-        <h2>Holds the logobar?</h2>
-      </Grid>
       <Stepper activeStep={activeStep}>
         {questions.map(question => {
           return (
