@@ -39,7 +39,7 @@ class CreateQuestions extends Component {
                 answerText: '',
                 correctAnswer: false,
             }
-        ]
+        ],
     }
 
     componentWillMount(){
@@ -60,10 +60,11 @@ class CreateQuestions extends Component {
             this.props.fetchAllAnswers(this.props.questions[this.props.questions.length - 1]._id);
         }
         if(this.props.answers !== prevProps.answers && this.state.open === true){
-            console.log(this.props.answers);
             for(let i = 0; i < this.props.answers.length; i++){
-                this.state.answers[i].answerText = this.props.answers[i].answerText;
-                this.state.answers[i].correctAnswer = this.props.answers[i].correctAnswer;
+                let newAnswers = [...this.state.answers];
+                newAnswers[i].answerText = this.props.answers[i].answerText;
+                newAnswers[i].correctAnswer = this.props.answers[i].correctAnswer;
+                this.setState({answers: newAnswers});
             }
             this.setState({loadingAnswers: false});
         }
@@ -87,8 +88,10 @@ class CreateQuestions extends Component {
     handleClose = () => {
         this.setState({questionText: ''});
         for(let i = 0; i < this.state.answers.length; i++){
-            this.state.answers[i].answerText = '';
-            this.state.answers[i].correctAnswer = false;
+            let newAnswers = [...this.state.answers];
+            newAnswers[i].answerText = ''
+            newAnswers[i].correctAnswer = false
+            this.setState({answers: newAnswers});
         }
         this.setState({ open : false});
         this.setState({ loadingAnswers:true});
@@ -136,11 +139,15 @@ class CreateQuestions extends Component {
     } 
 
     handleChangeAnswer = (index) => event => {
-        this.state.answers[index].answerText = event.target.value;
+        let newAnswers = [...this.state.answers];
+        newAnswers[index].answerText = event.target.value;
+        this.setState({answers: newAnswers});
     }
 
     handleCheck = (index) => event =>{
-        this.state.answers[index].correctAnswer = event.target.checked;
+        let newAnswers = [...this.state.answers];
+        newAnswers[index].correctAnswer = event.target.checked;
+        this.setState({answers: newAnswers});
     }
     
     render(){
