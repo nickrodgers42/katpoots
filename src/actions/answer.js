@@ -19,7 +19,7 @@ function getAllAnswers(answers){
 }
 
 export const EDIT_ANSWER = "EDIT_ANSWER";
-export const editAnswer = (answer, answerId, quizId) => dispatch => {
+export const editAnswer = (answer, answerId, question) => dispatch => {
   axios
     .put(`/api/answer/${answerId}`, answer)
     .then(res =>
@@ -28,11 +28,25 @@ export const editAnswer = (answer, answerId, quizId) => dispatch => {
         payload: res.data
       })
     )
-    .then(() => dispatch(fetchAllAnswers(quizId)));
+    .then(() => dispatch(fetchAllAnswers(question._id)));
 };
 
+ const DELETE_ANSWER = "DELETE_ANSWER";
+ export const deleteAnswer = (answerId, question) => dispatch => {
+   axios
+    .delete(`/api/answer/${answerId}`)
+    .then(() =>
+      dispatch({
+        type: DELETE_ANSWER,
+        answerId
+      })
+    )
+    .then(() => dispatch(fetchAllAnswers(question._id)));
+ }
+
+
 export const ADD_ANSWER = "ADD_ANSWER";
-export const addAnswer = (answer, questionId, quizId) => dispatch => {
+export const addAnswer = (answer, questionId) => dispatch => {
   axios
     .post(`/api/answer/${questionId}`, answer)
     .then(res =>
@@ -51,10 +65,10 @@ export const addAnswer = (answer, questionId, quizId) => dispatch => {
 //   }
 // }
 
-export function fetchAllAnswers(quizId){
+export function fetchAllAnswers(questionId){
   return dispatch => {
     return axios
-      .get(`/api/allAnswers/${quizId}`)
+      .get(`/api/allAnswers/${questionId}`)
       .then(res => res.data)
       .then(answers => dispatch(getAllAnswers(answers)));
   };

@@ -17,9 +17,7 @@ let AnswerSchema = new mongoose.Schema({
 
   correctAnswer: {type:Boolean, default: false},
 
-  parent: {type:mongoose.SchemaTypes.ObjectId},
-
-  quizParent: {type:mongoose.SchemaTypes.ObjectId}
+  parent: {type:mongoose.SchemaTypes.ObjectId}
 });
 
 //if the uniqueValidator defined above is found, has the message somewhere

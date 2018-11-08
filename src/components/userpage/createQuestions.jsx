@@ -3,9 +3,7 @@ import { connect } from "react-redux";
 import { fetchQuestions, editQuestion, addQuestion } from "../../actions/question";
 import Button from '@material-ui/core/Button';
 import QuestionModal from './QuestionModal'
-import { fetchAllAnswers, editAnswer, addAnswer } from "../../actions/answer";
-import PropTypes from "prop-types";
-import { configOptions } from "final-form";
+import { fetchAllAnswers, editAnswer, addAnswer, deleteAnswer } from "../../actions/answer";
 
 class CreateQuestions extends Component {
     constructor(props){
@@ -22,6 +20,8 @@ class CreateQuestions extends Component {
         open: false,
         index: -1,
         questionText: '',
+        loadingAnswers: true,
+        newQuestion: false,
         answers: [
             {
                 answerText: '',
@@ -44,39 +44,44 @@ class CreateQuestions extends Component {
 
     componentWillMount(){
         const {
-            fetchAllAnswers,
             fetchQuestions,
             match: {
                 params: {quizId}
             }
         } = this.props;
-        fetchAllAnswers(this.props.quizId || quizId);
         fetchQuestions(this.props.quizId || quizId);
     }
 
 
     componentDidUpdate(prevProps){
-        if(this.props.questions.length !== prevProps.questions.length){
-            let parentQuestion = this.props.questions[this.props.questions.length-1];
-            for (let i = 0; i < this.state.answers.length; i++){
-                let answerText = this.state.answers[i].answerText;
-                let correctAnswer = this.state.answers[i].correctAnswer;
-                this.state.answers[i].answerText = '';
-                this.state.answers[i].correctAnswer = false;
-                if (answerText !== ''){
-                    const newAnswer = {
-                        answerText,
-                        correctAnswer,
-                    }
-                    this.props.addAnswer(newAnswer, parentQuestion._id, parentQuestion.parent);
-                }
+        if(this.props.questions !== prevProps.questions && this.state.newQuestion === true){
+            this.setState({index: this.props.questions.length - 1});
+            this.setState({newQuestion:false});
+            this.props.fetchAllAnswers(this.props.questions[this.props.questions.length - 1]._id);
+        }
+        if(this.props.answers !== prevProps.answers && this.state.open === true){
+            console.log(this.props.answers);
+            for(let i = 0; i < this.props.answers.length; i++){
+                this.state.answers[i].answerText = this.props.answers[i].answerText;
+                this.state.answers[i].correctAnswer = this.props.answers[i].correctAnswer;
             }
+            this.setState({loadingAnswers: false});
         }
     }
 
     handleOpen = (index) => {
         this.setState({open : true});
-        this.setState({index: index});
+        if(index >= 0){
+            this.props.fetchAllAnswers(this.props.questions[index]._id);
+            this.setState({index: index});
+        }
+        else{
+            this.setState({newQuestion: true})
+            const newQuestion = {
+                questionText: 'New Question'
+            }
+            this.props.addQuestion(newQuestion, this.props.match.params.quizId)
+        }
     }
 
     handleClose = () => {
@@ -86,83 +91,56 @@ class CreateQuestions extends Component {
             this.state.answers[i].correctAnswer = false;
         }
         this.setState({ open : false});
+        this.setState({ loadingAnswers:true});
     }
 
     handleSave = (question, answers) =>{
-        this.setState({ open: false});
-
-        //case where question already exists, we are updating
         if (question){
-            let questionText = question.questionText;
-            const editedQuestion = {
-                questionText:questionText
+            if(this.state.questionText !== question.questionText && this.state.questionText !== ''){
+                const editedQuestion = {
+                    questionText: this.state.questionText
+                }
+                this.props.editQuestion(editedQuestion, question._id, question.parent);
             }
-            this.props.editQuestion(editedQuestion, question._id, question.parent);
-
-            //case where existing question gets an added answer
-            for (let i = 0; i < this.state.answers.length; i++){
-                let answerText = this.state.answers[i].answerText;
-                let correctAnswer = this.state.answers[i].correctAnswer;
-                this.state.answers[i].answerText = '';
-                this.state.answers[i].correctAnswer = false;
-                if (answerText !== ''){
-                    const newAnswer = {
-                        answerText,
-                        correctAnswer,
+            for(let i = 0; i < this.state.answers.length; i++){
+                if (answers[i]){
+                    if(this.state.answers[i].answerText !== answers[i].answerText || this.state.answers[i].correctAnswer !== answers[i].correctAnswer){
+                        //delete an answer
+                        if(this.state.answers[i].answerText === ''){
+                            this.props.deleteAnswer(answers[i]._id, question);
+                        }
+                        else{ //editing an answer
+                            const editedAnswer = {
+                                answerText: this.state.answers[i].answerText,
+                                correctAnswer: this.state.answers[i].correctAnswer
+                            }
+                            this.props.editAnswer(editedAnswer, answers[i]._id, question);
+                        }
                     }
-                    this.props.addAnswer(newAnswer, question._id, question.parent);
                 }
-            } 
-        }
-
-        //case where answer already exists
-        if (answers){
-            for(let answer of answers){
-                let answerText = answer.answerText;
-                let correctAnswer = answer.correctAnswer;
-                const editedAnswer = {
-                    answerText,
-                    correctAnswer
+                else if(this.state.answers[i].answerText !== ''){
+                    //creating a new answer
+                    const newAnswer = {
+                        answerText: this.state.answers[i].answerText,
+                        correctAnswer: this.state.answers[i].correctAnswer
+                    }
+                    this.props.addAnswer(newAnswer, question._id);
                 }
-                this.props.editAnswer(editedAnswer, answer._id, answer.quizParent)
             }
         }
-
-        //case where there is a new question created, new answers are created in componentDidUpdate()
-        if(this.state.questionText !== ''){
-            console.log('creating a question');
-            const newQuiz = {
-                questionText: this.state.questionText
-            }
-            this.props.addQuestion(newQuiz, this.props.match.params.quizId)
-        }
+        this.handleClose();
     }
 
     handleChange = question => event => {
-        if(question){
-            question.questionText = event.target.value;
-        }
-        else{
-            this.setState({questionText: event.target.value});
-        }
+        this.setState({questionText: event.target.value});
     } 
 
-    handleChangeAnswer = (answer, index) => event => {
-        if(answer){
-            answer.answerText = event.target.value;
-        }
-        else{
-            this.state.answers[index].answerText = event.target.value;
-        }
+    handleChangeAnswer = (index) => event => {
+        this.state.answers[index].answerText = event.target.value;
     }
 
-    handleCheck = (answer, index) => event =>{
-        if(answer){
-            answer.correctAnswer = event.target.checked;
-        }
-        else{
-            this.state.answers[index].correctAnswer = event.target.checked;
-        }
+    handleCheck = (index) => event =>{
+        this.state.answers[index].correctAnswer = event.target.checked;
     }
     
     render(){
@@ -176,23 +154,21 @@ class CreateQuestions extends Component {
                 {questions ? questions.map((question, index) => (
                     <div onClick={()=>{this.handleOpen(index)}}> {question.questionText} </div>
                 )):null}
-                <QuestionModal
-                    handleClose={this.handleClose}
-                    open={this.state.open}
-                    question={questions[this.state.index]}
-                    answers={questions[this.state.index] ? answers.filter(answer => answer.parent === questions[this.state.index]._id): []}
-                    handleChange={this.handleChange}
-                    handleSave={this.handleSave}
-                    handleChangeAnswer={this.handleChangeAnswer}
-                    handleCheck={this.handleCheck}
-                />
+                {this.state.loadingAnswers === false &&
+                    <QuestionModal
+                        handleClose={this.handleClose}
+                        open={this.state.open}
+                        question={questions[this.state.index]}
+                        answers={answers ? answers : this.state.answers}
+                        handleChange={this.handleChange}
+                        handleSave={this.handleSave}
+                        handleChangeAnswer={this.handleChangeAnswer}
+                        handleCheck={this.handleCheck}
+                    />
+                }
             </div>
         );
     }
-}
-
-CreateQuestions.propTypes = {
-    dispatch: PropTypes.func.isRequired,
 }
 
 export default connect(
@@ -206,6 +182,7 @@ export default connect(
         editQuestion,
         editAnswer,
         addQuestion,
-        addAnswer
+        addAnswer,
+        deleteAnswer
     }
 )(CreateQuestions);

@@ -42,11 +42,11 @@ const QuestionModal = props =>{
                 required
                 label="Answer 1"
                 defaultValue = {answers[0] ? answers[0].answerText: null}
-                onChange={handleChangeAnswer(answers[0], 0)}
+                onChange={handleChangeAnswer(0)}
             />
             <FormControlLabel
                 control={<Checkbox
-                    onChange={handleCheck(answers[0], 0)}
+                    onChange={handleCheck(0)}
                     defaultChecked={answers[0] ? answers[0].correctAnswer: false}
                 />
                 }
@@ -58,11 +58,11 @@ const QuestionModal = props =>{
                 required
                 label="Answer 2"
                 defaultValue = {answers[1] ? answers[1].answerText: null}
-                onChange={handleChangeAnswer(answers[1], 1)}
+                onChange={handleChangeAnswer(1)}
             />
             <FormControlLabel
                 control={<Checkbox
-                    onChange={handleCheck(answers[1], 1)}
+                    onChange={handleCheck(1)}
                     defaultChecked={answers[1] ? answers[1].correctAnswer: false}
                 />
                 }
@@ -73,11 +73,11 @@ const QuestionModal = props =>{
             <TextField
                 label="Answer 3"
                 defaultValue = {answers[2] ? answers[2].answerText: null}
-                onChange={handleChangeAnswer(answers[2], 2)}
+                onChange={handleChangeAnswer(2)}
             />
             <FormControlLabel
                 control={<Checkbox
-                    onChange={handleCheck(answers[2], 2)}
+                    onChange={handleCheck(2)}
                     defaultChecked={answers[2] ? answers[2].correctAnswer: false}
                 />
                 }
@@ -88,11 +88,11 @@ const QuestionModal = props =>{
             <TextField
                 label="Answer 4"
                 defaultValue = {answers[3] ? answers[3].answerText: null}
-                onChange={handleChangeAnswer(answers[3], 3)}
+                onChange={handleChangeAnswer(3)}
             />
             <FormControlLabel
                 control={<Checkbox
-                    onChange={answers[3] ? handleCheck(answers[3], 3):null}
+                    onChange={answers[3] ? handleCheck(3):null}
                     defaultChecked={answers[3] ? answers[3].correctAnswer: false}
                 />
                 }
