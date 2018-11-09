@@ -27,11 +27,11 @@ const styles = theme => ({
 });
 
 const UserPage = props => {
-  const { classes, quizzes, deleteQuiz, editQuiz } = props;
+  const { classes, quizzes, deleteQuiz, editQuiz, history} = props;
   return (
     <div>
       <Grid>
-        <AppBarComponent/>
+        <AppBarComponent history={history}/>
       </Grid>
       <Grid container spacing={24}>
       <Grid item>
@@ -47,7 +47,8 @@ const UserPage = props => {
 
 UserPage.propTypes = {
   quizzes: PropTypes.array.isRequired,
-  deleteQuiz: PropTypes.func.isRequired
+  deleteQuiz: PropTypes.func.isRequired,
+  history: PropTypes.object.isRequired
 };
 
 export default withStyles(styles)(UserPage);

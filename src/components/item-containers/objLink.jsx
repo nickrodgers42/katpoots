@@ -48,12 +48,12 @@ const ObjLink = props => {
   return (
     <form className={classes.backColor}>
       <div className={classes.flex}>
-        <label className={classes.objTitle}>{props.title}: </label>
+        <a onClick={props.onEdit}><label className={classes.objTitle}>{props.title}: </label></a>
         <Button className={`${classes.button} ${classes.yellow}`} 
           variant="fab" 
           color="primary" 
           aria-label="Edit"
-          onClick={props.onEdit}>
+          >
           <CreateIcon className={classes.iconColor} />
         </Button>
         <Button
