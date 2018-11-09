@@ -7,6 +7,7 @@ import PropTypes from "prop-types";
 import Question from "../question/question";
 import Button from "@material-ui/core/Button";
 import StepLabel from "@material-ui/core/StepLabel";
+import Paper from '@material-ui/core/Paper';
 
 const styles = theme => ({
   root: {
@@ -24,6 +25,14 @@ const styles = theme => ({
   },
   button: {
     margin: 20
+  }, 
+  stepper: {
+    maxWidth: 800,
+    margin: "auto"
+  },
+  paper: {
+    maxWidth: 1000,
+    margin: "auto"
   }
 });
 
@@ -31,7 +40,8 @@ const QuizPage = props => {
   const { classes, questions, voteCount, activeStep, onClick, vote } = props;
   return (
     <div>
-      <Stepper activeStep={activeStep}>
+      <Paper className={classes.paper} elevation={1}>
+        <Stepper className={classes.stepper} activeStep={activeStep}>
         {questions.map(question => {
           return (
             <Step key={question._id}>
@@ -40,20 +50,19 @@ const QuizPage = props => {
           );
         })}
       </Stepper>
-      <Grid container spacing={24}>
-        <Grid item>
+      <Grid container direction="row" justify="center" alignItems="center" spacing={24}>
           {activeStep !== questions.length ? (
-            <div>
+            <Grid item>
               <Question question={questions[activeStep]} vote={vote} voteCount={voteCount} />
               <Button variant="contained" color="primary" onClick={onClick} className={classes.button}>
                 {activeStep === questions.length - 1 ? "Finish" : "Next"}
               </Button>
-            </div>
+            </Grid>
           ) : (
             <h2>Quiz over</h2>
           )}
-        </Grid>
       </Grid>
+      </Paper>
     </div>
   );
 };
