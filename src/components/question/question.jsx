@@ -12,7 +12,6 @@ const styles = theme => ({
   },
   card: {
     backgroundColor: theme.backgroundColor,
-    maxwidth: 300
   },
   container: {
     display: "flex",
@@ -23,6 +22,9 @@ const styles = theme => ({
   },
   button: {
     margin: 20
+  },
+  answerGrid: {
+    width: 800
   }
 });
 
@@ -30,27 +32,54 @@ const Question = props => {
   const { classes, question, vote, voteCount } = props;
   return (
     <div>
-      <Grid container spacing={40}>
-        <Grid item>
-          <Paper>
-            <Typography variant="h6" color="inherit" className={classes.grow}>
-              {(question && question.questionText) || ""}
-            </Typography>
-          </Paper>
-          <Paper>
-            <Typography variant="h6" color="inherit" className={classes.grow}>
-              {voteCount}
-            </Typography>
-          </Paper>
-        </Grid>
+      <Grid
+        container
+        direction="row"
+        justify="flex-end"
+        alignItems="center"
+        className={classes.answerGrid}
+        spacing={24}
+      >
+          <Grid item xs={3}>
+            <Paper elevation={1}>
+              <Typography variant="h6" color="inherit" className={classes.grow}>
+                Votes: {voteCount}
+              </Typography>
+            </Paper>
+          </Grid>
       </Grid>
-      <Grid container spacing={40}>
-        <Grid item>
+      
+      <Grid 
+        container
+        direction="row"
+        justify="center"
+        alignItems="center"
+        className={classes.answerGrid}
+        spacing={24}
+      >
+        <Grid item xs={12}>
+          <Typography variant="h3" color="inherit" className={classes.grow}>
+            {(question && question.questionText) || ""}
+          </Typography>
+        </Grid>
+      <Grid 
+        item
+        container
+        direction="row"
+        justify="center"
+        alignItems="center"
+        className={classes.answerGrid}
+        spacing={24}
+      >
           {question &&
             question.answers.map(answer => {
-              return <Answer key={answer} answerId={answer} vote={vote} />;
+              return (
+                <Grid item> 
+                  <Answer key={answer} answerId={answer} vote={vote} />
+                </Grid>
+              );
             })}
-        </Grid>
+      </Grid>
       </Grid>
     </div>
   );

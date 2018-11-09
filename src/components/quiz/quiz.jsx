@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import { fetchQuestions, increaseVoteCount, resetVoteCount } from "../../actions/question";
 import QuizPage from "./quiz-page";
 import { nextQuestion } from "../../actions/quiz";
+import AppbarClass from "../appbar/appbar-class";
 
 class Quiz extends Component {
   constructor(props) {
@@ -35,6 +36,8 @@ class Quiz extends Component {
   render() {
     const { questions, activeStep, voteCount } = this.props;
     return (
+      <div>
+      <AppbarClass history={this.props.history} />
       <QuizPage
         questions={questions}
         onClick={this.handleNext}
@@ -42,6 +45,7 @@ class Quiz extends Component {
         vote={this.handleVote}
         voteCount={voteCount}
       />
+      </div>
     );
   }
 }

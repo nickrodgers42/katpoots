@@ -4,13 +4,22 @@ import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import { CardActionArea, withStyles } from "@material-ui/core";
 import PropTypes from "prop-types";
+import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
+
 
 const styles = {
   card: {
-    maxWidth: 345
+    width: 350
   },
   media: {
-    height: 140
+  },
+  answerButton: {
+    padding: '30px',
+    fontSize: 24
+  },
+  answerText: {
+    fontsize: 18
   }
 };
 
@@ -20,7 +29,16 @@ function AnswerCard(props) {
     <Card className={classes.card}>
       <CardActionArea className={classes.media} onClick={vote}>
         <CardContent>
-          <Typography component="p">{answer.answerText}</Typography>
+          <Grid container direction="row" justify="flex-start" alignItems="center" spacing={24}>
+            <Grid item>
+              <Button variant="contained" color="primary" className={classes.answerButton}>
+                A.
+              </Button>
+            </Grid>
+            <Grid item wrap="nowrap" xs={8}>
+              <Typography component="p" variant="h5">{answer.answerText}</Typography>
+            </Grid>
+          </Grid>
         </CardContent>
       </CardActionArea>
     </Card>
