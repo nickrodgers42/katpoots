@@ -4,6 +4,7 @@ import ObjList from "../item-containers/objList";
 import CreateQuiz from "../userpage/create-quiz";
 import Grid from "@material-ui/core/Grid";
 import PropTypes from "prop-types";
+import AppBarComponent from "../appbar/appbar-class"
 
 const styles = theme => ({
   root: {
@@ -30,7 +31,7 @@ const UserPage = props => {
   return (
     <div>
       <Grid>
-        <h2>Holds the logobar?</h2>
+        <AppBarComponent/>
       </Grid>
       <Grid container spacing={24}>
       <Grid item>
