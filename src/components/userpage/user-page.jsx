@@ -40,7 +40,6 @@ const UserPage = props => {
         <Grid item>
           <ObjList items={quizzes} onDelete={deleteQuiz} onEdit={editQuiz} />
         </Grid>
-        <Grid item>Will Hold Something Else 1?</Grid>
       </Grid>
     </div>
   );
