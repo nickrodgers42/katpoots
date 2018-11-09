@@ -159,7 +159,7 @@ class CreateQuestions extends Component {
                 Add Question
                 </Button>
                 {questions ? questions.map((question, index) => (
-                    <div onClick={()=>{this.handleOpen(index)}}> {question.questionText} </div>
+                    <div onClick={()=>{this.handleOpen(index)}}> <Button> {question.questionText} </Button> </div>
                 )):null}
                 {this.state.loadingAnswers === false &&
                     <QuestionModal

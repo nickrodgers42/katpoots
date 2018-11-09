@@ -1,10 +1,11 @@
 import React from "react";
-import { withStyles } from "@material-ui/core";
+import { withStyles, Button } from "@material-ui/core";
 import Modal from '@material-ui/core/Modal';
 import Typography from '@material-ui/core/Typography'
 import TextField from '@material-ui/core/TextField';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import red from '@material-ui/core/colors/red';
 
 const styles = theme => ({
     paper: {
@@ -13,28 +14,46 @@ const styles = theme => ({
       backgroundColor: theme.palette.background.paper,
       boxShadow: theme.shadows[5],
       padding: theme.spacing.unit * 4,
+      background: "000"
     },
 
-    textField:{
+    textField: {
         marginLeft: theme.spacing.unit,
         marginRight: theme.spacing.unit,
-        width: 200
-    }
+        width: 200,
+    },
+
+    save: {
+        backgroundColor: "#99fd00"
+    },
+
+    cancel: {
+        backgroundColor: "#FFEB3B"
+    },
+
+    delete: {
+        backgroundColor: "#E53935"
+    },
+
+    button: {
+        marginRight: 10,
+        marginTop: 10,
+    },
 });
 
 const QuestionModal = props =>{
     const {handleClose, open, classes, question, handleChange, answers, handleSave, handleChangeAnswer, handleCheck} = props;
     return(
-    <Modal
-        open={open}
-        >
+    <Modal open={open} >
         <div className={classes.paper}>
             <Typography variant="h6" id="modal-title">
+            <div>
             <TextField
                 label="Question Title"
                 defaultValue = {question ? question.questionText: null}
                 onChange={handleChange(question)}
             />
+            </div>
             </Typography>
             <Typography variant="subtitle1">
             <div>
@@ -100,8 +119,9 @@ const QuestionModal = props =>{
             />
             </div>
             </Typography>
-            <button onClick={handleClose}> cancel </button>
-            <button onClick={() => handleSave(question, answers)}> save </button>
+            <Button className={[classes.save, classes.button]} onClick={() => handleSave(question, answers)}> save </Button>
+            <Button className={[classes.delete, classes.button]}>Delete</Button>
+            <Button className={[classes.cancel, classes.button]} onClick={handleClose}> Cancel Edit </Button>
         </div>
     </Modal>
     )

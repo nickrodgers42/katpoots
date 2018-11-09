@@ -10,8 +10,8 @@ class User extends Component {
   }
 
   render() {
-    const { quizzes, deleteQuiz, editQuiz } = this.props;
-    return <UserPage quizzes={quizzes} deleteQuiz={deleteQuiz} editQuiz={editQuiz} />;
+    const { quizzes, deleteQuiz, editQuiz, history} = this.props;
+    return <UserPage quizzes={quizzes} deleteQuiz={deleteQuiz} editQuiz={editQuiz} history={history} />;
   }
 }
 
