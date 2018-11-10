@@ -15,17 +15,25 @@ class User extends Component {
   }
 
   editRedirect(quizid) {
-    this.props.history.push('/create/' + quizid)
+    this.props.history.push("/create/" + quizid);
   }
 
   render() {
-    const { quizzes, deleteQuiz, editQuiz, history, editRedirect} = this.props;
-    return <UserPage quizzes={quizzes} deleteQuiz={deleteQuiz} editQuiz={editQuiz} history={history} editRedirect={this.editRedirect}/>;
+    const { quizzes, deleteQuiz, editQuiz, history, editRedirect } = this.props;
+    return (
+      <UserPage
+        quizzes={quizzes}
+        deleteQuiz={deleteQuiz}
+        editQuiz={editQuiz}
+        history={history}
+        editRedirect={this.editRedirect}
+      />
+    );
   }
 }
 
 User.propTypes = {
-  quizzes: PropTypes.array.isRequired,
+  quizzes: PropTypes.array.isRequired
 };
 
 export default connect(
@@ -35,6 +43,6 @@ export default connect(
   {
     fetchQuizzes,
     deleteQuiz,
-    editQuiz,
+    editQuiz
   }
 )(User);

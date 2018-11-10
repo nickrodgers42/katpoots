@@ -4,6 +4,7 @@ import { fetchQuestions, editQuestion, addQuestion } from "../../actions/questio
 import Button from '@material-ui/core/Button';
 import QuestionModal from './QuestionModal'
 import { fetchAllAnswers, editAnswer, addAnswer, deleteAnswer } from "../../actions/answer";
+import Delete from "@material-ui/icons/Delete";
 
 class CreateQuestions extends Component {
     constructor(props){
@@ -159,7 +160,11 @@ class CreateQuestions extends Component {
                 Add Question
                 </Button>
                 {questions ? questions.map((question, index) => (
-                    <div onClick={()=>{this.handleOpen(index)}}> <Button> {question.questionText} </Button> </div>
+                    <div > 
+                        <Button onClick={()=>{this.handleOpen(index)}}> {question.questionText} </Button>
+                        <Button><Delete /></Button>
+                    </div>
+
                 )):null}
                 {this.state.loadingAnswers === false &&
                     <QuestionModal
