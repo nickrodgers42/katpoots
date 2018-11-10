@@ -25,7 +25,7 @@ const styles = theme => ({
 })
 
 const CreateQuiz = props => {
-    const { classes } = props;
+    const { classes, handleNewQuiz, handleChangeQuiz } = props;
     return (
         <div className={classes.base}>
             <Grid>
@@ -35,10 +35,17 @@ const CreateQuiz = props => {
             </Grid>
             <Grid container className={classes.responsive} spacing={16}>
                 <Grid item>
-                    <Field name="quizTitle" component={TextField} type="text" label="New Quiz Name"/>
+                    <Field 
+                        name="quizTitle" 
+                        component={TextField}
+                        type="text" 
+                        label="New Quiz Name"
+                        onChange={handleChangeQuiz()}/>   
                 </Grid>
                 <Grid item >
-                    <Button variant="fab" className={classes.button}>
+                    <Button variant="fab" 
+                        className={classes.button} 
+                        onClick={handleNewQuiz}>
                         <AddIcon />
                     </Button>
                 </Grid>

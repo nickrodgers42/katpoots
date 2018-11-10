@@ -62,9 +62,9 @@ export const deleteQuiz = id => dispatch => {
     .then(() => dispatch(fetchQuizzes()));
 };
 
-export const addQuiz = quiz => dispatch => {
+export const addQuiz = (quiz, userId) => dispatch => {
   axios
-    .post(`/api/quiz`, quiz)
+    .post(`/api/quiz/${userId}`, quiz)
     .then(res =>
       dispatch({
         type: ADD_QUIZ, // Even though we don't use it in the reducer
