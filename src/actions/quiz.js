@@ -15,19 +15,21 @@ const EDIT_QUIZ = "EDIT_QUIZ";
 
 export const editQuiz = (id) => dispatch => {
   let title = prompt('New Quiz Name?');
-  const quiz = {
-    title
-  }
-  axios
-    .put(`/api/quiz/${id}`, quiz)
-    .then(res =>
-      dispatch({
-        type: EDIT_QUIZ,
-        quiz: res.data
-      })
-    )
+  if (title !== ''){
+    const quiz = {
+      title
+    }
+    axios
+      .put(`/api/quiz/${id}`, quiz)
+      .then(res =>
+        dispatch({
+          type: EDIT_QUIZ,
+          quiz: res.data
+        })
+      )
 
-    .then(() => dispatch(fetchQuizzes()));
+      .then(() => dispatch(fetchQuizzes()));
+    }
 };
 
 // This is what we dispatch internally to this file's actions
