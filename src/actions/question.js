@@ -25,6 +25,19 @@ export const editQuestion = (newQuestion, questionId, quizId) => dispatch => {
     .then(() => dispatch(fetchQuestions(quizId)));
 };
 
+const DELETE_QUESTION = "DELETE_QUESTION";
+export const deleteQuestion = (questionId, quizId) => dispatch => {
+  axios
+    .delete(`/api/question/${questionId}`)
+    .then(() =>
+      dispatch({
+        type: DELETE_QUESTION,
+        questionId
+      })
+    )
+    .then(() => dispatch(fetchQuestions(quizId)));
+}
+
 const ADD_QUESTION = "ADD_QUESTION";
 export const addQuestion = (question, quizId) => dispatch => {
   axios

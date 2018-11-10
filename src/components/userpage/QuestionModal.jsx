@@ -42,7 +42,7 @@ const styles = theme => ({
 });
 
 const QuestionModal = props =>{
-    const {handleClose, open, classes, question, handleChange, answers, handleSave, handleChangeAnswer, handleCheck} = props;
+    const {handleClose, open, classes, question, handleChange, answers, handleSave, handleChangeAnswer, handleCheck, handleDelete} = props;
     return(
     <Modal open={open} >
         <div className={classes.paper}>
@@ -120,7 +120,7 @@ const QuestionModal = props =>{
             </div>
             </Typography>
             <Button className={[classes.save, classes.button]} onClick={() => handleSave(question, answers)}> save </Button>
-            <Button className={[classes.delete, classes.button]}>Delete</Button>
+            <Button className={[classes.delete, classes.button]} onClick={() => handleDelete(question)}>Delete</Button>
             <Button className={[classes.cancel, classes.button]} onClick={handleClose}> Cancel Edit </Button>
         </div>
     </Modal>
