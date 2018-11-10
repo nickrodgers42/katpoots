@@ -27,7 +27,7 @@ const styles = theme => ({
 });
 
 const UserPage = props => {
-  const { classes, quizzes, deleteQuiz, editQuiz, history} = props;
+  const { classes, quizzes, deleteQuiz, editQuiz, history, editRedirect} = props;
   return (
     <div>
       <Grid>
@@ -38,7 +38,7 @@ const UserPage = props => {
             <CreateQuiz />
         </Grid>
         <Grid item>
-          <ObjList items={quizzes} onDelete={deleteQuiz} onEdit={editQuiz} />
+          <ObjList items={quizzes} onDelete={deleteQuiz} onEdit={editQuiz} editRedirect={editRedirect}/>
         </Grid>
       </Grid>
     </div>
@@ -48,7 +48,8 @@ const UserPage = props => {
 UserPage.propTypes = {
   quizzes: PropTypes.array.isRequired,
   deleteQuiz: PropTypes.func.isRequired,
-  history: PropTypes.object.isRequired
+  history: PropTypes.object.isRequired,
+  editRedirect: PropTypes.func.isRequired
 };
 
 export default withStyles(styles)(UserPage);
