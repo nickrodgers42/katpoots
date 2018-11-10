@@ -4,6 +4,9 @@ import { fetchQuestions, editQuestion, addQuestion, deleteQuestion } from "../..
 import Button from '@material-ui/core/Button';
 import QuestionModal from './QuestionModal'
 import { fetchAllAnswers, editAnswer, addAnswer, deleteAnswer } from "../../actions/answer";
+import AppBarComponent from "../appbar/appbar-class"
+import Grid from "@material-ui/core/Grid";
+import PropTypes from "prop-types";
 
 class CreateQuestions extends Component {
     constructor(props){
@@ -157,9 +160,12 @@ class CreateQuestions extends Component {
     }
     
     render(){
-        const {questions, answers} = this.props;
+        const {questions, answers, history} = this.props;
         return( 
             <div>
+                <Grid>
+                    <AppBarComponent history={history}/>
+                </Grid>
                 <Button
                 onClick={() =>{this.handleOpen(-1)}}>
                 Add Question
@@ -183,6 +189,10 @@ class CreateQuestions extends Component {
             </div>
         );
     }
+}
+
+CreateQuestions.propTypes = {
+    history: PropTypes.object.isRequired
 }
 
 export default connect(
