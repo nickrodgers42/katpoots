@@ -1,9 +1,12 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { fetchQuestions, editQuestion, addQuestion } from "../../actions/question";
+import { fetchQuestions, editQuestion, addQuestion, deleteQuestion } from "../../actions/question";
 import Button from '@material-ui/core/Button';
 import QuestionModal from './QuestionModal'
 import { fetchAllAnswers, editAnswer, addAnswer, deleteAnswer } from "../../actions/answer";
+import AppBarComponent from "../appbar/appbar-class"
+import Grid from "@material-ui/core/Grid";
+import PropTypes from "prop-types";
 import Delete from "@material-ui/icons/Delete";
 
 class CreateQuestions extends Component {
@@ -15,14 +18,15 @@ class CreateQuestions extends Component {
         this.handleChange = this.handleChange.bind(this);
         this.handleSave = this.handleSave.bind(this);
         this.handleChangeAnswer = this.handleChangeAnswer.bind(this);
+        this.handleDelete = this.handleDelete.bind(this);
     }
 
     state = {
         open: false,
         index: -1,
-        questionText: '',
         loadingAnswers: true,
         newQuestion: false,
+        deletedQuestion: false,
         answers: [
             {
                 answerText: '',
@@ -150,11 +154,19 @@ class CreateQuestions extends Component {
         newAnswers[index].correctAnswer = event.target.checked;
         this.setState({answers: newAnswers});
     }
+
+    handleDelete = (question) => {
+        this.props.deleteQuestion(question._id, question.parent);
+        this.handleClose();
+    }
     
     render(){
-        const {questions, answers} = this.props;
+        const {questions, answers, history} = this.props;
         return( 
             <div>
+                <Grid>
+                    <AppBarComponent history={history}/>
+                </Grid>
                 <Button
                 onClick={() =>{this.handleOpen(-1)}}>
                 Add Question
@@ -176,11 +188,16 @@ class CreateQuestions extends Component {
                         handleSave={this.handleSave}
                         handleChangeAnswer={this.handleChangeAnswer}
                         handleCheck={this.handleCheck}
+                        handleDelete={this.handleDelete}
                     />
                 }
             </div>
         );
     }
+}
+
+CreateQuestions.propTypes = {
+    history: PropTypes.object.isRequired
 }
 
 export default connect(
@@ -195,6 +212,7 @@ export default connect(
         editAnswer,
         addQuestion,
         addAnswer,
-        deleteAnswer
+        deleteAnswer,
+        deleteQuestion
     }
 )(CreateQuestions);

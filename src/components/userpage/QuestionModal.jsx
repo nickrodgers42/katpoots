@@ -51,7 +51,8 @@ const QuestionModal = props => {
     answers,
     handleSave,
     handleChangeAnswer,
-    handleCheck
+    handleCheck,
+    handleDelete
   } = props;
   return (
     <div>
@@ -141,22 +142,10 @@ const QuestionModal = props => {
                 label="Correct?"
               />
             </div>
-          </Typography>
-          <Button
-            className={[classes.save, classes.button]}
-            onClick={() => handleSave(question, answers)}
-          >
-            {" "}
-            save{" "}
-          </Button>
-          <Button className={[classes.delete, classes.button]}>Delete</Button>
-          <Button
-            className={[classes.cancel, classes.button]}
-            onClick={handleClose}
-          >
-            {" "}
-            Cancel Edit{" "}
-          </Button>
+            </Typography>
+            <Button className={[classes.save, classes.button]} onClick={() => handleSave(question, answers)}> save </Button>
+            <Button className={[classes.delete, classes.button]} onClick={() => handleDelete(question)}>Delete</Button>
+            <Button className={[classes.cancel, classes.button]} onClick={handleClose}> Cancel Edit </Button>
         </div>
       </Modal>
     </div>

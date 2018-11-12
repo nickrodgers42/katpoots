@@ -33,7 +33,9 @@ const UserPage = props => {
     deleteQuiz,
     editQuiz,
     history,
-    editRedirect
+    editRedirect,
+    handleNewQuiz, 
+    handleChangeQuiz
   } = props;
   return (
     <div>
@@ -41,8 +43,8 @@ const UserPage = props => {
         <AppBarComponent history={history} />
       </Grid>
       <Grid container spacing={24}>
-        <Grid item>
-          <CreateQuiz />
+      <Grid item>
+        <CreateQuiz handleNewQuiz={handleNewQuiz} handleChangeQuiz={handleChangeQuiz} />
         </Grid>
         <Grid item>
           <ObjList
