@@ -10,6 +10,7 @@ class User extends Component {
     super(props);
     this.handleNewQuiz = this.handleNewQuiz.bind(this);
     this.handleChangeQuiz = this.handleChangeQuiz.bind(this);
+    this.editRedirect = this.editRedirect.bind(this);
   }
 
   state = {
@@ -41,9 +42,13 @@ class User extends Component {
     this.setState({newQuizText:event.target.value});
   }
 
+  editRedirect(quizid) {
+    this.props.history.push("/create/" + quizid);
+  }
+
   render() {
-    const { quizzes, deleteQuiz, editQuiz, history} = this.props;
-    return <UserPage quizzes={quizzes} deleteQuiz={deleteQuiz} editQuiz={editQuiz} history={history} handleNewQuiz={this.handleNewQuiz} handleChangeQuiz={this.handleChangeQuiz} />;
+    const { quizzes, deleteQuiz, editQuiz, history, editRedirect} = this.props;
+    return <UserPage quizzes={quizzes} deleteQuiz={deleteQuiz} editQuiz={editQuiz} history={history} editRedirect={this.editRedirect} handleNewQuiz={this.handleNewQuiz} handleChangeQuiz={this.handleChangeQuiz} />;
   }
 }
 

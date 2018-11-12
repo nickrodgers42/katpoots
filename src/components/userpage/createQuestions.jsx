@@ -7,6 +7,7 @@ import { fetchAllAnswers, editAnswer, addAnswer, deleteAnswer } from "../../acti
 import AppBarComponent from "../appbar/appbar-class"
 import Grid from "@material-ui/core/Grid";
 import PropTypes from "prop-types";
+import Delete from "@material-ui/icons/Delete";
 
 class CreateQuestions extends Component {
     constructor(props){
@@ -171,7 +172,11 @@ class CreateQuestions extends Component {
                 Add Question
                 </Button>
                 {questions ? questions.map((question, index) => (
-                    <div onClick={()=>{this.handleOpen(index)}}> <Button> {question.questionText} </Button> </div>
+                    <div > 
+                        <Button onClick={()=>{this.handleOpen(index)}}> {question.questionText} </Button>
+                        <Button><Delete /></Button>
+                    </div>
+
                 )):null}
                 {this.state.loadingAnswers === false &&
                     <QuestionModal

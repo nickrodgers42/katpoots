@@ -1,28 +1,28 @@
-import React from 'react'
-import Grid from '@material-ui/core/Grid'
-import { withStyles, TextField, FormHelperText } from '@material-ui/core';
+import React from "react";
+import Grid from "@material-ui/core/Grid";
+import { withStyles, TextField, FormHelperText } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
-import AddIcon from "@material-ui/icons/Add"
-import { Field } from 'react-final-form';
+import AddIcon from "@material-ui/icons/Add";
+import { Field } from "react-final-form";
 
 const styles = theme => ({
-    base: {
-        backgroundColor: "#BA68C8",
-    },
-    title: {
-        fontSize: 25,
-        textAlign: "center",
-        gutterBottom: "true",
-        backgroundColor: "#AB47BC",
-        padding: 10
-    },
-    responsive: {
-        margin: 20,
-    },
-    button: {
-        backgroundColor: "#99fd00"
-    },
-})
+  base: {
+    backgroundColor: "#BA68C8"
+  },
+  title: {
+    fontSize: 25,
+    textAlign: "center",
+    gutterBottom: "true",
+    backgroundColor: "#AB47BC",
+    padding: 10
+  },
+  responsive: {
+    margin: 20
+  },
+  button: {
+    backgroundColor: "#99fd00"
+  }
+});
 
 const CreateQuiz = props => {
     const { classes, handleNewQuiz, handleChangeQuiz } = props;
