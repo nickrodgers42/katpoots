@@ -53,6 +53,7 @@ const ObjLink = props => {
           variant="fab" 
           color="primary" 
           aria-label="Edit"
+          onClick={props.editRedirect}
           >
           <CreateIcon className={classes.iconColor} />
         </Button>
@@ -76,7 +77,8 @@ const ObjLink = props => {
 ObjLink.propTypes = {
   title: PropTypes.string.isRequired,
   onDelete: PropTypes.func.isRequired,
-  onEdit: PropTypes.func.isRequired
+  onEdit: PropTypes.func.isRequired,
+  editRedirect: PropTypes.func.isRequired
 };
 
 export default withStyles(styles)(ObjLink);

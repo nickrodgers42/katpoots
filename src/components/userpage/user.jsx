@@ -5,13 +5,30 @@ import { fetchQuizzes, deleteQuiz, editQuiz } from "../../actions/quiz";
 import UserPage from "./user-page";
 
 class User extends Component {
+  constructor(props) {
+    super(props);
+    this.editRedirect = this.editRedirect.bind(this);
+  }
+
   componentWillMount() {
     this.props.fetchQuizzes();
   }
 
+  editRedirect(quizid) {
+    this.props.history.push("/create/" + quizid);
+  }
+
   render() {
-    const { quizzes, deleteQuiz, editQuiz, history} = this.props;
-    return <UserPage quizzes={quizzes} deleteQuiz={deleteQuiz} editQuiz={editQuiz} history={history} />;
+    const { quizzes, deleteQuiz, editQuiz, history, editRedirect } = this.props;
+    return (
+      <UserPage
+        quizzes={quizzes}
+        deleteQuiz={deleteQuiz}
+        editQuiz={editQuiz}
+        history={history}
+        editRedirect={this.editRedirect}
+      />
+    );
   }
 }
 
