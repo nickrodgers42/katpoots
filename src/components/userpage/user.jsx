@@ -23,7 +23,6 @@ class User extends Component {
 
   componentDidUpdate(prevProps){
     if(this.props.quizzes !== prevProps.quizzes && this.state.newQuiz === true){
-      console.log(this.props.quizzes);
       this.setState({newQuiz:false});
       this.setState({newQuizText:''});
     }
