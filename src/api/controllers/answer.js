@@ -2,7 +2,7 @@ import { loadModels } from "../../data/models";
 import { ensureLoggedIn } from "connect-ensure-login";
 
 module.exports = function(server) {
-  server.get("/api/answer/:answerId", ensureLoggedIn(), getAnswer);
+  server.get("/api/answer/:answerId", getAnswer);
   server.post("/api/answer/:questionId", ensureLoggedIn(), createAnswer);
   server.delete("/api/answer/:answerId", ensureLoggedIn(), deleteAnswer);
   server.put("/api/answer/:answerId", ensureLoggedIn(), updateAnswer);
