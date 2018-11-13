@@ -174,7 +174,7 @@ class CreateQuestions extends Component {
                 {questions ? questions.map((question, index) => (
                     <div > 
                         <Button onClick={()=>{this.handleOpen(index)}}> {question.questionText} </Button>
-                        <Button><Delete /></Button>
+                        <Button onClick={()=>{this.handleDelete(question)}}><Delete /></Button>
                     </div>
 
                 )):null}
