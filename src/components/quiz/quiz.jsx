@@ -53,7 +53,7 @@ class Quiz extends Component {
   };
 
   render() {
-    const { questions, activeStep, voteCount, answers, quizzes } = this.props;
+    const { questions, activeStep, voteCount, answers } = this.props;
     return (
       <div>
       <AppbarClass history={this.props.history} />
@@ -77,8 +77,7 @@ class Quiz extends Component {
 
 Quiz.propTypes = {
   questions: PropTypes.array.isRequired,
-  answers: PropTypes.array.isRequired,
-  quizzes: PropTypes.array
+  answers: PropTypes.array.isRequired
 };
 
 export default connect(
@@ -87,8 +86,7 @@ export default connect(
     questions: state.question.questions,
     activeStep: state.quiz.activeStep,
     voteCount: state.question.voteCount,
-    answers: state.answer.answers,
-    quizzes: state.user.quizzes
+    answers: state.answer.answers
   }),
   {
     fetchQuestions,
