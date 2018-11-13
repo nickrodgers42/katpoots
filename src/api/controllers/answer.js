@@ -6,7 +6,7 @@ module.exports = function(server) {
   server.post("/api/answer/:questionId", ensureLoggedIn(), createAnswer);
   server.delete("/api/answer/:answerId", ensureLoggedIn(), deleteAnswer);
   server.put("/api/answer/:answerId", ensureLoggedIn(), updateAnswer);
-  server.get("/api/allAnswers/:questionId", ensureLoggedIn(), getAllAnswers);
+  server.get("/api/allAnswers/:questionId", getAllAnswers);
   // server.put("/api/vote/:answerId", vote);
 };
 
