@@ -18,9 +18,6 @@ class Quiz extends Component {
   state = {
     loadingAnswers: true,
     newQuiz: true,
-    voted: false,
-    checkForOwner: false,
-    owner: false,
   }
 
   componentWillMount() {
@@ -42,15 +39,6 @@ class Quiz extends Component {
         this.setState({loadingAnswers:false});
       }
     }
-    //check the user's quizzes to see if they are the owner of the quiz
-    if (this.state.checkForOwner === false && this.props.quizzes){
-      this.setState({checkForOwner: true});
-      for(let i = 0; i < this.props.quizzes.length; i++){
-        if (this.props.quizzes[i] === this.props.match.params.quizId){
-          this.setState({owner:true});
-        }
-      }
-    }
   }
 
   handleNext = () => {
@@ -58,15 +46,10 @@ class Quiz extends Component {
     resetVoteCount();
     nextQuestion(activeStep);
     this.setState({loadingAnswers:true});
-    this.setState({voted:false});
   };
 
   handleVote = answerId => {
     this.props.increaseVoteCount();
-    //owner can still see the page
-    if(this.state.owner === false){
-      this.setState({voted:true});
-    }
   };
 
   render() {
@@ -74,7 +57,7 @@ class Quiz extends Component {
     return (
       <div>
       <AppbarClass history={this.props.history} />
-      {this.state.loadingAnswers === false && this.state.voted === false &&
+      {this.state.loadingAnswers === false &&
         <QuizPage
           questions={questions}
           onClick={this.handleNext}
@@ -84,7 +67,7 @@ class Quiz extends Component {
           answers={answers}
         />
       }
-      {this.state.loadingAnswers === true || this.state.voted === true &&
+      {this.state.loadingAnswers === true &&
         <CircularProgress />
       }
       </div>
