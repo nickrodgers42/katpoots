@@ -36,8 +36,10 @@ class Quiz extends Component {
       if (prevProps.activeStep !== this.props.activeStep || this.state.newQuiz){
         this.props.fetchAllAnswers(this.props.questions[this.props.activeStep]._id);
         this.setState({newQuiz:false});
-        this.setState({loadingAnswers:false});
       }
+    }
+    if (this.props.answers !== prevProps.answers){
+      this.setState({loadingAnswers:false})
     }
   }
 
