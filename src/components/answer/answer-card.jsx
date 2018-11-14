@@ -8,9 +8,9 @@ import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 
 
-var styles = {
+const styles = {
   card: {
-    width: 350,
+    width: 350
   },
   media: {
   },
@@ -52,7 +52,7 @@ function AnswerCard(props) {
 
   return (
     <Card className={classes.card} onClick={questionAnswered}>
-      <CardActionArea className={classes.media} onClick={vote}>
+      <CardActionArea className={classes.media} onClick={(event) => { vote(); questionAnswered(); }}>
         <CardContent>
           <Grid container direction="row" justify="flex-start" alignItems="center" spacing={24}>
             <Grid item>
