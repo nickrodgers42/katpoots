@@ -96,7 +96,7 @@ const Question = props => {
         className={classes.answerGrid}
         spacing={24}
       >
-        {(answers && !answered) ? answerArray : <CircularProgress className={classes.spinner}/>};
+        {(answers && !answered) ? answerArray : <CircularProgress className={classes.spinner}/>}
 
       </Grid>
       </Grid>
