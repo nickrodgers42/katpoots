@@ -13,6 +13,47 @@ const DELETE_QUIZ = "DELETE_QUIZ";
 const ADD_QUIZ = "ADD_QUIZ";
 const EDIT_QUIZ = "EDIT_QUIZ";
 
+export const GET_QUESTION_INDEX = "GET_QUESTION_INDEX";
+export const getQuestionIndex = (id) => dispatch => {
+  axios
+    .get(`/api/quiz/${id}`)
+    .then(res =>
+      dispatch({
+        type: GET_QUESTION_INDEX,
+        index: res.data.questionIndex
+      }));
+}
+
+export const INCREMENT_QUESTION = "INCREMENT_QUESTION";
+export const increment = (id, currentIndex) => dispatch => {
+  let newIndex = currentIndex + 1;
+  const quiz = {
+    questionIndex:newIndex
+  }
+  axios.put(`/api/quiz/${id}`, quiz)
+  .then(res =>
+    dispatch({
+      type:INCREMENT_QUESTION,
+      index: res.data.questionIndex
+    })
+  )
+}
+
+export const RESET_INDEX = "RESET_INDEX";
+export const resetIndex = (id) => dispatch => {
+  const quiz = {
+    questionIndex: "0"
+  }
+  axios.put(`/api/quiz/${id}`, quiz)
+  .then(res =>
+    dispatch({
+      type:RESET_INDEX,
+      index: res.data.questionIndex
+    })
+  )
+}
+
+
 export const editQuiz = (id) => dispatch => {
   let title = prompt('New Quiz Name?');
   if (title !== ''){
