@@ -14,9 +14,30 @@ const styles = {
   },
   media: {
   },
-  answerButton: {
+  blueButton: {
     padding: '30px',
-    fontSize: 24
+    fontSize: 24,
+    backgroundColor: "2196f3"
+  },
+  redButton: {
+    padding: '30px',
+    fontSize: 24,
+    backgroundColor: "#f44336"
+  },
+  orangeButton: {
+    padding: '30px',
+    fontSize: 24,
+    backgroundColor: "#ff9800"
+  },
+  greenButton: {
+    padding: '30px',
+    fontSize: 24,
+    backgroundColor: "#4caf50"
+  },
+  purpleButton: {
+    padding: '30px',
+    fontSize: 24,
+    backgroundColor: "#9c27b0"
   },
   answerText: {
     fontsize: 18
@@ -24,15 +45,19 @@ const styles = {
 };
 
 function AnswerCard(props) {
-  const { classes, answer, vote } = props;
+  const { classes, answer, vote, index, questionAnswered } = props;
+  var buttonClass;
+  var buttonClasses = [classes.blueButton, classes.redButton, classes.orangeButton, classes.greenButton, classes.purpleButton];
+  buttonClass = buttonClasses[Math.floor(Math.random() * 5)];
+
   return (
-    <Card className={classes.card}>
-      <CardActionArea className={classes.media} onClick={vote}>
+    <Card className={classes.card} onClick={questionAnswered}>
+      <CardActionArea className={classes.media} onClick={(event) => { vote(); questionAnswered(); }}>
         <CardContent>
           <Grid container direction="row" justify="flex-start" alignItems="center" spacing={24}>
             <Grid item>
-              <Button variant="contained" color="primary" className={classes.answerButton}>
-                A.
+              <Button variant="contained" color="primary" className={buttonClass}>
+                {String.fromCharCode('a'.charCodeAt(0) + index)}.
               </Button>
             </Grid>
             <Grid item wrap="nowrap" xs={8}>

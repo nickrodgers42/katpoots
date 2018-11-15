@@ -4,7 +4,7 @@ import Stepper from "@material-ui/core/Stepper";
 import Step from "@material-ui/core/Step";
 import Grid from "@material-ui/core/Grid";
 import PropTypes from "prop-types";
-import Question from "../question/question";
+import Question from "../question/question-class";
 import Button from "@material-ui/core/Button";
 import StepLabel from "@material-ui/core/StepLabel";
 import Paper from '@material-ui/core/Paper';
