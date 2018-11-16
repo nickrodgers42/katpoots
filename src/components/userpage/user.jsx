@@ -44,6 +44,7 @@ class User extends Component {
 
   editRedirect(quizid) {
     this.props.history.push("/create/" + quizid);
+    window.location.reload();
   }
 
   render() {
