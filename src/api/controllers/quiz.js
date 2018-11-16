@@ -4,10 +4,10 @@ import { ensureLoggedIn } from "connect-ensure-login"
 const express = require("express");
 
 module.exports = function(server) {
-  server.get("/api/quiz/:quizId/", ensureLoggedIn(), getQuiz);
+  server.get("/api/quiz/:quizId/", getQuiz);
   server.post("/api/quiz/:userId/", ensureLoggedIn(), createQuiz);
   server.delete("/api/quiz/:quizId", ensureLoggedIn(), deleteQuiz);
-  server.put("/api/quiz/:quizId/", ensureLoggedIn(), updateQuiz);
+  server.put("/api/quiz/:quizId/", updateQuiz);
   server.get("/api/quizzes", ensureLoggedIn(), getQuizzes);
 };
 
