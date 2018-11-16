@@ -65,7 +65,6 @@ class Quiz extends Component {
 
   render() {
     const { questions, activeStep, voteCount, answers } = this.props;
-    console.log(activeStep);
     return (
       <div>
       <AppbarClass history={this.props.history} />
