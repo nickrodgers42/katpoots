@@ -5,6 +5,8 @@ import axios from "axios";
 export const GET_QUIZZES = "GET_QUIZZES";
 export const NEXT_QUESTION = "NEXT_QUESTION";
 export const GO_TO_NEXT_QUESTION = "GO_TO_NEXT_QUESTION";
+export const USER_JOINED = "USER_JOINED";
+export const ADD_USER = "ADD_USER";
 
 // We don't need to export these because they don't have any side-effects
 // Because we will dispatch ge fetchQuizzes action after to update the state
@@ -13,11 +15,20 @@ const DELETE_QUIZ = "DELETE_QUIZ";
 const ADD_QUIZ = "ADD_QUIZ";
 const EDIT_QUIZ = "EDIT_QUIZ";
 
-export const editQuiz = (id) => dispatch => {
-  let title = prompt('New Quiz Name?');
+export function joinQuiz(values) {
+  return dispatch =>
+    dispatch({
+      type: ADD_USER,
+      quizId: values.pin,
+      displayName: values.displayName
+    });
+}
+
+export const editQuiz = id => dispatch => {
+  let title = prompt("New Quiz Name?");
   const quiz = {
     title
-  }
+  };
   axios
     .put(`/api/quiz/${id}`, quiz)
     .then(res =>

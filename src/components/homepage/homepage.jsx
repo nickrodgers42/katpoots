@@ -22,16 +22,17 @@ function HomePage(props) {
   const { classes } = props;
   return (
     <div className={classes.root}>
-      <AppBarComponent history={ props.history }/>
+      <AppBarComponent history={props.history} />
       <Grid className={classes.grid} container justify="center" alignItems="center">
-        <JoinCard />
+        <JoinCard joinQuiz={props.joinQuiz} />
       </Grid>
     </div>
   );
 }
 
 HomePage.propTypes = {
-  user: PropTypes.object
+  user: PropTypes.object,
+  joinQuiz: PropTypes.func.isRequired
 };
 
 export default withStyles(styles)(HomePage);

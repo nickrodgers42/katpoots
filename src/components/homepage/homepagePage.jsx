@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import Homepage from "./homepage";
 import PropTypes from "prop-types";
 import { logoutUser } from "../../actions/user";
+import { joinQuiz } from "../../actions/quiz";
 
 class HomepagePage extends Component {
   constructor(props) {
@@ -21,28 +22,31 @@ class HomepagePage extends Component {
   }
 
   logout() {
-    this.props.dispatch(logoutUser());
+    this.props.logoutUser();
   }
 
   render() {
     const { user } = this.props;
     return (
       <div>
-        <Homepage
-          logout={this.logout}
-          history= {this.props.history}
-          user={user}
-        />
+        <Homepage logout={this.logout} history={this.props.history} joinQuiz={this.props.joinQuiz} user={user} />
       </div>
     );
   }
 }
 
 HomepagePage.propTypes = {
-  user: PropTypes.object,
-  dispatch: PropTypes.func.isRequired
+  user: PropTypes.object
 };
 
-export default connect(state => {
-  return { user: state.user };
-})(HomepagePage);
+export default connect(
+  state => {
+    return {
+      user: state.user
+    };
+  },
+  {
+    joinQuiz,
+    logoutUser
+  }
+)(HomepagePage);

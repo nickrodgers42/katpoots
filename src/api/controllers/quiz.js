@@ -3,12 +3,30 @@ import { loadModels } from "../../data/models";
 const express = require("express");
 
 module.exports = function(server) {
-  server.get("/api/quiz/:quizId/", getQuiz);
-  server.post("/api/quiz/:userId/", createQuiz);
+  server.get("/api/quiz/:quizId", getQuiz);
+  server.post("/api/quiz/:userId", createQuiz);
   server.delete("/api/quiz/:quizId", deleteQuiz);
-  server.put("/api/quiz/:quizId/", updateQuiz);
+  server.put("/api/quiz/:quizId", updateQuiz);
   server.get("/api/quizzes", getQuizzes);
+  server.get("/api/findByPin/:pin", findByPin);
 };
+
+async function findByPin(req, res, next) {
+  try {
+    const models = await loadModels();
+    const pin = req.params.pin;
+    const quiz = await models.quiz.findOne({ pin });
+    if (!quiz) {
+      res.status(404).send({ error: `Quiz with ID ${quizId} not found!` });
+      return next();
+    }
+    res.json(quiz);
+    next();
+  } catch (e) {
+    res.status(500).send({ error: e.message });
+    next(e);
+  }
+}
 
 async function getQuizzes(req, res, next) {
   try {
@@ -24,6 +42,7 @@ async function getQuizzes(req, res, next) {
 
 async function getQuiz(req, res, next) {
   try {
+    console.log(req.params);
     const models = await loadModels();
     let quiz = await models.quiz.findById(req.params.quizId).populate({
       path: "questions",

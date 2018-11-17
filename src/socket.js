@@ -4,17 +4,14 @@ import { goToNextQuestion } from "./actions/quiz";
 const setupSocket = dispatch => {
   const socket = new WebSocket("ws://localhost:8989");
 
-  socket.onopen = () => {
-    socket.send(
-      JSON.stringify({
-        type: "ADD_USER"
-      })
-    );
-  };
-
   socket.onmessage = event => {
     const data = JSON.parse(event.data);
+    console.log(data);
     switch (data.type) {
+      case "USER_JOINED":
+      case "VALID_PIN":
+        dispatch(data);
+        break;
       case "VOTE_COUNTED":
         dispatch(voteCounted());
         break;
