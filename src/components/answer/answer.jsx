@@ -33,10 +33,10 @@ class Answer extends Component {
   }
 
   render() {
-    const { answer, vote } = this.props;
+    const { answer, vote, index } = this.props;
     return (
       <div>
-        <AnswerCard answer={answer} vote={vote} />
+        <AnswerCard answer={answer} vote={vote} index={index} />
       </div>
     );
   }

@@ -13,6 +13,50 @@ function getAnswer(answer) {
   };
 }
 
+export const GET_ALL_ANSWERS = "GET_ALL_ANSWERS";
+function getAllAnswers(answers){
+  return {type: GET_ALL_ANSWERS, answers};
+}
+
+export const EDIT_ANSWER = "EDIT_ANSWER";
+export const editAnswer = (answer, answerId, question) => dispatch => {
+  axios
+    .put(`/api/answer/${answerId}`, answer)
+    .then(res =>
+      dispatch({
+        type: EDIT_ANSWER,
+        payload: res.data
+      })
+    )
+    .then(() => dispatch(fetchAllAnswers(question._id)));
+};
+
+ const DELETE_ANSWER = "DELETE_ANSWER";
+ export const deleteAnswer = (answerId, question) => dispatch => {
+   axios
+    .delete(`/api/answer/${answerId}`)
+    .then(() =>
+      dispatch({
+        type: DELETE_ANSWER,
+        answerId
+      })
+    )
+    .then(() => dispatch(fetchAllAnswers(question._id)));
+ }
+
+
+export const ADD_ANSWER = "ADD_ANSWER";
+export const addAnswer = (answer, questionId) => dispatch => {
+  axios
+    .post(`/api/answer/${questionId}`, answer)
+    .then(res =>
+      dispatch({
+        type: ADD_ANSWER,
+        payload: res.data
+      })
+    )
+}
+
 // export const VOTE = "VOTE";
 // function vote(answerId) {
 //   return dispatch => {
@@ -20,6 +64,15 @@ function getAnswer(answer) {
 //       .put()
 //   }
 // }
+
+export function fetchAllAnswers(questionId){
+  return dispatch => {
+    return axios
+      .get(`/api/allAnswers/${questionId}`)
+      .then(res => res.data)
+      .then(answers => dispatch(getAllAnswers(answers)));
+  };
+}
 
 function fetchAnswer(answerId) {
   return dispatch => {

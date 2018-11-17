@@ -1,9 +1,17 @@
-import { GET_QUIZZES, NEXT_QUESTION, GO_TO_NEXT_QUESTION, USER_JOINED } from "../actions/quiz";
+import {
+  GET_QUIZZES,
+  NEXT_QUESTION,
+  GO_TO_NEXT_QUESTION,
+  GET_QUESTION_INDEX,
+  INCREMENT_QUESTION,
+  RESET_INDEX,
+  USER_JOINED
+} from "../actions/quiz";
 
 // We need to set an initial state while we wait for the response or we will get errors
 const initialState = {
   quizzes: [],
-  activeStep: 0,
+  activeStep: -1,
   users: []
 };
 
@@ -15,7 +23,9 @@ export default function quiz(state = initialState, action) {
       // This is why we don't need to worry about anything other than returning what we get
       // So no spread operator or anything else to maintain the rest of the state
       return { quizzes: action.quizzes };
-    case NEXT_QUESTION:
+    case GET_QUESTION_INDEX:
+    case INCREMENT_QUESTION:
+    case RESET_INDEX:
     case GO_TO_NEXT_QUESTION:
       return {
         ...state,

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import ReactDOM from 'react-dom';
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { checkForUser } from "./actions/user";
@@ -8,6 +9,7 @@ import Register from "./components/register/register";
 import Login from "./components/login/login";
 import User from "./components/userpage/user";
 import Quiz from "./components/quiz/quiz";
+import CreateQuestions from "./components/userpage/createQuestions";
 
 class App extends Component {
   constructor(props) {
@@ -17,6 +19,7 @@ class App extends Component {
 
   componentDidMount() {
     this.checkForUser();
+    document.title = "KatPoots";
   }
 
   checkForUser() {
@@ -32,6 +35,7 @@ class App extends Component {
           <Route path="/login" component={Login} />
           <Route path="/user" component={User} />
           <Route path="/quiz/:quizId" component={Quiz} />
+          <Route path="/create/:quizId" component={CreateQuestions} />
         </div>
       </Router>
     );

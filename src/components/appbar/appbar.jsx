@@ -9,7 +9,8 @@ import PropTypes from "prop-types";
 
 const styles = {
     grow: {
-        flexGrow: 1
+        flexGrow: 1,
+        display:"inline-block"
     },
     logo: {
         height: "50px",
@@ -21,6 +22,9 @@ const styles = {
     },
     pointer: {
         cursor: "pointer"
+    },
+    underline: {
+        textDecoration:"underline"
     }
 };
 
@@ -46,9 +50,12 @@ function Appbar(props) {
                     {user && user.username ? (
                     <Grid container justify="space-between" spacing={16}>
                         <Grid item>
-                        <Typography variant="h6" color="inherit" className={classes.grow}>{`Welcome ${
-                            user.username
-                        }!`}</Typography>
+                        <Typography variant="h6" color="inherit" className={classes.grow}>
+                            Welcome&nbsp;
+                        </Typography>
+                        <Typography variant="h6" color="inherit" className={[classes.grow, classes.pointer, classes.underline].join(' ')} onClick={props.userPage}>
+                            {user.username}
+                        </Typography>
                         </Grid>
                         <Grid item>
                         <Button variant="contained" onClick={logout}>

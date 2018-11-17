@@ -11,6 +11,7 @@ class AppBarComponent extends Component {
         this.homepageRedirect = this.homepageRedirect.bind(this);
         this.loginRedirect = this.loginRedirect.bind(this);
         this.logout = this.logout.bind(this);
+        this.userPage = this.userPage.bind(this);
     }
     
     signUpRedirect() {
@@ -29,9 +30,12 @@ class AppBarComponent extends Component {
         this.props.history.push('/');
     }
 
+    userPage() {
+        this.props.history.push('/user');
+    }
+
     render() {
         const { user } = this.props;
-        console.log(user);
         return (
             <div>
                 <Appbar
@@ -39,6 +43,7 @@ class AppBarComponent extends Component {
                     homepageRedirect = {this.homepageRedirect}
                     signUpRedirect = {this.signUpRedirect}
                     loginRedirect = {this.loginRedirect}
+                    userPage = {this.userPage}
                     user={user}
                 />
             </div>

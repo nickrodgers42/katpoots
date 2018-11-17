@@ -4,6 +4,7 @@ import ObjList from "../item-containers/objList";
 import CreateQuiz from "../userpage/create-quiz";
 import Grid from "@material-ui/core/Grid";
 import PropTypes from "prop-types";
+import AppBarComponent from "../appbar/appbar-class";
 
 const styles = theme => ({
   root: {
@@ -26,20 +27,33 @@ const styles = theme => ({
 });
 
 const UserPage = props => {
-  const { classes, quizzes, deleteQuiz, editQuiz } = props;
+  const {
+    classes,
+    quizzes,
+    deleteQuiz,
+    editQuiz,
+    history,
+    editRedirect,
+    handleNewQuiz, 
+    handleChangeQuiz
+  } = props;
   return (
     <div>
       <Grid>
-        <h2>Holds the logobar?</h2>
+        <AppBarComponent history={history} />
       </Grid>
       <Grid container spacing={24}>
       <Grid item>
-            <CreateQuiz />
+        <CreateQuiz handleNewQuiz={handleNewQuiz} handleChangeQuiz={handleChangeQuiz} />
         </Grid>
         <Grid item>
-          <ObjList items={quizzes} onDelete={deleteQuiz} onEdit={editQuiz} />
+          <ObjList
+            items={quizzes}
+            onDelete={deleteQuiz}
+            onEdit={editQuiz}
+            editRedirect={editRedirect}
+          />
         </Grid>
-        <Grid item>Will Hold Something Else 1?</Grid>
       </Grid>
     </div>
   );
@@ -47,7 +61,9 @@ const UserPage = props => {
 
 UserPage.propTypes = {
   quizzes: PropTypes.array.isRequired,
-  deleteQuiz: PropTypes.func.isRequired
+  deleteQuiz: PropTypes.func.isRequired,
+  history: PropTypes.object.isRequired,
+  editRedirect: PropTypes.func.isRequired
 };
 
 export default withStyles(styles)(UserPage);

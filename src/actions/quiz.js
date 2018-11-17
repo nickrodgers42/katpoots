@@ -24,21 +24,60 @@ export function joinQuiz(values) {
     });
 }
 
+export const GET_QUESTION_INDEX = "GET_QUESTION_INDEX";
+export const getQuestionIndex = id => dispatch => {
+  axios.get(`/api/quiz/${id}`).then(res =>
+    dispatch({
+      type: GET_QUESTION_INDEX,
+      index: res.data.questionIndex
+    })
+  );
+};
+
+export const INCREMENT_QUESTION = "INCREMENT_QUESTION";
+export const increment = (id, currentIndex) => dispatch => {
+  let newIndex = currentIndex + 1;
+  const quiz = {
+    questionIndex: newIndex
+  };
+  axios.put(`/api/quiz/${id}`, quiz).then(res =>
+    dispatch({
+      type: INCREMENT_QUESTION,
+      index: res.data.questionIndex
+    })
+  );
+};
+
+export const RESET_INDEX = "RESET_INDEX";
+export const resetIndex = id => dispatch => {
+  const quiz = {
+    questionIndex: "0"
+  };
+  axios.put(`/api/quiz/${id}`, quiz).then(res =>
+    dispatch({
+      type: RESET_INDEX,
+      index: res.data.questionIndex
+    })
+  );
+};
+
 export const editQuiz = id => dispatch => {
   let title = prompt("New Quiz Name?");
-  const quiz = {
-    title
-  };
-  axios
-    .put(`/api/quiz/${id}`, quiz)
-    .then(res =>
-      dispatch({
-        type: EDIT_QUIZ,
-        quiz: res.data
-      })
-    )
+  if (title !== "") {
+    const quiz = {
+      title
+    };
+    axios
+      .put(`/api/quiz/${id}`, quiz)
+      .then(res =>
+        dispatch({
+          type: EDIT_QUIZ,
+          quiz: res.data
+        })
+      )
 
-    .then(() => dispatch(fetchQuizzes()));
+      .then(() => dispatch(fetchQuizzes()));
+  }
 };
 
 // This is what we dispatch internally to this file's actions
@@ -73,9 +112,9 @@ export const deleteQuiz = id => dispatch => {
     .then(() => dispatch(fetchQuizzes()));
 };
 
-export const addQuiz = quiz => dispatch => {
+export const addQuiz = (quiz, userId) => dispatch => {
   axios
-    .post(`/api/quiz`, quiz)
+    .post(`/api/quiz/${userId}`, quiz)
     .then(res =>
       dispatch({
         type: ADD_QUIZ, // Even though we don't use it in the reducer
