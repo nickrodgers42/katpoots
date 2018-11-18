@@ -145,28 +145,33 @@ class ProctorView extends Component {
         this.handleClose();
     }
     render(){
-        const {onClick, questions, answers, activeStep, quizId} = this.props;
+        const {onClick, questions, answers, activeStep, quizId, handleExit} = this.props;
         return(
             <span>
-                <Button variant="contained" color="primary" onClick={onClick}>Next </Button>
-                {activeStep !== questions.length &&
+            {activeStep !== questions.length ?                    
+                <span>
+                    <Button variant="contained" color="primary" onClick={onClick}>Next </Button>
                     <Button variant="contained" color="primary" onClick={() => {this.handleOpen(this.props.activeStep)}}>View Next Question</Button>
-                }
-                <Button variant="contained" color="primary" onClick={() => {this.handleOpen(-1)}}>Add Question </Button>
-                {this.state.loading === false &&
-                    <QuestionModal
-                        handleClose={this.handleClose}
-                        open={this.state.open}
-                        question={questions[this.state.index]}
-                        answers={answers ? answers : this.state.answers}
-                        handleChange={this.handleChange}
-                        handleSave={this.handleSave}
-                        handleChangeAnswer={this.handleChangeAnswer}
-                        handleCheck={this.handleCheck}
-                        handleDelete={this.handleDelete}
-                        /> 
-                }
-          </span>
+                    <Button variant="contained" color="primary" onClick={() => {this.handleOpen(-1)}}>Add Question </Button>
+                    {this.state.loading === false &&
+                        <QuestionModal
+                            handleClose={this.handleClose}
+                            open={this.state.open}
+                            question={questions[this.state.index]}
+                            answers={answers ? answers : this.state.answers}
+                            handleChange={this.handleChange}
+                            handleSave={this.handleSave}
+                            handleChangeAnswer={this.handleChangeAnswer}
+                            handleCheck={this.handleCheck}
+                            handleDelete={this.handleDelete}
+                            /> 
+                    }
+                </span>
+            :   <span>
+                    <Button variant="contained" color="primary" onClick={handleExit}>Exit </Button>
+                </span>
+            }
+            </span>
         );
     }
 }

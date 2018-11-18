@@ -51,7 +51,7 @@ const QuizPage = props => {
         })}
       </Stepper>
       <Grid container direction="row" justify="center" alignItems="center" spacing={24}>
-          {activeStep !== questions.length ? (
+          {activeStep !== questions.length &&
             <Grid item>
               <Question question={questions[activeStep]} vote={vote} voteCount={voteCount} answers={answers} />
               {owner === true ?
@@ -62,9 +62,7 @@ const QuizPage = props => {
                 </div>
               :null}
             </Grid>
-          ) : (
-            <h2>Quiz over</h2>
-          )}
+          }
       </Grid>
       </Paper>
     </div>

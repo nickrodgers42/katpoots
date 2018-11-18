@@ -17,6 +17,7 @@ class Quiz extends Component {
     this.handleNext = this.handleNext.bind(this);
     this.handleVote = this.handleVote.bind(this);
     this.handleLeaderboardNext = this.handleLeaderboardNext.bind(this);
+    this.handleExit = this.handleExit.bind(this);
   }
 
   state = {
@@ -59,6 +60,7 @@ class Quiz extends Component {
         }
       }
     }
+    //refetch the answers after returning from the leaderboard, because adding a question mid quiz pulls in the answers to that question in the answer state
     if(this.state.backFromLeaderboard === true){
       this.setState({loadingAnswers: true});
       this.setState({backFromLeaderboard: false});
@@ -68,17 +70,11 @@ class Quiz extends Component {
 
 
   handleNext = () => {
-    const { activeStep, resetVoteCount, nextQuestion, changeQuestionStatus } = this.props;
-    this.props.questionClosed(this.props.match.params.quizId, true);
-    resetVoteCount();
+    const { activeStep, resetVoteCount, nextQuestion, changeQuestionStatus, questionClosed, increment } = this.props;
+    questionClosed(this.props.match.params.quizId, true);
     changeQuestionStatus(true);
-    if (this.props.activeStep === this.props.questions.length - 1){
-      //maybe add another thing in the quiz model called "closed" make it true at this point, and make it false when we click the play button at the very beginning of the quiz
-      this.props.resetIndex(this.props.match.params.quizId);
-    }
-    else{
-      this.props.increment(this.props.match.params.quizId, activeStep);
-    }
+    resetVoteCount();
+    increment(this.props.match.params.quizId, activeStep);
     this.setState({loadingAnswers:true});
     nextQuestion(activeStep);
     this.setState({leaderboard:true})
@@ -93,6 +89,12 @@ class Quiz extends Component {
     questionClosed(this.props.match.params.quizId, false);
     changeQuestionStatus(false);
     this.setState({backFromLeaderboard:true});
+  }
+
+  handleExit = () => {
+    const {questionClosed, resetIndex} = this.props;
+    questionClosed(this.props.match.params.quizId, false);
+    resetIndex(this.props.match.params.quizId);
   }
 
   render() {
@@ -123,11 +125,11 @@ class Quiz extends Component {
         {this.state.owner === true &&
           <div>
             <h2> leaderboard or something... </h2>
-            <ProctorView onClick={this.handleLeaderboardNext} questions={questions} answers={answers} activeStep={activeStep} quizId={this.props.match.params.quizId}/>
+            <ProctorView onClick={this.handleLeaderboardNext} questions={questions} answers={answers} activeStep={activeStep} quizId={this.props.match.params.quizId} handleExit={this.handleExit}/>
           </div>
         }
         {this.state.owner !== true &&
-            //display correct answers here
+            //this pops up for everyone except the proctor when he clicks next. Maybe display the correct answers or if they got it right or something like that
             <CircularProgress />
         }
         </div>
