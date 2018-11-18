@@ -39,6 +39,32 @@ export const increment = (id, currentIndex) => dispatch => {
   )
 }
 
+export const CHANGE_QUESTION_STATUS = "CHANGE_QUESTION_STATUS";
+export const questionClosed = (id, status) => dispatch => {
+  let closed = status;
+  const quiz = {
+    closeQuestion:closed
+  }
+  axios.put(`/api/quiz/${id}`, quiz)
+  .then(res =>
+    dispatch({
+      type: CHANGE_QUESTION_STATUS,
+      closeQuestion: res.data.closeQuestion
+    })
+  )
+}
+
+export const GET_QUESTION_STATUS = "GET_QUESTION_STATUS";
+export const getQuestionStatus = (id) => dispatch => {
+  axios
+    .get(`/api/quiz/${id}`)
+    .then(res =>
+      dispatch({
+        type: GET_QUESTION_STATUS,
+        closeQuestion: res.data.closeQuestion
+      }));
+}
+
 export const RESET_INDEX = "RESET_INDEX";
 export const resetIndex = (id) => dispatch => {
   const quiz = {

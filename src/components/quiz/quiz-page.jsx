@@ -37,7 +37,7 @@ const styles = theme => ({
 });
 
 const QuizPage = props => {
-  const { classes, questions, voteCount, activeStep, onClick, vote, answers } = props;
+  const { classes, questions, voteCount, activeStep, onClick, vote, answers, owner} = props;
   return (
     <div>
       <Paper className={classes.paper} elevation={1}>
@@ -54,9 +54,13 @@ const QuizPage = props => {
           {activeStep !== questions.length ? (
             <Grid item>
               <Question question={questions[activeStep]} vote={vote} voteCount={voteCount} answers={answers} />
-              <Button variant="contained" color="primary" onClick={onClick} className={classes.button}>
-                {activeStep === questions.length - 1 ? "Finish" : "Next"}
-              </Button>
+              {owner === true ?
+                <div>
+                  <Button variant="contained" color="primary" onClick={onClick} className={classes.button}>
+                      {activeStep === questions.length - 1 ? "Finish" : "Next"}
+                  </Button>
+                </div>
+              :null}
             </Grid>
           ) : (
             <h2>Quiz over</h2>
@@ -72,7 +76,8 @@ QuizPage.propTypes = {
   questions: PropTypes.array.isRequired,
   onClick: PropTypes.func.isRequired,
   vote: PropTypes.func.isRequired,
-  voteCount: PropTypes.number.isRequired
+  voteCount: PropTypes.number.isRequired,
+  owner: PropTypes.bool
 };
 
 export default withStyles(styles)(QuizPage);

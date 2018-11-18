@@ -7,19 +7,25 @@ import QuizPage from "./quiz-page";
 import { nextQuestion } from "../../actions/quiz";
 import AppbarClass from "../appbar/appbar-class";
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { getQuestionIndex, increment, resetIndex } from "../../actions/quiz";
+import { getQuestionIndex, increment, resetIndex, questionClosed, getQuestionStatus } from "../../actions/quiz";
+import ProctorView from "./proctor-view"
+
 
 class Quiz extends Component {
   constructor(props) {
     super(props);
     this.handleNext = this.handleNext.bind(this);
     this.handleVote = this.handleVote.bind(this);
+    this.handleLeaderboardNext = this.handleLeaderboardNext.bind(this);
   }
 
   state = {
     loadingAnswers: true,
     newQuiz: true,
+    owner: null,
+    backFromLeaderboard: false,
   }
+
 
   componentWillMount() {
     const {
@@ -30,7 +36,9 @@ class Quiz extends Component {
     } = this.props;
     fetchQuestions(this.props.quizId || quizId);
     this.props.getQuestionIndex(this.props.match.params.quizId);
+    this.props.getQuestionStatus(this.props.match.params.quizId)
   }
+
 
   componentDidUpdate(prevProps){
     //load the answers for the given question
@@ -43,10 +51,25 @@ class Quiz extends Component {
     if (this.props.answers !== prevProps.answers){
       this.setState({loadingAnswers:false})
     }
+    if(this.state.owner === null && this.props.user.quizzes){
+      this.setState({owner:false});
+      for (let i in this.props.user.quizzes){
+        if(this.props.user.quizzes[i] === this.props.match.params.quizId){
+          this.setState({owner: true});
+        }
+      }
+    }
+    if(this.state.backFromLeaderboard === true){
+      this.setState({loadingAnswers: true});
+      this.setState({backFromLeaderboard: false});
+      this.props.fetchAllAnswers(this.props.questions[this.props.activeStep]._id);
+    }
   }
 
+
   handleNext = () => {
-    const { activeStep, resetVoteCount, nextQuestion } = this.props;
+    const { activeStep, resetVoteCount, nextQuestion, getQuestionStatus } = this.props;
+    this.props.questionClosed(this.props.match.params.quizId, true);
     resetVoteCount();
     if (this.props.activeStep === this.props.questions.length - 1){
       //maybe add another thing in the quiz model called "closed" make it true at this point, and make it false when we click the play button at the very beginning of the quiz
@@ -57,29 +80,56 @@ class Quiz extends Component {
     }
     this.setState({loadingAnswers:true});
     nextQuestion(activeStep);
+    this.setState({leaderboard:true})
   };
 
   handleVote = answerId => {
     this.props.increaseVoteCount();
   };
 
+  handleLeaderboardNext = () => {
+    const {questionClosed} = this.props;
+    questionClosed(this.props.match.params.quizId, false);
+    this.setState({backFromLeaderboard:true});
+  }
+
   render() {
-    const { questions, activeStep, voteCount, answers } = this.props;
+    const { questions, activeStep, voteCount, answers, closeQuestion } = this.props;
+    console.log(closeQuestion);
     return (
       <div>
       <AppbarClass history={this.props.history} />
-      {this.state.loadingAnswers === false &&
-        <QuizPage
-          questions={questions}
-          onClick={this.handleNext}
-          activeStep={activeStep}
-          vote={this.handleVote}
-          voteCount={voteCount}
-          answers={answers}
-        />
+      {closeQuestion === false &&
+        <div>
+          {this.state.loadingAnswers === false &&
+            <QuizPage
+              questions={questions}
+              onClick={this.handleNext}
+              activeStep={activeStep}
+              vote={this.handleVote}
+              voteCount={voteCount}
+              answers={answers}
+              owner={this.state.owner}
+            />
+          }
+          {this.state.loadingAnswers === true &&
+            <CircularProgress />
+          }
+        </div>
       }
-      {this.state.loadingAnswers === true &&
-        <CircularProgress />
+      {closeQuestion === true &&
+        <div>
+        {this.state.owner === true &&
+          <div>
+            <h2> leaderboard or something... </h2>
+            <ProctorView onClick={this.handleLeaderboardNext} questions={questions} answers={answers} activeStep={activeStep} quizId={this.props.match.params.quizId}/>
+          </div>
+        }
+        {this.state.owner !== true &&
+            //display correct answers here
+            <CircularProgress />
+        }
+        </div>
       }
       </div>
     );
@@ -97,7 +147,9 @@ export default connect(
     questions: state.question.questions,
     activeStep: state.quiz.activeStep,
     voteCount: state.question.voteCount,
-    answers: state.answer.answers
+    answers: state.answer.answers,
+    user: state.user,
+    closeQuestion: state.quiz.closeQuestion
   }),
   {
     fetchQuestions,
@@ -107,6 +159,8 @@ export default connect(
     fetchAllAnswers,
     getQuestionIndex,
     increment,
-    resetIndex
+    resetIndex,
+    questionClosed,
+    getQuestionStatus
   }
 )(Quiz);
