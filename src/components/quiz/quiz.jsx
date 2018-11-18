@@ -7,7 +7,7 @@ import QuizPage from "./quiz-page";
 import { nextQuestion } from "../../actions/quiz";
 import AppbarClass from "../appbar/appbar-class";
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { getQuestionIndex, increment, resetIndex, questionClosed, getQuestionStatus } from "../../actions/quiz";
+import { getQuestionIndex, increment, resetIndex, questionClosed, getQuestionStatus, changeQuestionStatus } from "../../actions/quiz";
 import ProctorView from "./proctor-view"
 
 
@@ -68,9 +68,10 @@ class Quiz extends Component {
 
 
   handleNext = () => {
-    const { activeStep, resetVoteCount, nextQuestion, getQuestionStatus } = this.props;
+    const { activeStep, resetVoteCount, nextQuestion, changeQuestionStatus } = this.props;
     this.props.questionClosed(this.props.match.params.quizId, true);
     resetVoteCount();
+    changeQuestionStatus(true);
     if (this.props.activeStep === this.props.questions.length - 1){
       //maybe add another thing in the quiz model called "closed" make it true at this point, and make it false when we click the play button at the very beginning of the quiz
       this.props.resetIndex(this.props.match.params.quizId);
@@ -88,14 +89,14 @@ class Quiz extends Component {
   };
 
   handleLeaderboardNext = () => {
-    const {questionClosed} = this.props;
+    const {questionClosed, changeQuestionStatus} = this.props;
     questionClosed(this.props.match.params.quizId, false);
+    changeQuestionStatus(false);
     this.setState({backFromLeaderboard:true});
   }
 
   render() {
     const { questions, activeStep, voteCount, answers, closeQuestion } = this.props;
-    console.log(closeQuestion);
     return (
       <div>
       <AppbarClass history={this.props.history} />
@@ -161,6 +162,7 @@ export default connect(
     increment,
     resetIndex,
     questionClosed,
-    getQuestionStatus
+    getQuestionStatus,
+    changeQuestionStatus
   }
 )(Quiz);

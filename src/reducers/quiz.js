@@ -1,4 +1,4 @@
-import { GET_QUIZZES, NEXT_QUESTION, GO_TO_NEXT_QUESTION, GET_QUESTION_INDEX, INCREMENT_QUESTION, RESET_INDEX, CHANGE_QUESTION_STATUS, GET_QUESTION_STATUS  } from "../actions/quiz";
+import { GET_QUIZZES, NEXT_QUESTION, GO_TO_NEXT_QUESTION, GET_QUESTION_INDEX, INCREMENT_QUESTION, RESET_INDEX, QUESTION_STATUS, CHANGE_QUESTION_STATUS, UPDATE_QUESTION_STATUS  } from "../actions/quiz";
 
 // We need to set an initial state while we wait for the response or we will get errors
 const initialState = {
@@ -23,8 +23,10 @@ export default function quiz(state = initialState, action) {
         ...state,
         activeStep: action.index
       };
-    case GET_QUESTION_STATUS:
+    case QUESTION_STATUS:
     case CHANGE_QUESTION_STATUS:
+    case UPDATE_QUESTION_STATUS:
+      console.log(action);
       return {
         ...state,
         closeQuestion: action.closeQuestion

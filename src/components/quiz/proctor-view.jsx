@@ -172,7 +172,7 @@ class ProctorView extends Component {
 }
 
 ProctorView.propTypes = {
-    questions: PropTypes.object,
+    questions: PropTypes.array,
     activeStep: PropTypes.number,
 }
 

@@ -23,6 +23,10 @@ wss.on("connection", ws => {
         break;
       case "NEXT_QUESTION":
         broadcast({ type: "GO_TO_NEXT_QUESTION", index: data.index }, ws);
+        break;
+      case "CHANGE_QUESTION_STATUS":
+        broadcast({ type: "UPDATE_QUESTION_STATUS", closeQuestion: data.closeQuestion}, ws);
+        break;
       default:
         break;
     }
