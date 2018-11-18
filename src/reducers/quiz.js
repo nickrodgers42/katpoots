@@ -26,7 +26,6 @@ export default function quiz(state = initialState, action) {
     case QUESTION_STATUS:
     case CHANGE_QUESTION_STATUS:
     case UPDATE_QUESTION_STATUS:
-      console.log(action);
       return {
         ...state,
         closeQuestion: action.closeQuestion
