@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { fetchQuestions, increaseVoteCount, resetVoteCount } from "../../actions/question";
-import { fetchAllAnswers } from "../../actions/answer"
+import { fetchQuestions, increaseVoteCount, resetVoteCount, midQuizEdit } from "../../actions/question";
+import { fetchAllAnswers, updateAllAnswers } from "../../actions/answer"
 import QuizPage from "./quiz-page";
 import { nextQuestion } from "../../actions/quiz";
 import AppbarClass from "../appbar/appbar-class";
@@ -51,7 +51,14 @@ class Quiz extends Component {
     }
     if (this.props.answers !== prevProps.answers){
       this.setState({loadingAnswers:false})
+      //reload the answers when you get back from the leaderboard and dispatch them so everyone sees the edited questions
+      if (this.state.backFromLeaderboard === true){
+        this.props.questionClosed(this.props.match.params.quizId, false);
+        this.props.changeQuestionStatus(false);
+        this.setState({backFromLeaderboard: false});
+      }
     }
+    //check to see if the current user is the owner of the quiz
     if(this.state.owner === null && this.props.user.quizzes){
       this.setState({owner:false});
       for (let i in this.props.user.quizzes){
@@ -61,10 +68,9 @@ class Quiz extends Component {
       }
     }
     //refetch the answers after returning from the leaderboard, because adding a question mid quiz pulls in the answers to that question in the answer state
-    if(this.state.backFromLeaderboard === true){
+    if(this.state.backFromLeaderboard === true && this.state.loadingAnswers === false){
+      this.props.updateAllAnswers(this.props.questions[this.props.activeStep]._id);
       this.setState({loadingAnswers: true});
-      this.setState({backFromLeaderboard: false});
-      this.props.fetchAllAnswers(this.props.questions[this.props.activeStep]._id);
     }
   }
 
@@ -85,9 +91,8 @@ class Quiz extends Component {
   };
 
   handleLeaderboardNext = () => {
-    const {questionClosed, changeQuestionStatus} = this.props;
-    questionClosed(this.props.match.params.quizId, false);
-    changeQuestionStatus(false);
+    const {midQuizEdit} = this.props;
+    midQuizEdit(this.props.match.params.quizId);
     this.setState({backFromLeaderboard:true});
   }
 
@@ -165,6 +170,8 @@ export default connect(
     resetIndex,
     questionClosed,
     getQuestionStatus,
-    changeQuestionStatus
+    changeQuestionStatus,
+    midQuizEdit,
+    updateAllAnswers
   }
 )(Quiz);

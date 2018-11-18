@@ -64,3 +64,17 @@ export function fetchQuestions(quizId) {
       .then(questions => dispatch(getQuestions(questions)));
   };
 }
+
+export const UPDATE_QUESTIONS = "UPDATE_QUESTIONS";
+function updateQuestions(questions, quizId) {
+  return { type: UPDATE_QUESTIONS, questions, quizId };
+}
+
+export function midQuizEdit(quizId){
+  return dispatch => {
+    return axios
+      .get(`/api/questions/${quizId}`)
+      .then(res => res.data)
+      .then(questions => dispatch(updateQuestions(questions, quizId)));
+  };
+}

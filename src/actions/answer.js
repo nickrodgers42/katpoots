@@ -18,6 +18,11 @@ function getAllAnswers(answers){
   return {type: GET_ALL_ANSWERS, answers};
 }
 
+export const UPDATE_ANSWERS = "UPDATE_ANSWERS";
+function updateAnswers(answers, questionId){
+  return {type: UPDATE_ANSWERS, answers, questionId}
+}
+
 export const EDIT_ANSWER = "EDIT_ANSWER";
 export const editAnswer = (answer, answerId, question) => dispatch => {
   axios
@@ -71,6 +76,15 @@ export function fetchAllAnswers(questionId){
       .get(`/api/allAnswers/${questionId}`)
       .then(res => res.data)
       .then(answers => dispatch(getAllAnswers(answers)));
+  };
+}
+
+export function updateAllAnswers(questionId){
+  return dispatch => {
+    return axios
+      .get(`/api/allAnswers/${questionId}`)
+      .then(res => res.data)
+      .then(answers => dispatch(updateAnswers(answers, questionId)));
   };
 }
 

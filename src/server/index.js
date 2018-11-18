@@ -27,6 +27,11 @@ wss.on("connection", ws => {
       case "CHANGE_QUESTION_STATUS":
         broadcast({ type: "UPDATE_QUESTION_STATUS", closeQuestion: data.closeQuestion}, ws);
         break;
+      case "UPDATE_QUESTIONS":
+        broadcast({ type: "REFRESH_QUESTIONS", quizId: data.quizId}, ws);
+        break;
+      case "UPDATE_ANSWERS":
+        broadcast({ type: "REFRESH_ANSWERS", questionId: data.questionId}, ws);
       default:
         break;
     }

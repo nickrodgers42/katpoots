@@ -192,6 +192,6 @@ export default connect(
         addQuestion,
         addAnswer,
         deleteAnswer,
-        deleteQuestion,
+        deleteQuestion
     }
 )(ProctorView);
