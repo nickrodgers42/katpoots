@@ -10,7 +10,14 @@ const ObjList = props => {
   return (
     <div>
       {items.map(item => (
-        <ObjLink key={item._id} title={item.title} onDelete={() => props.onDelete(item._id)} onEdit={() => props.onEdit(item._id)} editRedirect={() => props.editRedirect(item._id)} pinRedirect={() => props.pinRedirect(item._id)} />
+        <ObjLink
+          key={item._id}
+          title={item.title}
+          onDelete={() => props.onDelete(item._id)}
+          onEdit={() => props.onEdit(item._id)}
+          editRedirect={() => props.editRedirect(item._id)}
+          pinRedirect={() => props.pinRedirect(item._id)}
+        />
       ))}
     </div>
   );

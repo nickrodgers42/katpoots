@@ -83,6 +83,7 @@ ObjLink.propTypes = {
   onEdit: PropTypes.func.isRequired,
   editRedirect: PropTypes.func.isRequired,
   pinRedirect: PropTypes.func.isRequired,
+  history: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(ObjLink);

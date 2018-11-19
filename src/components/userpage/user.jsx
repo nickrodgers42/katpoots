@@ -55,7 +55,18 @@ class User extends Component {
 
   render() {
     const { quizzes, deleteQuiz, editQuiz, history, editRedirect} = this.props;
-    return <UserPage quizzes={quizzes} deleteQuiz={deleteQuiz} editQuiz={editQuiz} history={history} editRedirect={this.editRedirect} handleNewQuiz={this.handleNewQuiz} handleChangeQuiz={this.handleChangeQuiz} pinRedirect={this.pinRedirect} />;
+    return (
+      <UserPage
+        quizzes={quizzes}
+        deleteQuiz={deleteQuiz}
+        editQuiz={editQuiz}
+        history={history}
+        editRedirect={this.editRedirect}
+        handleNewQuiz={this.handleNewQuiz}
+        handleChangeQuiz={this.handleChangeQuiz}
+        pinRedirect={this.pinRedirect}
+      />
+    );
   }
 }
 

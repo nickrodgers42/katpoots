@@ -54,6 +54,7 @@ const UserPage = props => {
             onEdit={editQuiz}
             editRedirect={editRedirect}
             pinRedirect={pinRedirect}
+            history={history}
           />
         </Grid>
       </Grid>
