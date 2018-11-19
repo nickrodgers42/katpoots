@@ -8,6 +8,7 @@ import HomepagePage from "./components/homepage/homepagePage";
 import Register from "./components/register/register";
 import Login from "./components/login/login";
 import User from "./components/userpage/user";
+import Pin from "./components/pinpage/pin";
 import Quiz from "./components/quiz/quiz";
 import CreateQuestions from "./components/userpage/createQuestions";
 
@@ -36,6 +37,7 @@ class App extends Component {
           <Route path="/user" component={User} />
           <Route path="/quiz/:quizId" component={Quiz} />
           <Route path="/create/:quizId" component={CreateQuestions} />
+          <Route path="/pin" component={Pin}/>
         </div>
       </Router>
     );
