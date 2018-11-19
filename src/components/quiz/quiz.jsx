@@ -45,18 +45,19 @@ class Quiz extends Component {
     //load the answers for the given question
     if (this.props.activeStep !== this.props.questions.length && this.props.activeStep !== -1){
       if (prevProps.activeStep !== this.props.activeStep || this.state.newQuiz){
+        this.setState({loadingAnswers:true});
         this.props.fetchAllAnswers(this.props.questions[this.props.activeStep]._id);
         this.setState({newQuiz:false});
       }
     }
     if (this.props.answers !== prevProps.answers){
-      this.setState({loadingAnswers:false})
       //reload the answers when you get back from the leaderboard and dispatch them so everyone sees the edited questions
       if (this.state.backFromLeaderboard === true){
         this.props.questionClosed(this.props.match.params.quizId, false);
         this.props.changeQuestionStatus(false);
         this.setState({backFromLeaderboard: false});
       }
+      this.setState({loadingAnswers:false})
     }
     //check to see if the current user is the owner of the quiz
     if(this.state.owner === null && this.props.user.quizzes){
@@ -69,8 +70,8 @@ class Quiz extends Component {
     }
     //refetch the answers after returning from the leaderboard, because adding a question mid quiz pulls in the answers to that question in the answer state
     if(this.state.backFromLeaderboard === true && this.state.loadingAnswers === false){
-      this.props.updateAllAnswers(this.props.questions[this.props.activeStep]._id);
       this.setState({loadingAnswers: true});
+      this.props.updateAllAnswers(this.props.questions[this.props.activeStep]._id);
     }
   }
 
@@ -81,7 +82,6 @@ class Quiz extends Component {
     changeQuestionStatus(true);
     resetVoteCount();
     increment(this.props.match.params.quizId, activeStep);
-    this.setState({loadingAnswers:true});
     nextQuestion(activeStep);
     this.setState({leaderboard:true})
   };
