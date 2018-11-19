@@ -37,7 +37,7 @@ class App extends Component {
           <Route path="/user" component={User} />
           <Route path="/quiz/:quizId" component={Quiz} />
           <Route path="/create/:quizId" component={CreateQuestions} />
-          <Route path="/pin" component={Pin}/>
+          <Route path="/pin/:quizId" component={Pin}/>
         </div>
       </Router>
     );

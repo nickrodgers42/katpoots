@@ -1,5 +1,6 @@
 import React from "react";
-import { withStyles } from "@material-ui/core";
+import { withStyles, TextField, Grid } from "@material-ui/core";
+import AppBarComponent from "../appbar/appbar-class";
 
 const styles = theme => ({
     
@@ -8,8 +9,16 @@ const styles = theme => ({
 const PinPage = props => {
   const { classes } = props;
   return (
-    <div>
-      <p>Butt</p>
+    <div id = "pinGridDiv">
+        <div>
+            <AppBarComponent/>
+        </div>
+        <div>
+            <p>Butt</p>
+        </div>
+        <div>
+            <p>Hole</p>
+        </div>
     </div>
   );
 };

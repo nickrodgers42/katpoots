@@ -35,7 +35,8 @@ const UserPage = props => {
     history,
     editRedirect,
     handleNewQuiz, 
-    handleChangeQuiz
+    handleChangeQuiz,
+    pinRedirect,
   } = props;
   return (
     <div>
@@ -52,6 +53,7 @@ const UserPage = props => {
             onDelete={deleteQuiz}
             onEdit={editQuiz}
             editRedirect={editRedirect}
+            pinRedirect={pinRedirect}
           />
         </Grid>
       </Grid>
@@ -63,7 +65,8 @@ UserPage.propTypes = {
   quizzes: PropTypes.array.isRequired,
   deleteQuiz: PropTypes.func.isRequired,
   history: PropTypes.object.isRequired,
-  editRedirect: PropTypes.func.isRequired
+  editRedirect: PropTypes.func.isRequired,
+  pinRedirect: PropTypes.func.isRequired
 };
 
 export default withStyles(styles)(UserPage);

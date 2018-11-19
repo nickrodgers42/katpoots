@@ -66,7 +66,10 @@ const ObjLink = props => {
         >
           <DeleteIcon className={classes.iconColor} />
         </Button>
-        <Button className={`${classes.button} ${classes.green}`} variant="fab" aria-label="Play">
+        <Button className={`${classes.button} ${classes.green}`} 
+          variant="fab" 
+          aria-label="Play"
+          onClick={props.pinRedirect}>
           <PlayArrow className={classes.iconColor} />
         </Button>
       </div>
@@ -78,7 +81,8 @@ ObjLink.propTypes = {
   title: PropTypes.string.isRequired,
   onDelete: PropTypes.func.isRequired,
   onEdit: PropTypes.func.isRequired,
-  editRedirect: PropTypes.func.isRequired
+  editRedirect: PropTypes.func.isRequired,
+  pinRedirect: PropTypes.func.isRequired,
 };
 
 export default withStyles(styles)(ObjLink);
