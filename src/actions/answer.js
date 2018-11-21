@@ -1,5 +1,12 @@
 import axios from "axios";
 
+export const ANSWERS_LOADING = "ANSWERS_LOADING";
+export const setAnswersLoading = () => {
+  return {
+    type: ANSWERS_LOADING
+  }
+}
+
 export const REQUEST_ANSWER = "REQUEST_ANSWER";
 function requestAnswer(answerId) {
   return { type: REQUEST_ANSWER, answerId };
@@ -24,7 +31,7 @@ function updateAnswers(answers, questionId){
 }
 
 export const EDIT_ANSWER = "EDIT_ANSWER";
-export const editAnswer = (answer, answerId, question) => dispatch => {
+export const editAnswer = (answer, answerId) => dispatch => {
   axios
     .put(`/api/answer/${answerId}`, answer)
     .then(res =>
@@ -33,7 +40,6 @@ export const editAnswer = (answer, answerId, question) => dispatch => {
         payload: res.data
       })
     )
-    .then(() => dispatch(fetchAllAnswers(question._id)));
 };
 
  const DELETE_ANSWER = "DELETE_ANSWER";
@@ -72,6 +78,7 @@ export const addAnswer = (answer, questionId) => dispatch => {
 
 export function fetchAllAnswers(questionId){
   return dispatch => {
+    dispatch(setAnswersLoading());
     return axios
       .get(`/api/allAnswers/${questionId}`)
       .then(res => res.data)
@@ -81,6 +88,7 @@ export function fetchAllAnswers(questionId){
 
 export function updateAllAnswers(questionId){
   return dispatch => {
+    dispatch(setAnswersLoading());
     return axios
       .get(`/api/allAnswers/${questionId}`)
       .then(res => res.data)

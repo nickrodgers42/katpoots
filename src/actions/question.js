@@ -10,8 +10,14 @@ function getQuestions(questions) {
   return { type: GET_QUESTIONS, questions };
 }
 
-const EDIT_QUESTION = "EDIT_QUESTION";
+export const QUESTIONS_LOADING = "QUESTIONS_LOADING";
+export const setQuestionsLoading = () => {
+  return {
+    type: QUESTIONS_LOADING
+  }
+}
 
+const EDIT_QUESTION = "EDIT_QUESTION";
 export const editQuestion = (newQuestion, questionId, quizId) => dispatch => {
   axios
     .put(`/api/question/${questionId}`, newQuestion)
@@ -58,6 +64,7 @@ export const resetVotes = () => dispatch => dispatch({ type: RESET_VOTES });
 
 export function fetchQuestions(quizId) {
   return dispatch => {
+    dispatch(setQuestionsLoading());
     return axios
       .get(`/api/questions/${quizId}`)
       .then(res => res.data)
@@ -72,6 +79,7 @@ function updateQuestions(questions, quizId) {
 
 export function midQuizEdit(quizId){
   return dispatch => {
+    dispatch(setQuestionsLoading());
     return axios
       .get(`/api/questions/${quizId}`)
       .then(res => res.data)

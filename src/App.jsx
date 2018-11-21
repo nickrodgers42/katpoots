@@ -9,7 +9,7 @@ import Register from "./components/register/register";
 import Login from "./components/login/login";
 import User from "./components/userpage/user";
 import Quiz from "./components/quiz/quiz";
-import CreateQuestions from "./components/userpage/createQuestions";
+import QuestionsList from "./components/userpage/questions-list";
 
 class App extends Component {
   constructor(props) {
@@ -35,7 +35,7 @@ class App extends Component {
           <Route path="/login" component={Login} />
           <Route path="/user" component={User} />
           <Route path="/quiz/:quizId" component={Quiz} />
-          <Route path="/create/:quizId" component={CreateQuestions} />
+          <Route path="/create/:quizId" component={QuestionsList} />
         </div>
       </Router>
     );
