@@ -15,7 +15,9 @@ var QuizSchema = new mongoose.Schema({
   //array of users that will represent who is in the quiz
   users: [mongoose.SchemaTypes.ObjectId],
 
-  questionIndex: {type: Number, default: 0}
+  questionIndex: {type: Number, default: 0},
+
+  closeQuestion: {type: Boolean, default: false}
 });
 
 QuizSchema.pre("remove", async function() {

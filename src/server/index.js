@@ -23,6 +23,15 @@ wss.on("connection", ws => {
         break;
       case "NEXT_QUESTION":
         broadcast({ type: "GO_TO_NEXT_QUESTION", index: data.index }, ws);
+        break;
+      case "CHANGE_QUESTION_STATUS":
+        broadcast({ type: "UPDATE_QUESTION_STATUS", closeQuestion: data.closeQuestion}, ws);
+        break;
+      case "UPDATE_QUESTIONS":
+        broadcast({ type: "REFRESH_QUESTIONS", quizId: data.quizId}, ws);
+        break;
+      case "UPDATE_ANSWERS":
+        broadcast({ type: "REFRESH_ANSWERS", questionId: data.questionId}, ws);
       default:
         break;
     }
