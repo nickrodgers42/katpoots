@@ -7,20 +7,21 @@ import { Field } from "react-final-form";
 
 const styles = theme => ({
   base: {
-    backgroundColor: "#BA68C8"
+    backgroundColor: "#757de8",
+    margin: '10px'
   },
   title: {
     fontSize: 25,
     textAlign: "center",
     gutterBottom: "true",
-    backgroundColor: "#AB47BC",
+    backgroundColor: "#3f51b5",
     padding: 10
   },
   responsive: {
     margin: 20
   },
   button: {
-    backgroundColor: "#99fd00"
+    backgroundColor: "#f44336"
   }
 });
 
