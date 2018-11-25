@@ -29,10 +29,11 @@ const styles = theme => ({
         backgroundColor: yellow[900]
     },
     iconColor: {
-        color: "#fff"
+        color: "#000"
     },
     questionText: {
-        display: "inline-block"
+        display: "inline-block",
+        maxWidth: "300px"
     },
     button: {
         margin: "0 10px"
@@ -41,7 +42,6 @@ const styles = theme => ({
         padding: "10px 0"
     },
     container: {
-        height: "90vh",
         minWidth: "400px"
     }
 });
@@ -133,7 +133,7 @@ class QuestionsList extends Component {
                                             <Grid className={classes.gridItem} item xs={12}>
                                                 <Card>
                                                     <CardContent>
-                                                        <Grid container justify="space-between" alignItems="center">
+                                                        <Grid container justify="space-between" alignItems="center" wrap="nowrap">
                                                             <Grid item className={classes.gridItem}>
                                                                 <Typography variant="p" className={classes.questionText}>
                                                                     {question.questionText}
