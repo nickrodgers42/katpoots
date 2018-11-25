@@ -48,7 +48,7 @@ function AnswerCard(props) {
   const { classes, answer, vote, index, questionAnswered } = props;
   var buttonClass;
   var buttonClasses = [classes.blueButton, classes.redButton, classes.orangeButton, classes.greenButton, classes.purpleButton];
-  buttonClass = buttonClasses[Math.floor(Math.random() * 5)];
+  buttonClass = buttonClasses[index % 5];
 
   return (
     <Card className={classes.card} onClick={questionAnswered}>
