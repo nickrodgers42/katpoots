@@ -37,16 +37,17 @@ const styles = theme => ({
     padding: "10px"
   },
   backColor: {
-    backgroundColor: "#8fcfff",
+    backgroundColor: "#3f51b5",
     display: "inline-block",
-    borderRadius: 100
+    borderRadius: 25,
+    margin: "10px"
   }
 });
 
 const ObjLink = props => {
   const { classes } = props;
   return (
-    <form className={classes.backColor}>
+    <form className={classes.backColor} backgroundColor="primary">
       <div className={classes.flex}>
         <a onClick={props.onEdit}><label className={classes.objTitle}>{props.title}: </label></a>
         <Button className={`${classes.button} ${classes.yellow}`} 
@@ -66,7 +67,10 @@ const ObjLink = props => {
         >
           <DeleteIcon className={classes.iconColor} />
         </Button>
-        <Button className={`${classes.button} ${classes.green}`} variant="fab" aria-label="Play">
+        <Button className={`${classes.button} ${classes.green}`} 
+          variant="fab" 
+          aria-label="Play"
+          onClick={props.pinRedirect}>
           <PlayArrow className={classes.iconColor} />
         </Button>
       </div>
@@ -78,7 +82,9 @@ ObjLink.propTypes = {
   title: PropTypes.string.isRequired,
   onDelete: PropTypes.func.isRequired,
   onEdit: PropTypes.func.isRequired,
-  editRedirect: PropTypes.func.isRequired
+  editRedirect: PropTypes.func.isRequired,
+  pinRedirect: PropTypes.func.isRequired,
+  history: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(ObjLink);

@@ -11,6 +11,7 @@ class User extends Component {
     this.handleNewQuiz = this.handleNewQuiz.bind(this);
     this.handleChangeQuiz = this.handleChangeQuiz.bind(this);
     this.editRedirect = this.editRedirect.bind(this);
+    this.pinRedirect = this.pinRedirect.bind(this);
   }
 
   state = {
@@ -47,9 +48,25 @@ class User extends Component {
     window.location.reload();
   }
 
+  pinRedirect(quizid) {
+    this.props.history.push("/pin/" + quizid);;
+    window.location.reload();
+  }
+
   render() {
     const { quizzes, deleteQuiz, editQuiz, history, editRedirect} = this.props;
-    return <UserPage quizzes={quizzes} deleteQuiz={deleteQuiz} editQuiz={editQuiz} history={history} editRedirect={this.editRedirect} handleNewQuiz={this.handleNewQuiz} handleChangeQuiz={this.handleChangeQuiz} />;
+    return (
+      <UserPage
+        quizzes={quizzes}
+        deleteQuiz={deleteQuiz}
+        editQuiz={editQuiz}
+        history={history}
+        editRedirect={this.editRedirect}
+        handleNewQuiz={this.handleNewQuiz}
+        handleChangeQuiz={this.handleChangeQuiz}
+        pinRedirect={this.pinRedirect}
+      />
+    );
   }
 }
 

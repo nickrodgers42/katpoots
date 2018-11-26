@@ -16,7 +16,8 @@ var QuizSchema = new mongoose.Schema({
   //array of users that will represent who is in the quiz
   users: [mongoose.SchemaTypes.ObjectId],
   pin: Number,
-  questionIndex: { type: Number, default: 0 }
+  questionIndex: { type: Number, default: 0 },
+  closeQuestion: { type: Boolean, default: false }
 });
 
 async function getNextPin() {

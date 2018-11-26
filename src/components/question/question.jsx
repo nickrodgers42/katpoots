@@ -32,21 +32,13 @@ const styles = theme => ({
   spinner: {
     margin: "100px 0"
   }
-});
-
-function shuffle(a) {
-  for (let i = a.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [a[i], a[j]] = [a[j], a[i]];
-  }
-  return a;
-}
+}); 
 
 const Question = props => {
   const { classes, question, vote, voteCount, answers, answered, questionAnswered } = props;
   var answerArray = [];
   var i = 0;
-  shuffle(answers).forEach(function(answer) {
+  answers.forEach(function(answer) {
     answerArray.push(
       <Grid item>
         <AnswerCard answer={answer} vote={vote} index = {i} questionAnswered={questionAnswered} />

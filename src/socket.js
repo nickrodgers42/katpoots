@@ -1,5 +1,6 @@
-import { voteCounted, resetVotes } from "./actions/question";
-import { goToNextQuestion } from "./actions/quiz";
+import { voteCounted, resetVotes, fetchQuestions } from "./actions/question";
+import { goToNextQuestion, updateQuestionStatus } from "./actions/quiz";
+import { fetchAllAnswers } from "./actions/answer";
 
 const setupSocket = dispatch => {
   const socket = new WebSocket("ws://localhost:8989");
@@ -20,6 +21,15 @@ const setupSocket = dispatch => {
         break;
       case "GO_TO_NEXT_QUESTION":
         dispatch(goToNextQuestion(data.index));
+        break;
+      case "UPDATE_QUESTION_STATUS":
+        dispatch(updateQuestionStatus(data.closeQuestion));
+        break;
+      case "REFRESH_QUESTIONS":
+        dispatch(fetchQuestions(data.quizId));
+        break;
+      case "REFRESH_ANSWERS":
+        dispatch(fetchAllAnswers(data.questionId));
         break;
       default:
         break;

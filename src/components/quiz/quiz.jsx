@@ -1,25 +1,28 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { fetchQuestions, increaseVoteCount, resetVoteCount } from "../../actions/question";
-import { fetchAllAnswers } from "../../actions/answer"
+import { fetchQuestions, increaseVoteCount, resetVoteCount, midQuizEdit } from "../../actions/question";
+import { fetchAllAnswers, updateAllAnswers } from "../../actions/answer"
 import QuizPage from "./quiz-page";
 import { nextQuestion } from "../../actions/quiz";
 import AppbarClass from "../appbar/appbar-class";
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { getQuestionIndex, increment, resetIndex } from "../../actions/quiz";
+import { getQuestionIndex, increment, resetIndex, questionClosed, getQuestionStatus, changeQuestionStatus } from "../../actions/quiz";
+import ProctorView from "./proctor-view"
 
 class Quiz extends Component {
   constructor(props) {
     super(props);
     this.handleNext = this.handleNext.bind(this);
     this.handleVote = this.handleVote.bind(this);
+    this.handleQuestionStatus = this.handleQuestionStatus.bind(this);
   }
 
   state = {
-    loadingAnswers: true,
-    newQuiz: true,
+      owner: null,
+      backFromLeaderboard: false,
   }
+
 
   componentWillMount() {
     const {
@@ -30,6 +33,7 @@ class Quiz extends Component {
     } = this.props;
     fetchQuestions(this.props.quizId || quizId);
     this.props.getQuestionIndex(this.props.match.params.quizId);
+    this.props.getQuestionStatus(this.props.match.params.quizId);
   }
 
   componentDidUpdate(prevProps){
@@ -37,49 +41,86 @@ class Quiz extends Component {
     if (this.props.activeStep !== this.props.questions.length && this.props.activeStep !== -1){
       if (prevProps.activeStep !== this.props.activeStep || this.state.newQuiz){
         this.props.fetchAllAnswers(this.props.questions[this.props.activeStep]._id);
-        this.setState({newQuiz:false});
       }
     }
-    if (this.props.answers !== prevProps.answers){
-      this.setState({loadingAnswers:false})
+    //check to see if the current user is the owner of the quiz
+    if(this.state.owner === null && this.props.user.quizzes){
+      this.setState({owner:false});
+      for (let i in this.props.user.quizzes){
+        if(this.props.user.quizzes[i] === this.props.match.params.quizId){
+          this.setState({owner: true});
+        }
+      }
+    }
+
+    if(this.state.backFromLeaderboard === true){
+      this.props.updateAllAnswers(this.props.questions[this.props.activeStep]._id);
+      this.setState({backFromLeaderboard:false});
     }
   }
 
   handleNext = () => {
-    const { activeStep, resetVoteCount, nextQuestion } = this.props;
+    const { activeStep, resetVoteCount, nextQuestion, increment } = this.props;
+    this.handleQuestionStatus(true);
     resetVoteCount();
-    if (this.props.activeStep === this.props.questions.length - 1){
-      //maybe add another thing in the quiz model called "closed" make it true at this point, and make it false when we click the play button at the very beginning of the quiz
-      this.props.resetIndex(this.props.match.params.quizId);
-    }
-    else{
-      this.props.increment(this.props.match.params.quizId, activeStep);
-    }
-    this.setState({loadingAnswers:true});
+    increment(this.props.match.params.quizId, activeStep);
     nextQuestion(activeStep);
   };
+
+  handleQuestionStatus(status){
+    const { changeQuestionStatus, questionClosed, midQuizEdit } = this.props;
+    questionClosed(this.props.match.params.quizId, status);
+    changeQuestionStatus(status);
+    if(status === false){
+      midQuizEdit(this.props.match.params.quizId);
+      this.setState({backFromLeaderboard:true});
+    }
+  }
+
+  handleExit = () => {
+    const {questionClosed, resetIndex} = this.props;
+    questionClosed(this.props.match.params.quizId, false);
+    resetIndex(this.props.match.params.quizId);
+  }
 
   handleVote = answerId => {
     this.props.increaseVoteCount();
   };
 
   render() {
-    const { questions, activeStep, voteCount, answers } = this.props;
+    const { questions, activeStep, voteCount, answers, closeQuestion, loadingAnswers, loadingQuestions } = this.props;
     return (
       <div>
       <AppbarClass history={this.props.history} />
-      {this.state.loadingAnswers === false &&
-        <QuizPage
-          questions={questions}
-          onClick={this.handleNext}
-          activeStep={activeStep}
-          vote={this.handleVote}
-          voteCount={voteCount}
-          answers={answers}
-        />
+      {closeQuestion === false &&
+        <div>
+        {loadingAnswers === false && loadingQuestions === false?
+          <QuizPage
+            questions={questions}
+            onClick={this.handleNext}
+            activeStep={activeStep}
+            vote={this.handleVote}
+            voteCount={voteCount}
+            answers={answers}
+            owner={this.state.owner}
+          />
+        :
+          <CircularProgress />
+        }
+        </div>
       }
-      {this.state.loadingAnswers === true &&
-        <CircularProgress />
+      {closeQuestion === true &&
+        <div>
+          {this.state.owner === true &&
+            <div>
+              <ProctorView handleExit={this.handleExit} onClick={this.handleQuestionStatus} questions={questions} activeStep={activeStep} quizId={this.props.match.params.quizId}/>
+            </div>
+          }
+          {this.state.owner !== true &&
+            //this pops up for everyone except the proctor when he clicks next. Maybe display the correct answers or if they got it right or something like that
+            <CircularProgress />
+          }
+        </div>
       }
       </div>
     );
@@ -88,7 +129,8 @@ class Quiz extends Component {
 
 Quiz.propTypes = {
   questions: PropTypes.array.isRequired,
-  answers: PropTypes.array.isRequired
+  answers: PropTypes.array.isRequired,
+  loadingAnswers: PropTypes.bool.isRequired
 };
 
 export default connect(
@@ -97,7 +139,11 @@ export default connect(
     questions: state.question.questions,
     activeStep: state.quiz.activeStep,
     voteCount: state.question.voteCount,
-    answers: state.answer.answers
+    answers: state.answer.answers,
+    loadingAnswers: state.answer.loadingAnswers,
+    loadingQuestions: state.question.loadingQuestions,
+    closeQuestion: state.quiz.closeQuestion,
+    user: state.user
   }),
   {
     fetchQuestions,
@@ -107,6 +153,11 @@ export default connect(
     fetchAllAnswers,
     getQuestionIndex,
     increment,
-    resetIndex
+    resetIndex,
+    questionClosed,
+    getQuestionStatus,
+    changeQuestionStatus,
+    midQuizEdit,
+    updateAllAnswers
   }
 )(Quiz);

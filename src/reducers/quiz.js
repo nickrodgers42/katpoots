@@ -6,14 +6,18 @@ import {
   INCREMENT_QUESTION,
   RESET_INDEX,
   USER_JOINED,
-  SET_QUIZ_ID
+  SET_QUIZ_ID,
+  QUESTION_STATUS,
+  CHANGE_QUESTION_STATUS,
+  UPDATE_QUESTION_STATUS
 } from "../actions/quiz";
 
 // We need to set an initial state while we wait for the response or we will get errors
 const initialState = {
   quizzes: [],
   activeStep: -1,
-  users: []
+  users: [],
+  closeQuestion: null
 };
 
 export default function quiz(state = initialState, action) {
@@ -41,6 +45,13 @@ export default function quiz(state = initialState, action) {
       return {
         ...state,
         quizId: action.quizId
+      };
+    case QUESTION_STATUS:
+    case CHANGE_QUESTION_STATUS:
+    case UPDATE_QUESTION_STATUS:
+      return {
+        ...state,
+        closeQuestion: action.closeQuestion
       };
     default:
       return state;
