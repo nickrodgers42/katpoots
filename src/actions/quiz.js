@@ -5,6 +5,8 @@ import axios from "axios";
 export const GET_QUIZZES = "GET_QUIZZES";
 export const NEXT_QUESTION = "NEXT_QUESTION";
 export const GO_TO_NEXT_QUESTION = "GO_TO_NEXT_QUESTION";
+export const CHANGE_QUESTION_STATUS = "CHANGE_QUESTION_STATUS";
+export const UPDATE_QUESTION_STATUS = "UPDATE_QUESTION_STATUS";
 
 // We don't need to export these because they don't have any side-effects
 // Because we will dispatch ge fetchQuizzes action after to update the state
@@ -37,6 +39,31 @@ export const increment = (id, currentIndex) => dispatch => {
       index: res.data.questionIndex
     })
   )
+}
+
+export const QUESTION_STATUS = "GET_QUESTION_STATUS";
+export const questionClosed = (id, status) => dispatch => {
+  let closed = status;
+  const quiz = {
+    closeQuestion:closed
+  }
+  axios.put(`/api/quiz/${id}`, quiz)
+  .then(res =>
+    dispatch({
+      type: QUESTION_STATUS,
+      closeQuestion: res.data.closeQuestion
+    })
+  )
+}
+
+export const getQuestionStatus = (id) => dispatch => {
+  axios
+    .get(`/api/quiz/${id}`)
+    .then(res =>
+      dispatch({
+        type: QUESTION_STATUS,
+        closeQuestion: res.data.closeQuestion
+      }));
 }
 
 export const RESET_INDEX = "RESET_INDEX";
@@ -77,6 +104,18 @@ export const editQuiz = (id) => dispatch => {
 function getQuizzes(quizzes) {
   return { type: GET_QUIZZES, quizzes };
 }
+
+export const changeQuestionStatus = status => dispatch =>
+  dispatch({
+    type: CHANGE_QUESTION_STATUS,
+    closeQuestion: status
+  })
+
+export const updateQuestionStatus = closeQuestion => dispatch =>
+  dispatch({
+    type: UPDATE_QUESTION_STATUS,
+    closeQuestion
+  });
 
 export const nextQuestion = index => dispatch =>
   dispatch({
