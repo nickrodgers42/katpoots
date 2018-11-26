@@ -5,7 +5,8 @@ import {
   GET_QUESTION_INDEX,
   INCREMENT_QUESTION,
   RESET_INDEX,
-  USER_JOINED
+  USER_JOINED,
+  SET_QUIZ_ID
 } from "../actions/quiz";
 
 // We need to set an initial state while we wait for the response or we will get errors
@@ -35,6 +36,11 @@ export default function quiz(state = initialState, action) {
       return {
         ...state,
         users: [...state.users, action.student]
+      };
+    case SET_QUIZ_ID:
+      return {
+        ...state,
+        quizId: action.quizId
       };
     default:
       return state;

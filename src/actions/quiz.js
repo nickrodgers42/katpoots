@@ -7,6 +7,7 @@ export const NEXT_QUESTION = "NEXT_QUESTION";
 export const GO_TO_NEXT_QUESTION = "GO_TO_NEXT_QUESTION";
 export const USER_JOINED = "USER_JOINED";
 export const ADD_USER = "ADD_USER";
+export const SET_QUIZ_ID = "SET_QUIZ_ID";
 
 // We don't need to export these because they don't have any side-effects
 // Because we will dispatch ge fetchQuizzes action after to update the state
@@ -14,6 +15,14 @@ export const ADD_USER = "ADD_USER";
 const DELETE_QUIZ = "DELETE_QUIZ";
 const ADD_QUIZ = "ADD_QUIZ";
 const EDIT_QUIZ = "EDIT_QUIZ";
+
+export function setQuizId(quizId) {
+  return dispatch =>
+    dispatch({
+      type: SET_QUIZ_ID,
+      quizId
+    });
+}
 
 export function joinQuiz(values) {
   return dispatch =>

@@ -18,9 +18,11 @@ const styles = {
   }
 };
 
-const isPinValid = async (pin, errors) => {
+const isPinValid = async (values, errors) => {
   try {
-    await axios.get(`/api/quiz/findByPin/${pin}`);
+    const quiz = await axios.get(`/api/quiz/findByPin/${values.pin}`);
+    console.log(quiz);
+    // await setQuizId(quiz._id);
     return errors;
   } catch (e) {
     return Object.assign({}, errors, { pin: "Pin Is Invalid" });
@@ -36,7 +38,7 @@ function JoinCard(props) {
         errors[key] = "Required";
       }
     });
-    return isPinValid(values.pin, errors);
+    return isPinValid(values, errors);
   };
   return (
     <Grid container className={classes.root} spacing={16}>
@@ -106,7 +108,8 @@ function JoinCard(props) {
 
 JoinCard.propTypes = {
   classes: PropTypes.object.isRequired,
-  joinQuiz: PropTypes.func.isRequired
+  joinQuiz: PropTypes.func.isRequired,
+  setQuizId: PropTypes.func.isRequired
 };
 
 export default withStyles(styles)(JoinCard);

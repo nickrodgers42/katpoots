@@ -9,23 +9,25 @@ module.exports = function(server) {
   server.delete("/api/quiz/:quizId", ensureLoggedIn(), deleteQuiz);
   server.put("/api/quiz/:quizId/", updateQuiz);
   server.get("/api/quizzes", ensureLoggedIn(), getQuizzes);
-  server.get("/api/findByPin/:pin", findByPin);
+  server.get("/api/quiz/findByPin/:pin", findByPin);
 };
 
 async function findByPin(req, res, next) {
   try {
     const models = await loadModels();
-    const pin = req.params.pin;
+    if (!req.params.pin) {
+      return next();
+    }
+    const pin = Number(req.params.pin);
     const quiz = await models.quiz.findOne({ pin });
     if (!quiz) {
-      res.status(404).send({ error: `Quiz with ID ${quizId} not found!` });
+      res.status(404).send({ error: `Quiz with pin ${pin} not found!` });
       return next();
     }
     res.json(quiz);
     next();
   } catch (e) {
-    res.status(500).send({ error: e.message });
-    next(e);
+    return next();
   }
 }
 

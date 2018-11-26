@@ -1,4 +1,4 @@
-import { loadModels } from "../db";
+import { loadModels } from "./index";
 //just needed at the head of everything for some reason
 let mongoose = require("mongoose");
 // below is to make sure nothing is identical, that could cause issue

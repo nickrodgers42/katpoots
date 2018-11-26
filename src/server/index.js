@@ -25,10 +25,12 @@ wss.on("connection", async ws => {
         return ws.send({ type: "QUIZ_STARTED", pin: quiz.pin });
       case "ADD_USER":
         const { pin, displayName } = data;
-        quiz = await models.quiz.findOne({ pin });
+        quiz = await models.quiz.findOne({ pin: Number(pin) });
+        console.log(quiz);
         student = await new models.student({
           displayName
         }).save();
+        console.log(student);
         return broadcast({ type: "USER_JOINED", student });
       case "INCREASE_VOTE_COUNT":
         return broadcast({ type: "VOTE_COUNTED" }, ws);
