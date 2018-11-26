@@ -1,6 +1,8 @@
 import React from "react";
 import { withStyles, TextField, Grid } from "@material-ui/core";
 import AppBarComponent from "../appbar/appbar-class";
+import PinHolder from "./pinholder"
+import UserList from "./userlist"
 
 const styles = theme => ({
     
@@ -14,10 +16,10 @@ const PinPage = props => {
             <AppBarComponent history={ props.history }/>
         </div>
         <div>
-            <p>Butt</p>
+            <PinHolder/>
         </div>
         <div>
-            <p>Hole</p>
+            <UserList/>
         </div>
     </div>
   );
