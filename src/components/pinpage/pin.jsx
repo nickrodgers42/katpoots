@@ -17,8 +17,20 @@ class Pin extends Component {
     }
 
     render() {
-        return <PinPage/>
-    }
+        return (
+          <div>
+            <PinPage
+              history= {this.props.history}
+            />
+          </div>
+        );
+      }
+    // render() {
+    //     const { history } = this.history;
+    //     return (<PinPage history={history}
+    //     />)
+        
+    // };
 }
 
 export default Pin;//connect()(Pin);

@@ -11,7 +11,7 @@ const PinPage = props => {
   return (
     <div id = "pinGridDiv">
         <div>
-            <AppBarComponent/>
+            <AppBarComponent history={ props.history }/>
         </div>
         <div>
             <p>Butt</p>
