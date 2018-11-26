@@ -5,6 +5,11 @@ import Button from "@material-ui/core/Button";
 import AnswerModal from "../userpage/answer-modal";
 import { addQuestion, deleteQuestion } from "../../actions/question";
 import { midQuizEdit } from "../../actions/question";
+import { Typography } from "@material-ui/core";
+import Grid from "@material-ui/core/Grid";
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
 
 class ProctorView extends Component {
     constructor(props){
@@ -58,26 +63,41 @@ class ProctorView extends Component {
     render(){
         const {onClick, handleExit, activeStep, questions, quizId} = this.props;
         return(
-            <span>
-            {activeStep !== questions.length ?
-                <span>
-                    <Button variant="contained" color="primary" onClick={this.exitProctor}>Next </Button>
-                    <Button variant="contained" color="primary" onClick={()=>{this.handleOpen(activeStep)}}> View Next Question</Button>
-                    <Button variant="contained" color="primary" onClick={this.handleNewQuestion}>Add Question </Button>
-                </span>
-            :   <span>
-                    <Button variant="contained" color="primary" onClick={handleExit}>Exit </Button>
-                </span>
-            }
-            {this.state.open === true &&
-                <AnswerModal
-                    open={this.state.open}
-                    question={questions[this.state.index]}
-                    handleClose={this.handleClose}
-                    handleDelete={this.handleDelete}
-                />
-            }
-            </span>
+            <Grid 
+                container
+                style={{height: "90vh"}}
+                justify="center"
+                alignItems="center"
+            >
+                <Grid item>
+                    <Card>
+                        <CardContent>
+                            <Typography variant="h4">
+                                Leaderboard or Something
+                            </Typography>
+                        </CardContent>
+                        {activeStep !== questions.length ?
+                            <CardActions>
+                                <Button variant="contained" color="primary" onClick={this.exitProctor}>Next </Button>
+                                <Button variant="contained" color="primary" onClick={() => { this.handleOpen(activeStep) }}> View Next Question</Button>
+                                <Button variant="contained" color="primary" onClick={this.handleNewQuestion}>Add Question </Button>
+                            </CardActions>
+                            : <CardActions>
+                                <Button variant="contained" color="primary" onClick={handleExit}>Exit </Button>
+                            </CardActions>
+                        }
+                    </Card>
+                </Grid>
+                {this.state.open === true &&
+                    <AnswerModal
+                        open={this.state.open}
+                        question={questions[this.state.index]}
+                        handleClose={this.handleClose}
+                        handleDelete={this.handleDelete}
+                    />
+                }
+            </Grid>
+            
         )
     }
 }

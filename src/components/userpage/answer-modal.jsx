@@ -12,6 +12,12 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { fetchAllAnswers, addAnswer, deleteAnswer, editAnswer } from "../../actions/answer";
 import { editQuestion } from "../../actions/question";
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import DeleteIcon from '@material-ui/icons/Delete';
+
+
 
 const styles = theme => ({
     paper: {
@@ -44,6 +50,16 @@ const styles = theme => ({
     button: {
       marginRight: 10,
       marginTop: 10
+    },
+    card: {
+        maxWidth: "400px",
+        margin: "auto",
+    },
+    grid: {
+        height: "100vh"
+    },
+    gridItem:{
+        padding: "10px 0"
     }
   });
 
@@ -165,41 +181,64 @@ class AnswerModal extends Component {
             <div>
                 {this.state.loadedStoredAnswers === true &&
                 <Modal open={open}>
-                    <div className={classes.paper}>
-                        <Typography variant="h6" id="modal-title">
-                            <div>
-                            <TextField
-                                label="Question Title"
-                                defaultValue={this.state.questionText}
-                                onChange={this.handleChangeQuestion()}
-                            />
-                            </div>
-                            <Button onClick={this.addAnswer}> Add Answer </Button>
-                            {this.state.answers && this.state.deletedAnswer === false ? this.state.answers.map((answer, index) =>(
-                                <div>
-                                    <TextField
-                                    required
-                                    label={"Answer " + (index + 1)}
-                                    defaultValue={answer.answerText}
-                                    onChange={this.handleChangeAnswer(index)}
-                                    />
-                                    <FormControlLabel
-                                    control={
-                                        <Checkbox
-                                        defaultChecked={answer.correctAnswer}
-                                        onChange={this.handleCheck(index)}
-                                        />
-                                    }
-                                    label="Correct?"
-                                    />
-                                    <Button onClick={()=>{this.deleteAnswer(answer, index)}}> <Delete /></Button>
-                                </div>
-                            )):null}
-                        </Typography>
-                        <Button className={[classes.save, classes.button]} onClick={this.handleSave}> Save </Button>
-                        <Button className={[classes.delete, classes.button]} onClick={()=>{this.clearData(true)}}>Delete</Button>
-                        <Button className={[classes.cancel, classes.button]} onClick={()=>{this.clearData(false)}}> Cancel Edit </Button>
-                    </div>
+                    <Grid container className={classes.grid} justify="center" alignItems="center">
+                        <Grid item>
+                            <Card className={classes.card}>
+                                <CardContent>
+                                    <Grid container direction="column" justify="flex-start" alignItems="stretch">
+                                        <Grid item className={classes.gridItem}>
+                                            <Typography variant="h5" id="modal-title">
+                                                Edit Questions
+                                            </Typography>
+                                        </Grid>
+                                        <Grid item className={classes.gridItem}>
+                                            <TextField
+                                                label="Question Title"
+                                                defaultValue={this.state.questionText}
+                                                onChange={this.handleChangeQuestion()}
+                                            />
+                                        </Grid>
+                                        <Grid item className={classes.gridItem}>
+                                            <Button
+                                                onClick={this.addAnswer}
+                                                variant="contained"
+                                            >
+                                                Add Answer
+                                            </Button>
+                                        </Grid>
+                                            {this.state.answers && this.state.deletedAnswer === false ? this.state.answers.map((answer, index) => (
+                                                <Grid item className={classes.gridItem}>
+                                                    <TextField
+                                                        required
+                                                        label={"Answer " + (index + 1)}
+                                                        defaultValue={answer.answerText}
+                                                        onChange={this.handleChangeAnswer(index)}
+                                                    />
+                                                    <FormControlLabel
+                                                        control={
+                                                            <Checkbox
+                                                                defaultChecked={answer.correctAnswer}
+                                                                onChange={this.handleCheck(index)}
+                                                            />
+                                                        }
+                                                        label="Correct?"
+                                                    />
+                                                    <Button variant="contained" className={classes.delete} onClick={() => { this.deleteAnswer(answer, index) }}> <Delete /></Button>
+                                                </Grid>
+                                            )) : null}
+                                    </Grid>
+                                </CardContent>
+                                <CardActions>
+                                    <Button className={[classes.save, classes.button]} onClick={this.handleSave}> Save </Button>
+                                    <Button className={[classes.delete, classes.button]} onClick={() => { this.clearData(true) }}>
+                                        Delete &nbsp; 
+                                        <DeleteIcon className={classes.icon} />
+                                    </Button>
+                                    <Button className={[classes.cancel, classes.button]} onClick={() => { this.clearData(false) }}> Cancel Edit </Button>
+                                </CardActions>
+                            </Card>
+                        </Grid>
+                    </Grid>
                 </Modal>
                 }
                 {this.state.loadedStoredAnswers === false && open===true &&

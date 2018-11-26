@@ -113,7 +113,6 @@ class Quiz extends Component {
         <div>
           {this.state.owner === true &&
             <div>
-              <h2> leaderboard or something... </h2>
               <ProctorView handleExit={this.handleExit} onClick={this.handleQuestionStatus} questions={questions} activeStep={activeStep} quizId={this.props.match.params.quizId}/>
             </div>
           }
