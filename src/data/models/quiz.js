@@ -1,3 +1,4 @@
+import { loadModels } from "./index";
 //just needed at the head of everything for some reason
 let mongoose = require("mongoose");
 // below is to make sure nothing is identical, that could cause issue
@@ -14,10 +15,26 @@ var QuizSchema = new mongoose.Schema({
   parent: { type: mongoose.SchemaTypes.ObjectId },
   //array of users that will represent who is in the quiz
   users: [mongoose.SchemaTypes.ObjectId],
+  pin: Number,
+  questionIndex: { type: Number, default: 0 },
+  closeQuestion: { type: Boolean, default: false }
+});
 
-  questionIndex: {type: Number, default: 0},
+async function getNextPin() {
+  const models = await loadModels();
+  let pinExists;
+  let pin;
 
-  closeQuestion: {type: Boolean, default: false}
+  do {
+    pin = (Math.random() * 1e6).toFixed(0);
+    pinExists = Boolean(await models.quiz.findOne({ pin }));
+  } while (pinExists);
+
+  return pin;
+}
+
+QuizSchema.pre("save", async function() {
+  this.pin = await getNextPin();
 });
 
 QuizSchema.pre("remove", async function() {
