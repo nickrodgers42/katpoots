@@ -22,13 +22,13 @@ class HomepagePage extends Component {
     this.props.history.push("/login");
   }
 
+  logout() {
+    this.props.logoutUser();
+  }
+
   joinQuizAndRedirect(values) {
     this.props.joinQuiz(values);
     this.props.history.push(`/quiz/${this.props.quizId}`);
-  }
-
-  logout() {
-    this.props.logoutUser();
   }
 
   render() {
@@ -38,7 +38,7 @@ class HomepagePage extends Component {
         <Homepage
           logout={this.logout}
           history={this.props.history}
-          joinQuiz={this.props.joinQuizAndRedirect}
+          joinQuiz={this.joinQuizAndRedirect}
           user={user}
           setQuizId={this.props.setQuizId}
         />

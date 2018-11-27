@@ -17,7 +17,8 @@ const initialState = {
   quizzes: [],
   activeStep: -1,
   users: [],
-  closeQuestion: null
+  closeQuestion: null,
+  quizId: null
 };
 
 export default function quiz(state = initialState, action) {
