@@ -24,7 +24,7 @@ function HomePage(props) {
     <div className={classes.root}>
       <AppBarComponent history={props.history} />
       <Grid className={classes.grid} container justify="center" alignItems="center">
-        <JoinCard joinQuiz={props.joinQuiz} setQuizId={props.setQuizId} />
+        <JoinCard joinQuiz={props.joinQuiz} setQuiz={props.setQuiz} />
       </Grid>
     </div>
   );
@@ -33,7 +33,7 @@ function HomePage(props) {
 HomePage.propTypes = {
   user: PropTypes.object,
   joinQuiz: PropTypes.func.isRequired,
-  setQuizId: PropTypes.func.isRequired
+  setQuiz: PropTypes.func.isRequired
 };
 
 export default withStyles(styles)(HomePage);

@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import Homepage from "./homepage";
 import PropTypes from "prop-types";
 import { logoutUser } from "../../actions/user";
-import { joinQuiz, setQuizId } from "../../actions/quiz";
+import { joinQuiz, setQuiz } from "../../actions/quiz";
 
 class HomepagePage extends Component {
   constructor(props) {
@@ -40,7 +40,7 @@ class HomepagePage extends Component {
           history={this.props.history}
           joinQuiz={this.joinQuizAndRedirect}
           user={user}
-          setQuizId={this.props.setQuizId}
+          setQuiz={this.props.setQuiz}
         />
       </div>
     );
@@ -55,12 +55,12 @@ export default connect(
   state => {
     return {
       user: state.user,
-      quizId: state.quiz.quizId
+      quizId: state.quiz.currentQuiz._id
     };
   },
   {
     joinQuiz,
     logoutUser,
-    setQuizId
+    setQuiz
   }
 )(HomepagePage);

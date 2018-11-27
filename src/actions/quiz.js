@@ -7,7 +7,7 @@ export const NEXT_QUESTION = "NEXT_QUESTION";
 export const GO_TO_NEXT_QUESTION = "GO_TO_NEXT_QUESTION";
 export const USER_JOINED = "USER_JOINED";
 export const ADD_USER = "ADD_USER";
-export const SET_QUIZ_ID = "SET_QUIZ_ID";
+export const SET_QUIZ = "SET_QUIZ";
 export const CHANGE_QUESTION_STATUS = "CHANGE_QUESTION_STATUS";
 export const UPDATE_QUESTION_STATUS = "UPDATE_QUESTION_STATUS";
 
@@ -18,11 +18,11 @@ const DELETE_QUIZ = "DELETE_QUIZ";
 const ADD_QUIZ = "ADD_QUIZ";
 const EDIT_QUIZ = "EDIT_QUIZ";
 
-export function setQuizId(quizId) {
+export function setQuiz(quiz) {
   return dispatch =>
     dispatch({
-      type: SET_QUIZ_ID,
-      quizId
+      type: SET_QUIZ,
+      quiz
     });
 }
 

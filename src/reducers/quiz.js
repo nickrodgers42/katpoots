@@ -6,7 +6,7 @@ import {
   INCREMENT_QUESTION,
   RESET_INDEX,
   USER_JOINED,
-  SET_QUIZ_ID,
+  SET_QUIZ,
   QUESTION_STATUS,
   CHANGE_QUESTION_STATUS,
   UPDATE_QUESTION_STATUS
@@ -18,7 +18,9 @@ const initialState = {
   activeStep: -1,
   users: [],
   closeQuestion: null,
-  quizId: null
+  currentQuiz: {
+    _id: null
+  }
 };
 
 export default function quiz(state = initialState, action) {
@@ -42,10 +44,10 @@ export default function quiz(state = initialState, action) {
         ...state,
         users: [...state.users, action.student]
       };
-    case SET_QUIZ_ID:
+    case SET_QUIZ:
       return {
         ...state,
-        quizId: action.quizId
+        currentQuiz: action.quiz
       };
     case QUESTION_STATUS:
     case CHANGE_QUESTION_STATUS:
