@@ -45,7 +45,6 @@ async function getQuizzes(req, res, next) {
 
 async function getQuiz(req, res, next) {
   try {
-    console.log(req.params);
     const models = await loadModels();
     let quiz = await models.quiz.findById(req.params.quizId).populate({
       path: "questions",

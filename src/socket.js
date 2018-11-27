@@ -7,7 +7,6 @@ const setupSocket = dispatch => {
 
   socket.onmessage = event => {
     const data = JSON.parse(event.data);
-    console.log(data);
     switch (data.type) {
       case "USER_JOINED":
       case "VALID_PIN":
