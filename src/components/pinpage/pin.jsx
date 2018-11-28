@@ -15,6 +15,10 @@ class Pin extends Component {
 
   componentDidUpdate(prevProps) {}
 
+  redirectToQuiz = pin => {
+    
+  }
+
   render() {
     return (
       <div>
