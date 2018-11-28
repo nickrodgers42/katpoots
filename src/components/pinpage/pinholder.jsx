@@ -20,7 +20,7 @@ const PinHolder = props => {
         <div>
             <Grid container className={classes.grid}>
                 <Grid item  className={classes.button}>
-                    <Button>This Will Hold the Pin!</Button>
+                    <Button variant="contained">This Will Hold the Pin!</Button>
                 </Grid>
             </Grid>
         </div>

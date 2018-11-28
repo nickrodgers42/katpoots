@@ -23,7 +23,7 @@ const styles = theme => ({
   },
   button: {
     backgroundColor: "#f44336"
-  }
+  },
 });
 
 const CreateQuiz = props => {
@@ -37,7 +37,7 @@ const CreateQuiz = props => {
             </Grid>
             <Grid container className={classes.responsive} spacing={16}>
                 <Grid item>
-                    <Field 
+                    <Field
                         name="quizTitle" 
                         component={TextField}
                         type="text" 
