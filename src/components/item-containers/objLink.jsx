@@ -11,7 +11,7 @@ import PropTypes from "prop-types";
 
 const styles = theme => ({
   button: {
-    margin: 5
+    margin: 5,
   },
   green: {
     backgroundColor: green[500]
@@ -27,7 +27,8 @@ const styles = theme => ({
   },
   objTitle: {
     fontSize: 40,
-    marginRight: "10px"
+    marginRight: "10px",
+    color: '#fff'
   },
   flex: {
     display: "flex",

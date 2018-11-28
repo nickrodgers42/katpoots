@@ -15,7 +15,8 @@ const styles = theme => ({
     textAlign: "center",
     gutterBottom: "true",
     backgroundColor: "#3f51b5",
-    padding: 10
+    padding: 10,
+    color: '#fff',
   },
   responsive: {
     margin: 20
