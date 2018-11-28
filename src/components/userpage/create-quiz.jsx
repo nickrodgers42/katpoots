@@ -15,14 +15,15 @@ const styles = theme => ({
     textAlign: "center",
     gutterBottom: "true",
     backgroundColor: "#3f51b5",
-    padding: 10
+    padding: 10,
+    color: '#fff',
   },
   responsive: {
     margin: 20
   },
   button: {
     backgroundColor: "#f44336"
-  }
+  },
 });
 
 const CreateQuiz = props => {
@@ -36,7 +37,7 @@ const CreateQuiz = props => {
             </Grid>
             <Grid container className={classes.responsive} spacing={16}>
                 <Grid item>
-                    <Field 
+                    <Field
                         name="quizTitle" 
                         component={TextField}
                         type="text" 
