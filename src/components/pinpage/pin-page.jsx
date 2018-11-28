@@ -5,7 +5,9 @@ import PinHolder from "./pinholder"
 import UserList from "./userlist"
 
 const styles = theme => ({
-    
+    container: {
+        height: '90vh'
+    }
 })
 
 const PinPage = props => {
@@ -15,12 +17,14 @@ const PinPage = props => {
         <div>
             <AppBarComponent history={ props.history }/>
         </div>
-        <div>
-            <PinHolder/>
-        </div>
-        <div>
-            <UserList/>
-        </div>
+        <Grid container justify="center" alignItems="center" direction="column" className={classes.container}>
+            <Grid item>
+                <PinHolder/>
+            </Grid>
+            <Grid item>
+                <UserList/>
+            </Grid>
+        </Grid>
     </div>
   );
 };
