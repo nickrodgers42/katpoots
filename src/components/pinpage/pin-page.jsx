@@ -11,7 +11,7 @@ const styles = theme => ({
 })
 
 const PinPage = props => {
-  const { classes } = props;
+  const { classes, currentQuiz } = props;
   return (
     <div id = "pinGridDiv">
         <div>
@@ -19,7 +19,7 @@ const PinPage = props => {
         </div>
         <Grid container justify="center" alignItems="center" direction="column" className={classes.container}>
             <Grid item>
-                <PinHolder/>
+                <PinHolder pin={currentQuiz.pin}/>
             </Grid>
             <Grid item>
                 <UserList/>

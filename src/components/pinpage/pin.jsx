@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import PinPage from "./pin-page";
 import Grid from '@material-ui/core/Grid'
+import { fetchQuiz } from "../../actions/quiz";
 
 class Pin extends Component {
   constructor(props) {
@@ -10,22 +11,43 @@ class Pin extends Component {
   }
 
   state = {
+    loadingPin: true,
     usersConnected: false
   };
 
-  componentDidUpdate(prevProps) {}
+  componentWillMount() {
+    const {
+      fetchQuiz,
+      match: {
+        params: { quizId }
+      }
+    } = this.props;
+    fetchQuiz(this.props.quizId || quizId);
+  }
 
-  redirectToQuiz = pin => {
-    
+  componentDidUpdate(prevProps) {
+    if (this.props.currentQuiz !== prevProps.currentQuiz){
+      this.setState({loadingPin: false});
+    }
   }
 
   render() {
+    const { currentQuiz } = this.props;
     return (
       <div>
-        <PinPage history={this.props.history} />
+        {this.state.loadingPin === false &&
+          <PinPage history={this.props.history} currentQuiz={currentQuiz} />
+        }
       </div>
     );
   }
 }
 
-export default Pin; //connect()(Pin);
+export default connect(
+  state => ({
+    currentQuiz: state.quiz.currentQuiz,
+  }),
+  {
+    fetchQuiz
+  }
+)(Pin); //connect()(Pin);
