@@ -3,6 +3,7 @@ import { withStyles, TextField, Grid } from "@material-ui/core";
 import AppBarComponent from "../appbar/appbar-class";
 import PinHolder from "./pinholder"
 import UserList from "./userlist"
+import {Button} from "@material-ui/core"
 
 const styles = theme => ({
     container: {
@@ -11,7 +12,7 @@ const styles = theme => ({
 })
 
 const PinPage = props => {
-  const { classes, currentQuiz } = props;
+  const { classes, currentQuiz, startQuiz } = props;
   return (
     <div id = "pinGridDiv">
         <div>
@@ -24,6 +25,7 @@ const PinPage = props => {
             <Grid item>
                 <UserList/>
             </Grid>
+            <Button onClick={startQuiz}>Start</Button>
         </Grid>
     </div>
   );
