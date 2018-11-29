@@ -1,5 +1,5 @@
 import { voteCounted, resetVotes, fetchQuestions } from "./actions/question";
-import { goToNextQuestion, updateQuestionStatus } from "./actions/quiz";
+import { goToNextQuestion, updateQuestionStatus, userJoined } from "./actions/quiz";
 import { fetchAllAnswers } from "./actions/answer";
 
 const setupSocket = dispatch => {
@@ -7,10 +7,10 @@ const setupSocket = dispatch => {
 
   socket.onmessage = event => {
     const data = JSON.parse(event.data);
+    console.log(data);
     switch (data.type) {
       case "USER_JOINED":
-      case "VALID_PIN":
-        dispatch(data);
+        dispatch(userJoined(data.student));
         break;
       case "VOTE_COUNTED":
         dispatch(voteCounted());
