@@ -48,12 +48,7 @@
     "redux-saga": "^0.16.2",
     "redux-thunk": "^2.3.0",
     "typeface-roboto": "0.0.54",
-    "ws": "^6.1.0",
-    "@babel/cli": "^7.1.2",
-    "@babel/core": "^7.1.2",
-    "@babel/preset-env": "^7.1.0",
-    "babel-plugin-transform-decorators": "^6.24.1",
-    "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2"
+    "ws": "^6.1.0"
   },
   "scripts": {
     "start-socket": "babel src/server -d src/core/server && node src/core/server",
