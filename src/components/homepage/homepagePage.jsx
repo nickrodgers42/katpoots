@@ -28,7 +28,7 @@ class HomepagePage extends Component {
 
   joinQuizAndRedirect(values) {
     this.props.joinQuiz(values);
-    this.props.history.push(`/quiz/${this.props.quizId}`);
+    this.props.history.push(`/pin/${this.props.quizId}`);
   }
 
   render() {

@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import PinPage from "./pin-page";
 import Grid from '@material-ui/core/Grid'
 import { fetchQuiz } from "../../actions/quiz";
+import catGif from "../../assets/cat.gif"
 
 class Pin extends Component {
   constructor(props) {
@@ -12,7 +13,8 @@ class Pin extends Component {
 
   state = {
     loadingPin: true,
-    usersConnected: false
+    usersConnected: false,
+    owner: null
   };
 
   componentWillMount() {
@@ -29,14 +31,31 @@ class Pin extends Component {
     if (this.props.currentQuiz !== prevProps.currentQuiz){
       this.setState({loadingPin: false});
     }
+    if (this.state.owner === null && this.props.user.quizzes){
+      this.setState({owner: false});
+      for (let i in this.props.user.quizzes){
+        if(this.props.user.quizzes[i] === this.props.match.params.quizId){
+          this.setState({owner: true});
+        }
+      }
+    }
   }
 
   render() {
     const { currentQuiz } = this.props;
     return (
       <div>
-        {this.state.loadingPin === false &&
-          <PinPage history={this.props.history} currentQuiz={currentQuiz} />
+        {this.state.owner === true ?
+          <div>
+            {this.state.loadingPin === false &&
+              <PinPage history={this.props.history} currentQuiz={currentQuiz} />
+            }
+          </div>
+        : 
+          <div>
+            <h1> Welcome! </h1>
+            <img src={catGif}></img>
+          </div>
         }
       </div>
     );
@@ -46,6 +65,7 @@ class Pin extends Component {
 export default connect(
   state => ({
     currentQuiz: state.quiz.currentQuiz,
+    user: state.user
   }),
   {
     fetchQuiz
