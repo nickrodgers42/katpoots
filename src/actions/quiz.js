@@ -28,10 +28,20 @@ export function setQuiz(quiz) {
 
 export function joinQuiz(values) {
   return dispatch =>
+    axios.post("/api/student", { ...values }).then(data =>
+      dispatch({
+        type: ADD_USER,
+        ...values,
+        student: data.data
+      })
+    );
+}
+
+export function userJoined(student) {
+  return dispatch =>
     dispatch({
-      type: ADD_USER,
-      quizId: values.pin,
-      displayName: values.displayName
+      type: USER_JOINED,
+      student
     });
 }
 
