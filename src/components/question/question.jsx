@@ -7,7 +7,7 @@ import Typography from "@material-ui/core/Typography";
 import Answer from "../answer/answer";
 import AnswerCard from "../answer/answer-card";
 import CircularProgress from '@material-ui/core/CircularProgress';
-
+import catGif from "../../assets/cat.gif"
 
 const styles = theme => ({
   root: {
@@ -22,6 +22,9 @@ const styles = theme => ({
   },
   textField: {
     width: 400
+  },
+  loadingGif: {
+    height: "120px"
   },
   button: {
     margin: 20
@@ -88,7 +91,7 @@ const Question = props => {
         className={classes.answerGrid}
         spacing={24}
       >
-        {(answers && !answered) ? answerArray : <CircularProgress className={classes.spinner}/>}
+          {(answers && !answered) ? answerArray : <img className={classes.loadingGif} src={catGif} />}
 
       </Grid>
       </Grid>

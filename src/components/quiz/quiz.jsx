@@ -6,10 +6,19 @@ import { fetchAllAnswers, updateAllAnswers } from "../../actions/answer"
 import QuizPage from "./quiz-page";
 import { nextQuestion } from "../../actions/quiz";
 import AppbarClass from "../appbar/appbar-class";
-import CircularProgress from '@material-ui/core/CircularProgress';
 import { getQuestionIndex, increment, resetIndex, questionClosed, getQuestionStatus, changeQuestionStatus } from "../../actions/quiz";
 import ProctorView from "./proctor-view"
 import catGif from "../../assets/cat.gif"
+import Grid from '@material-ui/core/Grid';
+import { withStyles } from "@material-ui/core/styles";
+
+
+const styles = {
+  loadingContainer: {
+    height: "90vh"
+  }
+}
+
 
 class Quiz extends Component {
   constructor(props) {
@@ -22,7 +31,7 @@ class Quiz extends Component {
   state = {
       owner: null,
       backFromLeaderboard: false,
-  }
+  };
 
 
   componentWillMount() {
@@ -87,7 +96,7 @@ class Quiz extends Component {
   };
 
   render() {
-    const { questions, activeStep, voteCount, answers, closeQuestion, loadingAnswers, loadingQuestions } = this.props;
+    const { classes, questions, activeStep, voteCount, answers, closeQuestion, loadingAnswers, loadingQuestions } = this.props;
     return (
       <div>
       <AppbarClass history={this.props.history} />
@@ -104,7 +113,11 @@ class Quiz extends Component {
             owner={this.state.owner}
           />
         :
-          <img src={catGif} />
+          <Grid container justify="center" alignItems="center" className={classes.loadingContainer}>
+            <Grid item>
+              <img src={catGif} />
+            </Grid>
+          </Grid>
         }
         </div>
       }
@@ -116,7 +129,11 @@ class Quiz extends Component {
             </div>
           }
           {this.state.owner !== true &&
-            <img src={catGif} />
+            <Grid container justify="center" alignItems="center" className={classes.loadingContainer}>
+              <Grid item>
+                <img src={catGif} />
+              </Grid>
+            </Grid>
           }
         </div>
       }
@@ -159,4 +176,4 @@ export default connect(
     midQuizEdit,
     updateAllAnswers
   }
-)(Quiz);
+)(withStyles(styles)(Quiz));
