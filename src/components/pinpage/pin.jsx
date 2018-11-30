@@ -48,13 +48,14 @@ class Pin extends Component {
   }
 
   render() {
-    const { currentQuiz } = this.props;
+    const { currentQuiz, students} = this.props;
+    console.log(students);
     return (
       <div>
         {this.state.owner === true &&
           <div>
             {this.state.loadingPin === false &&
-              <PinPage history={this.props.history} currentQuiz={currentQuiz} startQuiz={this.startQuiz} />
+              <PinPage history={this.props.history} currentQuiz={currentQuiz} startQuiz={this.startQuiz} students={students} />
             }
           </div>
         }
@@ -71,7 +72,8 @@ Pin.propTypes = {
 export default connect(
   state => ({
     currentQuiz: state.quiz.currentQuiz,
-    user: state.user
+    user: state.user,
+    students: state.quiz.users
   }),
   {
     fetchQuiz,

@@ -12,7 +12,7 @@ const styles = theme => ({
 })
 
 const PinPage = props => {
-  const { classes, currentQuiz, startQuiz } = props;
+  const { classes, currentQuiz, startQuiz, students } = props;
   return (
     <div id = "pinGridDiv">
         <div>
@@ -23,7 +23,7 @@ const PinPage = props => {
                 <PinHolder pin={currentQuiz.pin}/>
             </Grid>
             <Grid item>
-                <UserList/>
+                <UserList students={students}/>
             </Grid>
             <Button onClick={startQuiz}>Start</Button>
         </Grid>
