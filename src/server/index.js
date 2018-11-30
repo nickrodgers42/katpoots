@@ -1,6 +1,5 @@
 require("@babel/polyfill");
 import WebSocket from "ws";
-import { loadModels } from "../data/models";
 
 const wss = new WebSocket.Server({ port: 8989 });
 
@@ -12,23 +11,13 @@ const broadcast = (data, ws) => {
   });
 };
 
-wss.on("connection", async ws => {
-  ws.on("message", async message => {
-    const models = await loadModels();
+wss.on("connection", ws => {
+  ws.on("message", message => {
     const data = JSON.parse(message);
-    let quiz;
-    let student;
+    console.log(data);
     switch (data.type) {
-      case "START_QUIZ":
-        quiz = await models.quiz.findById(data.quizId);
-        return ws.send({ type: "QUIZ_STARTED", pin: quiz.pin });
       case "ADD_USER":
-        const { pin, displayName } = data;
-        quiz = await models.quiz.findOne({ pin: Number(pin) });
-        student = await new models.student({
-          displayName
-        }).save();
-        return broadcast({ type: "USER_JOINED", student });
+        return broadcast({ type: "USER_JOINED", student: data.student });
       case "INCREASE_VOTE_COUNT":
         return broadcast({ type: "VOTE_COUNTED" }, ws);
       case "RESET_VOTE_COUNT":
