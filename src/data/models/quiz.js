@@ -17,7 +17,7 @@ var QuizSchema = new mongoose.Schema({
   users: [mongoose.SchemaTypes.ObjectId],
   pin: Number,
   questionIndex: { type: Number, default: 0 },
-  closeQuestion: { type: Boolean, default: false }
+  closeQuestion: { type: Boolean, default: true }
 });
 
 async function getNextPin() {

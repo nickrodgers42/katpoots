@@ -193,3 +193,14 @@ export function fetchQuizzes() {
     );
   };
 }
+
+export function fetchQuiz(quizId) {
+  return dispatch => {
+    return (
+      axios
+        .get(`/api/quiz/${quizId}`)
+        .then(res => res.data)
+        .then(currentQuiz => dispatch(setQuiz(currentQuiz)))
+    )
+  }
+}

@@ -21,14 +21,14 @@ const styles = theme => ({
 })
 
 const PinHolder = props => {
-    const { classes } = props;
+    const { classes, pin } = props;
     return (
         <div>
             <Grid container direction="column" alignItems="center">
                 <Grid item  className={classes.button}>
                     <Paper>
                         <Typography variant="h2" className={classes.paper}>
-                            Join This PIN!
+                            {pin}
                         </Typography>
                     </Paper>
                 </Grid>

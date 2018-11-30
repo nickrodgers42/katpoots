@@ -3,29 +3,81 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import PinPage from "./pin-page";
 import Grid from '@material-ui/core/Grid'
+import { fetchQuiz, questionClosed, resetIndex } from "../../actions/quiz";
 
 class Pin extends Component {
   constructor(props) {
     super(props);
+    this.startQuiz = this.startQuiz.bind(this);
   }
 
   state = {
-    usersConnected: false
+    loadingPin: true,
+    usersConnected: false,
+    owner: null
   };
 
-  componentDidUpdate(prevProps) {}
+  componentWillMount() {
+    const {
+      fetchQuiz,
+      match: {
+        params: { quizId }
+      }
+    } = this.props;
+    fetchQuiz(this.props.quizId || quizId);
+  }
 
-  redirectToQuiz = pin => {
-    
+  componentDidUpdate(prevProps) {
+    if (this.props.currentQuiz !== prevProps.currentQuiz){
+      this.setState({loadingPin: false});
+      this.props.questionClosed(this.props.currentQuiz._id, true);
+      this.props.resetIndex(this.props.currentQuiz._id);
+    }
+    if(this.state.owner === null && this.props.user.quizzes){
+      this.setState({owner:false});
+      for (let i in this.props.user.quizzes){
+        if(this.props.user.quizzes[i] === this.props.match.params.quizId){
+          this.setState({owner: true});
+        }
+      }
+    }
+  }
+
+  startQuiz(){
+    this.props.history.push(`/quiz/${this.props.currentQuiz._id}`);
   }
 
   render() {
+    const { currentQuiz, students} = this.props;
+    console.log(students);
     return (
       <div>
-        <PinPage history={this.props.history} />
+        {this.state.owner === true &&
+          <div>
+            {this.state.loadingPin === false &&
+              <PinPage history={this.props.history} currentQuiz={currentQuiz} startQuiz={this.startQuiz} students={students} />
+            }
+          </div>
+        }
       </div>
     );
   }
 }
 
-export default Pin; //connect()(Pin);
+Pin.propTypes = {
+  history: PropTypes.object.isRequired,
+  currentQuiz: PropTypes.object.isRequired
+}
+
+export default connect(
+  state => ({
+    currentQuiz: state.quiz.currentQuiz,
+    user: state.user,
+    students: state.quiz.users
+  }),
+  {
+    fetchQuiz,
+    questionClosed,
+    resetIndex
+  }
+)(Pin);

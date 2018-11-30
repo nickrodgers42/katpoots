@@ -6,10 +6,15 @@ const styles = theme => ({
 })
 
 const UserList = props => {
-    const {classes} = props;
+    const {classes, students} = props;
+    console.log(students);
     return (
         <div>
-            <p>This will hold the list of users!</p>
+            {students.map(student =>{
+                return(
+                <p>{student.displayName}</p>
+                )
+            })}
         </div>
     )
 }

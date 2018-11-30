@@ -9,6 +9,7 @@ import AppbarClass from "../appbar/appbar-class";
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { getQuestionIndex, increment, resetIndex, questionClosed, getQuestionStatus, changeQuestionStatus } from "../../actions/quiz";
 import ProctorView from "./proctor-view"
+import catGif from "../../assets/cat.gif"
 
 class Quiz extends Component {
   constructor(props) {
@@ -78,9 +79,7 @@ class Quiz extends Component {
   }
 
   handleExit = () => {
-    const {questionClosed, resetIndex} = this.props;
-    questionClosed(this.props.match.params.quizId, false);
-    resetIndex(this.props.match.params.quizId);
+    this.props.history.push('/');
   }
 
   handleVote = answerId => {
@@ -105,7 +104,7 @@ class Quiz extends Component {
             owner={this.state.owner}
           />
         :
-          <CircularProgress />
+          <img src={catGif} />
         }
         </div>
       }
@@ -117,8 +116,7 @@ class Quiz extends Component {
             </div>
           }
           {this.state.owner !== true &&
-            //this pops up for everyone except the proctor when he clicks next. Maybe display the correct answers or if they got it right or something like that
-            <CircularProgress />
+            <img src={catGif} />
           }
         </div>
       }
@@ -130,7 +128,8 @@ class Quiz extends Component {
 Quiz.propTypes = {
   questions: PropTypes.array.isRequired,
   answers: PropTypes.array.isRequired,
-  loadingAnswers: PropTypes.bool.isRequired
+  loadingAnswers: PropTypes.bool.isRequired,
+  history: PropTypes.object.isRequired
 };
 
 export default connect(
