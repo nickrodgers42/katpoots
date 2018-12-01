@@ -125,6 +125,7 @@ class AnswerModal extends Component {
 
     handleChangeQuestion = () => event => {
         this.setState({questionText: event.target.value});
+        console.log()
     }
 
     handleChangeAnswer = index => event => {
@@ -149,7 +150,7 @@ class AnswerModal extends Component {
         }
         for(let i = 0; i < this.state.answers.length; i++){
             const newAnswer = {
-                answerText: this.state.answers[i].answerText,
+                answerText: this.state.answers[i].answerText === '' ? "New Answer" : this.state.answers[i].answerText,
                 correctAnswer: this.state.answers[i].correctAnswer
             }
             if (answers[i]){
