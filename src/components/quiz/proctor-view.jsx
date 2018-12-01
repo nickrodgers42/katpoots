@@ -59,7 +59,7 @@ class ProctorView extends Component {
     }
 
     render(){
-        const {onClick, handleExit, activeStep, questions, quizId} = this.props;
+        const {handleExit, activeStep, questions } = this.props;
         return(
             <Grid 
                 container

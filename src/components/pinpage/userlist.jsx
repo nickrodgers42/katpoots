@@ -6,7 +6,7 @@ const styles = theme => ({
 })
 
 const UserList = props => {
-    const {classes, students} = props;
+    const { students} = props;
     console.log(students);
     return (
         <div>
