@@ -22,10 +22,10 @@ const PinPage = props => {
             <Grid item>
                 <PinHolder pin={currentQuiz.pin}/>
             </Grid>
+            <Button onClick={startQuiz}>Start</Button>
             <Grid item>
                 <UserList students={students}/>
             </Grid>
-            <Button onClick={startQuiz}>Start</Button>
         </Grid>
     </div>
   );
