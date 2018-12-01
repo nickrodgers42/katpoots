@@ -8,6 +8,8 @@ import Answer from "../answer/answer";
 import AnswerCard from "../answer/answer-card";
 import CircularProgress from '@material-ui/core/CircularProgress';
 import catGif from "../../assets/cat.gif"
+import MediaQuery from 'react-responsive';
+
 
 const styles = theme => ({
   root: {
@@ -52,49 +54,81 @@ const Question = props => {
   
   return (
     <div>
-      <Grid
-        container
-        direction="row"
-        justify="flex-end"
-        alignItems="center"
-        className={classes.answerGrid}
-        spacing={24}
-      >
-          <Grid item xs={3}>
+      {/* Desktop */}
+      <MediaQuery minDeviceWidth={1224}>
+        <Grid
+          container
+          direction="row"
+          justify="flex-end"
+          alignItems="center"
+          className={classes.answerGrid}
+          spacing={24}
+        >
+            <Grid item xs={3}>
+              <Paper elevation={1}>
+                <Typography variant="h6" color="inherit" className={classes.grow}>
+                  Votes: {voteCount}
+                </Typography>
+              </Paper>
+            </Grid>
+        </Grid>
+        
+        <Grid 
+          container
+          direction="row"
+          justify="center"
+          alignItems="center"
+          className={classes.answerGrid}
+          spacing={24}
+        >
+          <Grid item xs={12}>
+            <Typography variant="h3" color="inherit" className={classes.grow}>
+              {(question && question.questionText) || ""}
+            </Typography>
+          </Grid>
+        <Grid 
+          item
+          container
+          direction="row"
+          justify="center"
+          alignItems="center"
+          className={classes.answerGrid}
+          spacing={24}
+        >
+            {(answers && !answered) ? answerArray : <img className={classes.loadingGif} src={catGif} />}
+
+        </Grid>
+        </Grid>
+      </MediaQuery>
+      {/* Mobile */}
+      <MediaQuery maxDeviceWidth={1224}>
+        <Grid container direction="column" justify="center" alignItems="flex-start">
+          <Grid item>
+            <Typography variant="h5" color="inherit" >
+              {(question && question.questionText) || ""}
+            </Typography>
+          </Grid>
+          {/* Uncomment this for the vote on mobile */}
+          {/* <Grid item>
             <Paper elevation={1}>
-              <Typography variant="h6" color="inherit" className={classes.grow}>
+              <Typography variant="p" color="inherit" className={classes.grow}>
                 Votes: {voteCount}
               </Typography>
             </Paper>
-          </Grid>
-      </Grid>
-      
-      <Grid 
-        container
-        direction="row"
-        justify="center"
-        alignItems="center"
-        className={classes.answerGrid}
-        spacing={24}
-      >
-        <Grid item xs={12}>
-          <Typography variant="h3" color="inherit" className={classes.grow}>
-            {(question && question.questionText) || ""}
-          </Typography>
-        </Grid>
-      <Grid 
-        item
-        container
-        direction="row"
-        justify="center"
-        alignItems="center"
-        className={classes.answerGrid}
-        spacing={24}
-      >
-          {(answers && !answered) ? answerArray : <img className={classes.loadingGif} src={catGif} />}
+          </Grid> */}
+          <Grid
+            item
+            container
+            direction="column"
+            justify="flex-start"
+            alignItems="center"
+            spacing={24}
+          >
+            {(answers && !answered) ? answerArray : <img className={classes.loadingGif} src={catGif} />}
 
-      </Grid>
-      </Grid>
+          </Grid>
+        </Grid>
+      </MediaQuery>
     </div>
   );
 };
