@@ -187,8 +187,9 @@ class AnswerModal extends Component {
                         <Grid container direction="column" justify="flex-start" alignItems="stretch">
                             <Grid item className={classes.gridItem}>
                                 <TextField
-                                    label="Question Title"
-                                    defaultValue={this.state.questionText}
+                                    label="Question Text"
+                                    placeholder={this.state.questionText === "New Question" ? this.state.questionText : null}
+                                    defaultValue={this.state.questionText === "New Question" ? null : this.state.questionText}
                                     onChange={this.handleChangeQuestion()}
                                 />
                             </Grid>
@@ -205,7 +206,8 @@ class AnswerModal extends Component {
                                         <TextField
                                             required
                                             label={"Answer " + (index + 1)}
-                                            defaultValue={answer.answerText}
+                                            placeholder={answer.answerText === "New Answer" ? answer.answerText : null}
+                                            defaultValue={answer.answerText === "New Answer" ? null : answer.answerText}
                                             onChange={this.handleChangeAnswer(index)}
                                         />
                                         <FormControlLabel
