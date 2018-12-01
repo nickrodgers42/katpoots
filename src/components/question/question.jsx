@@ -4,9 +4,7 @@ import Grid from "@material-ui/core/Grid";
 import PropTypes from "prop-types";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
-import Answer from "../answer/answer";
 import AnswerCard from "../answer/answer-card";
-import CircularProgress from '@material-ui/core/CircularProgress';
 import catGif from "../../assets/cat.gif"
 
 const styles = theme => ({
@@ -91,7 +89,7 @@ const Question = props => {
         className={classes.answerGrid}
         spacing={24}
       >
-          {(answers && !answered) ? answerArray : <img className={classes.loadingGif} src={catGif} />}
+          {(answers && !answered) ? answerArray : <img className={classes.loadingGif} src={catGif} alt="cat loading gif"/>}
 
       </Grid>
       </Grid>

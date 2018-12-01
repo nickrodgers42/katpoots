@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { fetchQuizzes, deleteQuiz, editQuiz, addQuiz } from "../../actions/quiz";
 import UserPage from "./user-page";
-import { eventChannel } from "redux-saga";
 
 class User extends Component {
   constructor(props){
@@ -54,7 +53,7 @@ class User extends Component {
   }
 
   render() {
-    const { quizzes, deleteQuiz, editQuiz, history, editRedirect} = this.props;
+    const { quizzes, deleteQuiz, editQuiz, history} = this.props;//, editRedirect} = this.props;
     return (
       <UserPage
         quizzes={quizzes}
