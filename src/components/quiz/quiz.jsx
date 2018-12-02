@@ -11,7 +11,7 @@ import ProctorView from "./proctor-view"
 import catGif from "../../assets/cat.gif"
 import Grid from '@material-ui/core/Grid';
 import { withStyles } from "@material-ui/core/styles";
-import { increaseScore } from "../../actions/student";
+import { increaseScore, deleteStudents } from "../../actions/student";
 
 
 const styles = {
@@ -89,6 +89,7 @@ class Quiz extends Component {
   }
 
   handleExit = () => {
+    this.props.deleteStudents(this.props.match.params.quizId);
     this.props.history.push('/');
   }
 
@@ -180,6 +181,7 @@ export default connect(
     changeQuestionStatus,
     midQuizEdit,
     updateAllAnswers,
-    increaseScore
+    increaseScore,
+    deleteStudents
   }
 )(withStyles(styles)(Quiz));

@@ -1,9 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from "react-redux";
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Modal from '@material-ui/core/Modal';
 import Button from '@material-ui/core/Button';
+import { fetchStudents } from "../../actions/student";
 
 const styles = theme => ({
   paper: {
@@ -17,8 +19,12 @@ const styles = theme => ({
 });
 
 class LeaderboardModal extends React.Component {
-  render() {
-    const { open, classes, close } = this.props;
+    componentDidMount(){
+        this.props.fetchStudents(this.props.quizId);
+    }
+
+    render() {
+        const { open, classes, close, quizId } = this.props;
 
     return (
       <div>
@@ -39,4 +45,9 @@ LeaderboardModal.propTypes = {
 };
 
 // We need an intermediary variable for handling the recursive nesting.
-export default withStyles(styles)(LeaderboardModal);
+export default connect(
+    state => ({}),
+    {
+        fetchStudents
+    }
+)(withStyles(styles)(LeaderboardModal));

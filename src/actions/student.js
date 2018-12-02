@@ -1,6 +1,7 @@
 import axios from "axios";
 
 export const INCREASE_STUDENT_SCORE = "INCREASE_STUDENT_SCORE";
+export const DELETED_STUDENTS = "DELETED_STUDENTS";
 
 export const increaseScore = (id, newScore) => dispatch =>{
     const student = {
@@ -25,5 +26,17 @@ export function fetchStudents(quizId){
             .get(`/api/allStudents/${quizId}`)
             .then(res => res.data)
             .then(students => dispatch(updateStudents(students)));
+    }
+}
+
+export function deleteStudents(quizId){
+    return dispatch => {
+        return axios
+            .delete(`/api/allStudents/${quizId}`)
+            .then(() =>
+                dispatch({
+                    type: DELETED_STUDENTS
+                })
+            );
     }
 }
