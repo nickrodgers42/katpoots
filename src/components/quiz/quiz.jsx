@@ -32,6 +32,7 @@ class Quiz extends Component {
   state = {
       owner: null,
       backFromLeaderboard: false,
+      loadingNextQuestion: false,
   };
 
 
@@ -63,8 +64,12 @@ class Quiz extends Component {
         }
       }
     }
+    if(this.props.activeStep !== prevProps.activeStep){
+      this.setState({loadingNextQuestion: false})
+    }
 
     if(this.state.backFromLeaderboard === true){
+      this.setState({loadingNextQuestion: true});
       this.props.updateAllAnswers(this.props.questions[this.props.activeStep]._id);
       this.setState({backFromLeaderboard:false});
     }
@@ -129,7 +134,7 @@ class Quiz extends Component {
       }
       {closeQuestion === true &&
         <div>
-          {this.state.owner === true &&
+          {this.state.owner === true && this.state.loadingNextQuestion === false &&
             <div>
               <ProctorView handleExit={this.handleExit} onClick={this.handleQuestionStatus} questions={questions} activeStep={activeStep} quizId={this.props.match.params.quizId}/>
             </div>

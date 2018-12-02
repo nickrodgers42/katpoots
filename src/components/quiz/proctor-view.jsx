@@ -106,6 +106,7 @@ class ProctorView extends Component {
                                     <Button variant="contained" color="primary" onClick={this.leaderboard}>Leaderboard </Button>
                                 </CardActions>
                                 : <CardActions>
+                                    <Button variant="contained" color="primary" onClick={this.leaderboard}>Final Scores </Button>
                                     <Button variant="contained" color="primary" onClick={handleExit}>Exit </Button>
                                 </CardActions>
                             }

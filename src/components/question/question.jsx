@@ -64,7 +64,15 @@ const Question = props => {
           className={classes.answerGrid}
           spacing={24}
         >
-
+          {owner === true ?
+            <Grid item xs={3}>
+              <Paper elevation={1}>
+                <Typography variant="h6" color="inherit" className={classes.grow}>
+                  Votes: {voteCount}
+                </Typography>
+              </Paper>
+            </Grid>
+          :
             <Grid item xs={3}>
               <Paper elevation={1}>
                 {owner !== true && !answered &&
@@ -74,13 +82,7 @@ const Question = props => {
                 }
               </Paper>
             </Grid>
-            <Grid item xs={3}>
-              <Paper elevation={1}>
-                <Typography variant="h6" color="inherit" className={classes.grow}>
-                  Votes: {voteCount}
-                </Typography>
-              </Paper>
-            </Grid>
+          }
         </Grid>
         
         <Grid 
