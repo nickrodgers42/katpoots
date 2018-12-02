@@ -75,7 +75,7 @@ function AnswerCard(props) {
       {/* Mobile */}
       <MediaQuery maxDeviceWidth={1224}>
         <Card className={classes.cardMobile} onClick={questionAnswered}>
-          <CardActionArea className={classes.media} onClick={(event) => { vote(); questionAnswered(); }}>
+          <CardActionArea className={classes.media} onClick={(event) => { vote(answer); questionAnswered(); }}>
             <CardContent>
               <Grid container direction="row" justify="space-between" alignItems="center">
                 <Grid Item>
