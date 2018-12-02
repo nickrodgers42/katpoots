@@ -114,7 +114,7 @@ const Question = props => {
       </MediaQuery>
       {/* Mobile */}
       <MediaQuery maxDeviceWidth={1224}>
-        <Grid container direction="column" justify="center" alignItems="flex-start">
+        <Grid container direction="column" justify="center" alignItems="flex-start" spacing={24}>
           <Grid item>
             <Typography variant="h5" color="inherit" >
               {(question && question.questionText) || ""}
