@@ -85,8 +85,6 @@ class AnswerModal extends Component {
         this.props.fetchAllAnswers(this.props.question._id);
     }
 
-
-
     componentDidUpdate(){
         if(this.props.loadingAnswers === false && this.state.loadedStoredAnswers === false){
             this.setState({questionText: this.props.question.questionText});
@@ -125,7 +123,6 @@ class AnswerModal extends Component {
 
     handleChangeQuestion = () => event => {
         this.setState({questionText: event.target.value});
-        console.log()
     }
 
     handleChangeAnswer = index => event => {
@@ -234,9 +231,6 @@ class AnswerModal extends Component {
                         <Button className={[classes.cancel, classes.button]} onClick={() => { this.clearData(false) }}> Cancel Edit </Button>
                     </DialogActions>
                 </Dialog>
-                }
-                {this.state.loadedStoredAnswers === false && open===true &&
-                    <CircularProgress/>
                 }
             </div>
         )

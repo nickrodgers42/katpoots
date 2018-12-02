@@ -12,6 +12,10 @@ import {
   UPDATE_QUESTION_STATUS
 } from "../actions/quiz";
 
+import {
+  UPDATE_STUDENTS
+} from "../actions/student";
+
 // We need to set an initial state while we wait for the response or we will get errors
 const initialState = {
   quizzes: [],
@@ -39,6 +43,11 @@ export default function quiz(state = initialState, action) {
         ...state,
         activeStep: action.index
       };
+    case UPDATE_STUDENTS:
+      return {
+        ...state,
+        users: action.students
+      }
     case USER_JOINED:
       return {
         ...state,

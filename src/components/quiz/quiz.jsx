@@ -11,6 +11,7 @@ import ProctorView from "./proctor-view"
 import catGif from "../../assets/cat.gif"
 import Grid from '@material-ui/core/Grid';
 import { withStyles } from "@material-ui/core/styles";
+import { increaseScore, deleteStudents } from "../../actions/student";
 
 
 const styles = {
@@ -31,6 +32,8 @@ class Quiz extends Component {
   state = {
       owner: null,
       backFromLeaderboard: false,
+      loadingNextQuestion: false,
+      choseCorrectAnswer: null
   };
 
 
@@ -62,8 +65,12 @@ class Quiz extends Component {
         }
       }
     }
+    if(this.props.activeStep !== prevProps.activeStep){
+      this.setState({loadingNextQuestion: false})
+    }
 
     if(this.state.backFromLeaderboard === true){
+      this.setState({loadingNextQuestion: true});
       this.props.updateAllAnswers(this.props.questions[this.props.activeStep]._id);
       this.setState({backFromLeaderboard:false});
     }
@@ -88,15 +95,23 @@ class Quiz extends Component {
   }
 
   handleExit = () => {
+    this.props.deleteStudents(this.props.match.params.quizId);
     this.props.history.push('/');
   }
 
-  handleVote = answerId => {
+  handleVote = answer => {
+    if (answer.correctAnswer === true){
+      this.setState({choseCorrectAnswer: true});
+      this.props.increaseScore(this.props.user._id, this.props.user.score + 100);
+    }
+    else{
+      this.setState({choseCorrectAnswer: false});
+    }
     this.props.increaseVoteCount();
   };
 
   render() {
-    const { classes, questions, activeStep, voteCount, answers, closeQuestion, loadingAnswers, loadingQuestions } = this.props;
+    const { classes, questions, activeStep, voteCount, answers, closeQuestion, loadingAnswers, loadingQuestions, increaseScore, user } = this.props;
     return (
       <div>
       <AppbarClass history={this.props.history} />
@@ -111,6 +126,7 @@ class Quiz extends Component {
             voteCount={voteCount}
             answers={answers}
             owner={this.state.owner}
+            user={user}
           />
         :
           <Grid container justify="center" alignItems="center" className={classes.loadingContainer}>
@@ -123,7 +139,7 @@ class Quiz extends Component {
       }
       {closeQuestion === true &&
         <div>
-          {this.state.owner === true &&
+          {this.state.owner === true && this.state.loadingNextQuestion === false &&
             <div>
               <ProctorView handleExit={this.handleExit} onClick={this.handleQuestionStatus} questions={questions} activeStep={activeStep} quizId={this.props.match.params.quizId}/>
             </div>
@@ -131,6 +147,14 @@ class Quiz extends Component {
           {this.state.owner !== true &&
             <Grid container justify="center" alignItems="center" className={classes.loadingContainer}>
               <Grid item>
+                {this.state.choseCorrectAnswer === true &&
+                  /* Maybe make the background green here and do it like kahoot */
+                  <h1> You got it right! </h1>
+                }
+                {this.state.choseCorrectAnswer === false &&
+                  /* make it red... play a sad sound idk */
+                  <h1> You got it wrong :( </h1>
+                }
                 <img src={catGif} />
               </Grid>
             </Grid>
@@ -174,6 +198,8 @@ export default connect(
     getQuestionStatus,
     changeQuestionStatus,
     midQuizEdit,
-    updateAllAnswers
+    updateAllAnswers,
+    increaseScore,
+    deleteStudents
   }
 )(withStyles(styles)(Quiz));
