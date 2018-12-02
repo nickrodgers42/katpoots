@@ -92,8 +92,8 @@ class Quiz extends Component {
     this.props.history.push('/');
   }
 
-  handleVote = answerId => {
-    console.log(this.props);
+  handleVote = answer => {
+    console.log(answer);
     this.props.increaseScore(this.props.user._id, 100);
     this.props.increaseVoteCount();
   };
