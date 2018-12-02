@@ -235,9 +235,6 @@ class AnswerModal extends Component {
                     </DialogActions>
                 </Dialog>
                 }
-                {this.state.loadedStoredAnswers === false && open===true &&
-                    <CircularProgress/>
-                }
             </div>
         )
     }

@@ -13,3 +13,17 @@ export const increaseScore = (id, newScore) => dispatch =>{
         })
     );
 };
+
+export const UPDATE_STUDENTS = "UPDATE_STUDENTS";
+function updateStudents(students){
+    return {type: UPDATE_STUDENTS, students};
+}
+
+export function fetchStudents(quizId){
+    return dispatch => {
+        return axios
+            .get(`/api/allStudents/${quizId}`)
+            .then(res => res.data)
+            .then(students => dispatch(updateStudents(students)));
+    }
+}

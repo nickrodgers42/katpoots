@@ -12,7 +12,9 @@ let UserSchema = new mongoose.Schema({
   // must have password
   password: { type: String },
 
-  score: { type: Number, default: 0 }
+  score: { type: Number, default: 0 },
+
+  quizId: { type: mongoose.SchemaTypes.ObjectId}
 
   //----------------------------------//
   // --- once we're done with MVP --- //
