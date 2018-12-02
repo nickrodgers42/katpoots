@@ -33,6 +33,7 @@ class Quiz extends Component {
       owner: null,
       backFromLeaderboard: false,
       loadingNextQuestion: false,
+      choseCorrectAnswer: null
   };
 
 
@@ -100,7 +101,11 @@ class Quiz extends Component {
 
   handleVote = answer => {
     if (answer.correctAnswer === true){
+      this.setState({choseCorrectAnswer: true});
       this.props.increaseScore(this.props.user._id, this.props.user.score + 100);
+    }
+    else{
+      this.setState({choseCorrectAnswer: false});
     }
     this.props.increaseVoteCount();
   };
@@ -142,6 +147,14 @@ class Quiz extends Component {
           {this.state.owner !== true &&
             <Grid container justify="center" alignItems="center" className={classes.loadingContainer}>
               <Grid item>
+                {this.state.choseCorrectAnswer === true &&
+                  /* Maybe make the background green here and do it like kahoot */
+                  <h1> You got it right! </h1>
+                }
+                {this.state.choseCorrectAnswer === false &&
+                  /* make it red... play a sad sound idk */
+                  <h1> You got it wrong :( </h1>
+                }
                 <img src={catGif} />
               </Grid>
             </Grid>
