@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import PinPage from "./pin-page";
 import Grid from '@material-ui/core/Grid'
 import { fetchQuiz, questionClosed, resetIndex } from "../../actions/quiz";
+import { fetchStudents } from "../../actions/student";
 
 class Pin extends Component {
   constructor(props) {
@@ -25,6 +26,10 @@ class Pin extends Component {
       }
     } = this.props;
     fetchQuiz(this.props.quizId || quizId);
+  }
+
+  componentDidMount(){
+    this.props.fetchStudents(this.props.match.params.quizId);
   }
 
   componentDidUpdate(prevProps) {
@@ -77,6 +82,7 @@ export default connect(
   {
     fetchQuiz,
     questionClosed,
-    resetIndex
+    resetIndex,
+    fetchStudents
   }
 )(Pin);
