@@ -55,7 +55,7 @@ function AnswerCard(props) {
       {/* Desktop */}
       <MediaQuery minDeviceWidth={1224}>
         <Card className={classes.cardDesktop} onClick={questionAnswered}>
-          <CardActionArea className={classes.media} onClick={(event) => { vote(); questionAnswered(); }}>
+          <CardActionArea className={classes.media} onClick={(event) => { vote(answer); questionAnswered(); }}>
             <CardContent>
               <Grid container direction="row" justify="flex-start" alignItems="center" spacing={24}>
                 <Grid item>

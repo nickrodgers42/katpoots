@@ -92,6 +92,8 @@ class Quiz extends Component {
   }
 
   handleVote = answerId => {
+    console.log(this.props.user);
+    console.log(answerId);
     this.props.increaseVoteCount();
   };
 

@@ -1,9 +1,12 @@
 import { LOGIN_REQUEST, LOGIN_RESPONSE } from "../actions/login";
 import { REGISTER_REQUEST, REGISTER_RESPONSE } from "../actions/register";
 import { CHECK_FOR_USER, USER_RESPONSE, USER_LOGGED_OUT } from "../actions/user";
+import { ADD_USER } from "../actions/quiz";
 
 export default function user(state = {}, action) {
   switch (action.type) {
+    case ADD_USER:
+      return action.student;
     case LOGIN_RESPONSE:
     case REGISTER_RESPONSE:
     case USER_RESPONSE:
