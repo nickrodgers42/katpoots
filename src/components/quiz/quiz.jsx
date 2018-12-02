@@ -11,6 +11,7 @@ import ProctorView from "./proctor-view"
 import catGif from "../../assets/cat.gif"
 import Grid from '@material-ui/core/Grid';
 import { withStyles } from "@material-ui/core/styles";
+import { increaseScore } from "../../actions/student";
 
 
 const styles = {
@@ -92,13 +93,13 @@ class Quiz extends Component {
   }
 
   handleVote = answerId => {
-    console.log(this.props.user);
-    console.log(answerId);
+    console.log(this.props);
+    this.props.increaseScore(this.props.user._id, 100);
     this.props.increaseVoteCount();
   };
 
   render() {
-    const { classes, questions, activeStep, voteCount, answers, closeQuestion, loadingAnswers, loadingQuestions } = this.props;
+    const { classes, questions, activeStep, voteCount, answers, closeQuestion, loadingAnswers, loadingQuestions, increaseScore } = this.props;
     return (
       <div>
       <AppbarClass history={this.props.history} />
@@ -176,6 +177,7 @@ export default connect(
     getQuestionStatus,
     changeQuestionStatus,
     midQuizEdit,
-    updateAllAnswers
+    updateAllAnswers,
+    increaseScore
   }
 )(withStyles(styles)(Quiz));
