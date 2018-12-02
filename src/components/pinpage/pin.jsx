@@ -49,7 +49,6 @@ class Pin extends Component {
 
   render() {
     const { currentQuiz, students} = this.props;
-    console.log(students);
     return (
       <div>
         {this.state.owner === true &&

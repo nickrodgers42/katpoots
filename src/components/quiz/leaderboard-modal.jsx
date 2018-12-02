@@ -19,22 +19,40 @@ const styles = theme => ({
 });
 
 class LeaderboardModal extends React.Component {
+
+    state = {
+      loadingStudents: true
+    }
+
     componentDidMount(){
         this.props.fetchStudents(this.props.quizId);
     }
 
+    componentDidUpdate(prevProps){
+      if(prevProps.users !== this.props.users){
+        this.setState({ loadingStudents: false });
+      }
+    }
+
     render() {
-        const { open, classes, close, quizId } = this.props;
+        const { open, classes, close, users } = this.props;
 
     return (
       <div>
-        <Modal
-          open={open}
-          onClose={close}
-        >
-          <div className={classes.paper}>
-          </div>
-        </Modal>
+        {this.state.loadingStudents === false &&
+          <Modal
+            open={open}
+            onClose={close}
+          >
+            <div className={classes.paper}>
+              {/* Only display top 5 users */}
+              {users.map((user, index) => index <= 4 ? (
+                
+                <h3> {user.displayName} Score: {user.score} </h3>
+              ):null)}
+            </div>
+          </Modal>
+        }
       </div>
     );
   }
@@ -46,7 +64,9 @@ LeaderboardModal.propTypes = {
 
 // We need an intermediary variable for handling the recursive nesting.
 export default connect(
-    state => ({}),
+    state => ({
+      users: state.quiz.users
+    }),
     {
         fetchStudents
     }
