@@ -18,7 +18,7 @@ class Question extends Component {
     }
 
     render() {
-        const { question, vote, voteCount, answers } = this.props;        
+        const { question, vote, voteCount, answers, owner, user } = this.props;        
         return(
             <div>
                 <QuestionComponent 
@@ -28,6 +28,8 @@ class Question extends Component {
                     answers={answers}
                     answered={this.state.answered}
                     questionAnswered = {this.questionAnswered}
+                    owner={owner}
+                    user={user}
                 />
             </div>
         );

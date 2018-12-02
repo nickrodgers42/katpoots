@@ -93,13 +93,14 @@ class Quiz extends Component {
   }
 
   handleVote = answer => {
-    console.log(answer);
-    this.props.increaseScore(this.props.user._id, 100);
+    if (answer.correctAnswer === true){
+      this.props.increaseScore(this.props.user._id, this.props.user.score + 100);
+    }
     this.props.increaseVoteCount();
   };
 
   render() {
-    const { classes, questions, activeStep, voteCount, answers, closeQuestion, loadingAnswers, loadingQuestions, increaseScore } = this.props;
+    const { classes, questions, activeStep, voteCount, answers, closeQuestion, loadingAnswers, loadingQuestions, increaseScore, user } = this.props;
     return (
       <div>
       <AppbarClass history={this.props.history} />
@@ -114,6 +115,7 @@ class Quiz extends Component {
             voteCount={voteCount}
             answers={answers}
             owner={this.state.owner}
+            user={user}
           />
         :
           <Grid container justify="center" alignItems="center" className={classes.loadingContainer}>

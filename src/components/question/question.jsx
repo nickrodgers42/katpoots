@@ -40,7 +40,7 @@ const styles = theme => ({
 }); 
 
 const Question = props => {
-  const { classes, question, vote, voteCount, answers, answered, questionAnswered } = props;
+  const { classes, question, vote, voteCount, answers, answered, questionAnswered, owner, user } = props;
   var answerArray = [];
   var i = 0;
   answers.forEach(function(answer) {
@@ -64,6 +64,16 @@ const Question = props => {
           className={classes.answerGrid}
           spacing={24}
         >
+
+            <Grid item xs={3}>
+              <Paper elevation={1}>
+                {owner !== true && !answered &&
+                  <Typography variant="h6" color="inherit" className={classes.grow}>
+                    Score: {user.score}
+                  </Typography>
+                }
+              </Paper>
+            </Grid>
             <Grid item xs={3}>
               <Paper elevation={1}>
                 <Typography variant="h6" color="inherit" className={classes.grow}>
