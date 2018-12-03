@@ -61,14 +61,15 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: "false" }));
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(express.static("/app/build/index.html"));
+
+app.get("/", (req, res) => {
+  res.sendFile("/app/build/index.html");
+});
 
 require("./controllers")(app);
 app.listen(process.env.PORT || 3004, () => {
   console.log("API listening on port 3004");
-});
-
-app.get("/", (req, res) => {
-  res.sendFile("/app/build/index.html");
 });
 
 module.exports = app;
