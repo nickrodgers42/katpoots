@@ -111,7 +111,7 @@ const Question = props => {
           className={classes.answerGrid}
           spacing={24}
         >
-            {(answers && !answered) ? answerArray : <img className={classes.loadingGif} src={catGif} />}
+            {(answers && !answered) ? answerArray : <img className={classes.loadingGif} src={catGif} alt="cat gif" />}
 
         </Grid>
         </Grid>
@@ -140,7 +140,7 @@ const Question = props => {
             alignItems="center"
             spacing={24}
           >
-            {(answers && !answered) ? answerArray : <img className={classes.loadingGif} src={catGif} />}
+            {(answers && !answered) ? answerArray : <img className={classes.loadingGif} src={catGif} alt="catgif"/>}
 
           </Grid>
         </Grid>

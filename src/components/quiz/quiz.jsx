@@ -215,7 +215,7 @@ class Quiz extends Component {
                 }
               </Grid>
               <Grid item>
-                <img src={catGif} />
+                <img src={catGif} alt="catgif"/>
               </Grid>
             </Grid>
           }
