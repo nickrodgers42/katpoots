@@ -68,9 +68,7 @@ app.listen(process.env.PORT || 3004, () => {
 });
 
 app.get("/", (req, res) => {
-  const index = path.join(__dirname, "build", "index.html");
-  console.log(index);
-  res.sendFile(index);
+  res.sendFile("build/index.html");
 });
 
 module.exports = app;
