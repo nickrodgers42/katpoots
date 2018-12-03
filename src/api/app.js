@@ -11,6 +11,7 @@ import { Strategy } from "passport-local";
 import { connect } from "../data/db";
 import { loadModels } from "../data/models";
 import connectMongo from "connect-mongo";
+import path from "path";
 
 mongoose.Promise = bluebird;
 connect({ promiseLibrary: bluebird, useNewUrlParser: true })
@@ -67,7 +68,9 @@ app.listen(process.env.PORT || 3004, () => {
 });
 
 app.get("/", (req, res) => {
-  res.sendFile("../../build/index.html");
+  const index = path.join(__dirname, "build", "index.html");
+  console.log(index);
+  res.sendFile(index);
 });
 
 module.exports = app;
