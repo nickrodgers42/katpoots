@@ -9,7 +9,7 @@ export default function timer(state = {}, action){
         case TIMER_START:
             return 20;
         case TIMER_STOP:
-            return 0;
+            return -1;
         case TIMER_TICK:
             return state - 1;
         default:

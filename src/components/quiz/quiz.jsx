@@ -34,7 +34,8 @@ class Quiz extends Component {
       owner: null,
       backFromLeaderboard: false,
       loadingNextQuestion: false,
-      choseCorrectAnswer: null
+      choseCorrectAnswer: null,
+      startingTime: null,
   };
 
 
@@ -75,16 +76,19 @@ class Quiz extends Component {
       this.props.updateAllAnswers(this.props.questions[this.props.activeStep]._id);
       this.setState({backFromLeaderboard:false});
     }
-    console.log(this.props.owner);
-    if(this.props.closeQuestion === false && this.props.loadingAnswers === false && this.props.loadingQuestions == false && this.state.owner === true){
+    if(this.props.closeQuestion === false && this.props.loadingAnswers === false && this.props.loadingQuestions == false){
       if(prevProps.loadingAnswers === true || prevProps.loadingQuestions === true){
-        this.props.start();
+        if(this.state.owner === true){
+          this.props.start();
+        }
+        else{
+          this.setState({startingTime: Date.now()});
+        }
       }
     }
     if(this.props.timer !== prevProps.timer){
-      console.log(this.props.timer);
-      if(this.props.timer <= 0){
-        this.handleNext()
+      if(this.props.timer === 0){
+        this.handleNext();
       }
     }
   }
@@ -115,8 +119,10 @@ class Quiz extends Component {
 
   handleVote = answer => {
     if (answer.correctAnswer === true){
+      let totalTime = (Date.now() - this.state.startingTime) / 1000;
+      let newScore = Math.floor(1000 * (1 - ((totalTime / 20) / 2)));
       this.setState({choseCorrectAnswer: true});
-      this.props.increaseScore(this.props.user._id, this.props.user.score + 100);
+      this.props.increaseScore(this.props.user._id, this.props.user.score + newScore);
     }
     else{
       this.setState({choseCorrectAnswer: false});
