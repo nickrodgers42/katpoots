@@ -12,6 +12,7 @@ import catGif from "../../assets/cat.gif"
 import Grid from '@material-ui/core/Grid';
 import { withStyles } from "@material-ui/core/styles";
 import { increaseScore, deleteStudents } from "../../actions/student";
+import { start, stop } from "../../actions/timer";
 
 
 const styles = {
@@ -73,6 +74,18 @@ class Quiz extends Component {
       this.setState({loadingNextQuestion: true});
       this.props.updateAllAnswers(this.props.questions[this.props.activeStep]._id);
       this.setState({backFromLeaderboard:false});
+    }
+    if(this.props.closeQuestion === false && this.props.loadingAnswers === false && this.props.loadingQuestions == false){
+      if(prevProps.loadingAnswers === true || prevProps.loadingQuestions === true){
+        this.props.start();
+      }
+    }
+    if(this.props.timer !== prevProps.timer){
+      console.log(this.props.timer);
+      if(this.props.timer <= 0){
+        this.props.stop()
+        this.handleNext()
+      }
     }
   }
 
@@ -183,7 +196,8 @@ export default connect(
     loadingAnswers: state.answer.loadingAnswers,
     loadingQuestions: state.question.loadingQuestions,
     closeQuestion: state.quiz.closeQuestion,
-    user: state.user
+    user: state.user,
+    timer: state.timer
   }),
   {
     fetchQuestions,
@@ -200,6 +214,8 @@ export default connect(
     midQuizEdit,
     updateAllAnswers,
     increaseScore,
-    deleteStudents
+    deleteStudents,
+    start,
+    stop
   }
 )(withStyles(styles)(Quiz));
