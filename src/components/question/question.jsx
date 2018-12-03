@@ -4,9 +4,7 @@ import Grid from "@material-ui/core/Grid";
 import PropTypes from "prop-types";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
-import Answer from "../answer/answer";
 import AnswerCard from "../answer/answer-card";
-import CircularProgress from '@material-ui/core/CircularProgress';
 import catGif from "../../assets/cat.gif"
 import MediaQuery from 'react-responsive';
 
@@ -47,7 +45,7 @@ const Question = props => {
   answers.forEach(function(answer) {
     answerArray.push(
       <Grid item>
-        <AnswerCard answer={answer} vote={vote} index = {i} questionAnswered={questionAnswered} />
+        <AnswerCard answer={answer} vote={vote} index = {i} questionAnswered={questionAnswered} showAnswers={false} />
       </Grid>
     );
     i += 1;
@@ -120,7 +118,7 @@ const Question = props => {
       </MediaQuery>
       {/* Mobile */}
       <MediaQuery maxDeviceWidth={1224}>
-        <Grid container direction="column" justify="center" alignItems="flex-start">
+        <Grid container direction="column" justify="center" alignItems="flex-start" spacing={24}>
           <Grid item>
             <Typography variant="h5" color="inherit" >
               {(question && question.questionText) || ""}

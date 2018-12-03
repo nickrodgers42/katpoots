@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import PinPage from "./pin-page";
-import Grid from '@material-ui/core/Grid'
 import { fetchQuiz, questionClosed, resetIndex } from "../../actions/quiz";
 import { fetchStudents } from "../../actions/student";
 

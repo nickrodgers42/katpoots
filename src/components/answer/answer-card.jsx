@@ -41,20 +41,37 @@ const styles = {
   },
   answerText: {
     fontsize: 18,
+  },
+  correct: { 
+    backgroundColor: "#4caf50"
+  },
+  wrong: {
+    backgroundColor: "#f44336"
   }
 };
 
 function AnswerCard(props) {
-  const { classes, answer, vote, index, questionAnswered } = props;
-  var buttonClass;
+  const { classes, answer, vote, index, questionAnswered, showAnswers} = props;
+  var buttonClass = null;
   var buttonClasses = [classes.blueButton, classes.redButton, classes.orangeButton, classes.greenButton, classes.purpleButton];
-  buttonClass = buttonClasses[index % 5];
-
+  if (!showAnswers) {
+    buttonClass = buttonClasses[index % 5];
+  }
+  var showAnswerClass = null;
+  if (showAnswers) {
+    if (answer.correctAnswer) {
+      showAnswerClass = classes.correct
+    }
+    else {  
+      showAnswerClass = classes.wrong
+    }
+  }
+  console.log(answer);
   return (
     <div>
       {/* Desktop */}
       <MediaQuery minDeviceWidth={1224}>
-        <Card className={classes.cardDesktop} onClick={questionAnswered}>
+        <Card className={[classes.cardDesktop, showAnswerClass]} onClick={questionAnswered}>
           <CardActionArea className={classes.media} onClick={(event) => { vote(answer); questionAnswered(); }}>
             <CardContent>
               <Grid container direction="row" justify="flex-start" alignItems="center" spacing={24}>
@@ -74,8 +91,8 @@ function AnswerCard(props) {
 
       {/* Mobile */}
       <MediaQuery maxDeviceWidth={1224}>
-        <Card className={classes.cardMobile} onClick={questionAnswered}>
-          <CardActionArea className={classes.media} onClick={(event) => { vote(); questionAnswered(); }}>
+        <Card className={[classes.cardMobile, showAnswerClass]} onClick={questionAnswered}>
+          <CardActionArea className={classes.media} onClick={(event) => { vote(answer); questionAnswered(); }}>
             <CardContent>
               <Grid container direction="row" justify="space-between" alignItems="center">
                 <Grid Item>

@@ -13,11 +13,26 @@ import Grid from '@material-ui/core/Grid';
 import { withStyles } from "@material-ui/core/styles";
 import { increaseScore, deleteStudents } from "../../actions/student";
 import { start, stop } from "../../actions/timer";
+import Typography from "@material-ui/core/Typography";
 
 
 const styles = {
   loadingContainer: {
     height: "90vh"
+  },
+  right: {
+    padding: "10px",
+    color: "white"
+  },
+  wrong: {
+    padding: "10px",
+    color: "white"
+  },
+  red: {
+    backgroundColor: "#f44336"
+  },
+  green: {
+    backgroundColor: "#4caf50"
   }
 }
 
@@ -132,6 +147,15 @@ class Quiz extends Component {
 
   render() {
     const { classes, questions, activeStep, voteCount, answers, closeQuestion, loadingAnswers, loadingQuestions, increaseScore, user, timer } = this.props;
+    var redOrGreen = null;
+    if (this.state.choseCorrectAnswer !== null) {
+      if (this.state.choseCorrectAnswer === true) {
+        redOrGreen = classes.green;
+      }
+      else {
+        redOrGreen = classes.red;
+      }
+    }
     return (
       <div>
       <AppbarClass history={this.props.history} />
@@ -152,7 +176,7 @@ class Quiz extends Component {
         :
           <Grid container justify="center" alignItems="center" className={classes.loadingContainer}>
             <Grid item>
-              <img src={catGif} />
+              <img src={catGif} alt="loading gif of cat"/>
             </Grid>
           </Grid>
         }
@@ -162,20 +186,33 @@ class Quiz extends Component {
         <div>
           {this.state.owner === true && this.state.loadingNextQuestion === false &&
             <div>
-              <ProctorView handleExit={this.handleExit} onClick={this.handleQuestionStatus} questions={questions} activeStep={activeStep} quizId={this.props.match.params.quizId}/>
+              <ProctorView
+                handleExit={this.handleExit}
+                onClick={this.handleQuestionStatus}
+                questions={questions}
+                activeStep={activeStep}
+                answers={answers}
+                quizId={this.props.match.params.quizId}
+              />
             </div>
           }
           {this.state.owner !== true &&
-            <Grid container justify="center" alignItems="center" className={classes.loadingContainer}>
+            <Grid container direction="column" justify="center" alignItems="center" className={[classes.loadingContainer, redOrGreen] }>
               <Grid item>
                 {this.state.choseCorrectAnswer === true &&
                   /* Maybe make the background green here and do it like kahoot */
-                  <h1> You got it right! </h1>
+                  <Typography variant="h4" className={classes.right}>
+                    You got it right!
+                  </Typography>
                 }
                 {this.state.choseCorrectAnswer === false &&
                   /* make it red... play a sad sound idk */
-                  <h1> You got it wrong :( </h1>
+                  <Typography variant="h4" className={classes.wrong}>
+                    You got it wrong :(
+                  </Typography>
                 }
+              </Grid>
+              <Grid item>
                 <img src={catGif} />
               </Grid>
             </Grid>

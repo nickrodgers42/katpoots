@@ -1,16 +1,24 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import PropTypes from "prop-types";
 import Button from "@material-ui/core/Button";
 import AnswerModal from "../userpage/answer-modal";
 import { addQuestion, deleteQuestion } from "../../actions/question";
-import { midQuizEdit } from "../../actions/question";
 import { Typography } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import LeaderboardModal from "./leaderboard-modal";
+import AnswerCard from "../answer/answer-card";
+import { withStyles } from "@material-ui/core/styles";
+import catGif from "../../assets/cat.gif"
+
+
+const styles = {
+    answerGrid: {
+        width: 800
+    },
+};
 
 class ProctorView extends Component {
     constructor(props){
@@ -73,7 +81,20 @@ class ProctorView extends Component {
     }
 
     render(){
-        const {onClick, handleExit, activeStep, questions, quizId} = this.props;
+        const {onClick, handleExit, activeStep, questions, quizId, answers, classes} = this.props;
+
+        var answerArray = [];
+        var i = 0;
+        if (answers) {
+            answers.forEach(function(answer) {
+                answerArray.push(
+                <Grid item>
+                    <AnswerCard answer={answer} vote={null} index = {i} questionAnswered={true} showAnswers={true} />
+                </Grid>
+                );
+                i += 1;
+            });
+        }
         return(
             <div>
                 <div>
@@ -95,8 +116,19 @@ class ProctorView extends Component {
                         <Card>
                             <CardContent>
                                 <Typography variant="h4">
-                                    Correct answers
+                                    {answers ? "Correct Answers" : "Proctor View"}
                                 </Typography>
+                                    <Grid 
+                                        item
+                                        container
+                                        direction="row"
+                                        justify="center"
+                                        alignItems="center"
+                                        className={classes.answerGrid}
+                                        spacing={24}
+                                    >
+                                        {(answers) ? answerArray : null}
+                                    </Grid>
                             </CardContent>
                             {activeStep !== questions.length ?
                                 <CardActions>
@@ -133,4 +165,4 @@ export default connect(
         deleteQuestion,
         addQuestion
     }
-)(ProctorView);
+)(withStyles(styles)(ProctorView));
