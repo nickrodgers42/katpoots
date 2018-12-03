@@ -91,7 +91,7 @@ class ProctorView extends Component {
             answers.forEach(function(answer) {
                 answerArray.push(
                 <Grid item>
-                    <AnswerCard answer={answer} vote={null} index = {i} questionAnswered={true} />
+                    <AnswerCard answer={answer} vote={null} index = {i} questionAnswered={true} showAnswers={true} />
                 </Grid>
                 );
                 i += 1;
@@ -120,6 +120,8 @@ class ProctorView extends Component {
                         <Card>
                             <CardContent>
                                 <Typography variant="h4">
+                                    {answers ? "Correct Answers" : "Proctor View"}
+                                </Typography>
                                     <Grid 
                                         item
                                         container
@@ -129,9 +131,8 @@ class ProctorView extends Component {
                                         className={classes.answerGrid}
                                         spacing={24}
                                     >
-                                        {(answers) ? answerArray : <img className={classes.loadingGif} src={catGif} />}
+                                        {(answers) ? answerArray : null}
                                     </Grid>
-                                </Typography>
                             </CardContent>
                             {activeStep !== questions.length ?
                                 <CardActions>
