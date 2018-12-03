@@ -37,7 +37,7 @@ const styles = theme => ({
 });
 
 const QuizPage = props => {
-  const { classes, questions, voteCount, activeStep, onClick, vote, answers, owner, user} = props;
+  const { classes, questions, voteCount, activeStep, onClick, vote, answers, owner, user, timer } = props;
   return (
     <div>
       <Paper className={classes.paper} elevation={1}>
@@ -53,7 +53,7 @@ const QuizPage = props => {
       <Grid container direction="row" justify="center" alignItems="center" spacing={24}>
           {activeStep !== questions.length &&
             <Grid item>
-              <Question question={questions[activeStep]} vote={vote} voteCount={voteCount} answers={answers} user={user} owner={owner} />
+              <Question question={questions[activeStep]} vote={vote} voteCount={voteCount} answers={answers} user={user} owner={owner} timer={timer} />
               {owner === true ?
                 <div>
                   <Button variant="contained" color="primary" onClick={onClick} className={classes.button}>

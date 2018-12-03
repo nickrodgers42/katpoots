@@ -75,7 +75,8 @@ class Quiz extends Component {
       this.props.updateAllAnswers(this.props.questions[this.props.activeStep]._id);
       this.setState({backFromLeaderboard:false});
     }
-    if(this.props.closeQuestion === false && this.props.loadingAnswers === false && this.props.loadingQuestions == false){
+    console.log(this.props.owner);
+    if(this.props.closeQuestion === false && this.props.loadingAnswers === false && this.props.loadingQuestions == false && this.state.owner === true){
       if(prevProps.loadingAnswers === true || prevProps.loadingQuestions === true){
         this.props.start();
       }
@@ -83,7 +84,6 @@ class Quiz extends Component {
     if(this.props.timer !== prevProps.timer){
       console.log(this.props.timer);
       if(this.props.timer <= 0){
-        this.props.stop()
         this.handleNext()
       }
     }
@@ -91,6 +91,7 @@ class Quiz extends Component {
 
   handleNext = () => {
     const { activeStep, resetVoteCount, nextQuestion, increment } = this.props;
+    this.props.stop()
     this.handleQuestionStatus(true);
     resetVoteCount();
     increment(this.props.match.params.quizId, activeStep);
@@ -124,7 +125,7 @@ class Quiz extends Component {
   };
 
   render() {
-    const { classes, questions, activeStep, voteCount, answers, closeQuestion, loadingAnswers, loadingQuestions, increaseScore, user } = this.props;
+    const { classes, questions, activeStep, voteCount, answers, closeQuestion, loadingAnswers, loadingQuestions, increaseScore, user, timer } = this.props;
     return (
       <div>
       <AppbarClass history={this.props.history} />
@@ -140,6 +141,7 @@ class Quiz extends Component {
             answers={answers}
             owner={this.state.owner}
             user={user}
+            timer={timer}
           />
         :
           <Grid container justify="center" alignItems="center" className={classes.loadingContainer}>
