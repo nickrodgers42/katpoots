@@ -165,7 +165,14 @@ class Quiz extends Component {
         <div>
           {this.state.owner === true && this.state.loadingNextQuestion === false &&
             <div>
-              <ProctorView handleExit={this.handleExit} onClick={this.handleQuestionStatus} questions={questions} activeStep={activeStep} quizId={this.props.match.params.quizId}/>
+              <ProctorView
+                handleExit={this.handleExit}
+                onClick={this.handleQuestionStatus}
+                questions={questions}
+                activeStep={activeStep}
+                answers={answers}
+                quizId={this.props.match.params.quizId}
+              />
             </div>
           }
           {this.state.owner !== true &&

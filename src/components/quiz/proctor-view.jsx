@@ -11,6 +11,16 @@ import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import LeaderboardModal from "./leaderboard-modal";
+import AnswerCard from "../answer/answer-card";
+import { withStyles } from "@material-ui/core/styles";
+import catGif from "../../assets/cat.gif"
+
+
+const styles = {
+    answerGrid: {
+        width: 800
+    },
+};
 
 class ProctorView extends Component {
     constructor(props){
@@ -73,7 +83,22 @@ class ProctorView extends Component {
     }
 
     render(){
-        const {onClick, handleExit, activeStep, questions, quizId} = this.props;
+        const {onClick, handleExit, activeStep, questions, quizId, answers, classes} = this.props;
+
+        var answerArray = [];
+        var i = 0;
+        if (answers) {
+            answers.forEach(function(answer) {
+                answerArray.push(
+                <Grid item>
+                    <AnswerCard answer={answer} vote={null} index = {i} questionAnswered={true} />
+                </Grid>
+                );
+                i += 1;
+            });
+        }
+        
+
         return(
             <div>
                 <div>
@@ -95,7 +120,17 @@ class ProctorView extends Component {
                         <Card>
                             <CardContent>
                                 <Typography variant="h4">
-                                    Correct answers
+                                    <Grid 
+                                        item
+                                        container
+                                        direction="row"
+                                        justify="center"
+                                        alignItems="center"
+                                        className={classes.answerGrid}
+                                        spacing={24}
+                                    >
+                                        {(answers) ? answerArray : <img className={classes.loadingGif} src={catGif} />}
+                                    </Grid>
                                 </Typography>
                             </CardContent>
                             {activeStep !== questions.length ?
@@ -133,4 +168,4 @@ export default connect(
         deleteQuestion,
         addQuestion
     }
-)(ProctorView);
+)(withStyles(styles)(ProctorView));
