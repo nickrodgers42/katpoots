@@ -52,7 +52,7 @@ app.use(
     resave: false,
     saveUninitialized: false,
     store: new MongoStore({
-      url: process.env.MONGODB_URI || "mongodb://localhost/group10"
+      url: process.env.MONGOLAB_GREEN_URI || "mongodb://localhost/group10"
     })
   })
 );
