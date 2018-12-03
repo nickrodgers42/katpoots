@@ -68,7 +68,7 @@ app.listen(process.env.PORT || 3004, () => {
 });
 
 app.get("/", (req, res) => {
-  res.sendFile("build/index.html");
+  res.sendFile("/app/build/index.html");
 });
 
 module.exports = app;
