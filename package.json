@@ -52,11 +52,12 @@
     "ws": "^6.1.0"
   },
   "scripts": {
-    "start-socket": "babel src/server -d src/core/server && node src/core/server",
-    "start-api": "babel src/api -d src/core/api && babel src/data -d src/core/data && node src/core/api/app.js",
+    "start-socket": "node src/core/server",
+    "start-api": "node src/core/api/app.js",
     "start-react": "react-scripts start",
-    "start": "concurrently \"nodemon --exec yarn start-api\" \"nodemon --exec yarn start-socket\" \"react-scripts start\"",
-    "build": "react-scripts build",
+    "start-local": "concurrently \"nodemon --exec yarn start-api\" \"nodemon --exec yarn start-socket\" \"react-scripts start\"",
+    "start": "yarn start-socket && yarn start-api",
+    "build": "react-scripts build && babel src/server -d core/server && babel src/api -d core/api && babel src/data -d core/data ",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
