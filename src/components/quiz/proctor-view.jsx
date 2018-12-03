@@ -116,7 +116,7 @@ class ProctorView extends Component {
                         <Card>
                             <CardContent>
                                 <Typography variant="h4">
-                                    {answers ? "Correct Answers" : "Proctor View"}
+                                    {answers ? "Correct Answers" : "Welcome!"}
                                 </Typography>
                                     <Grid 
                                         item

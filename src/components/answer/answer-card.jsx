@@ -66,7 +66,6 @@ function AnswerCard(props) {
       showAnswerClass = classes.wrong
     }
   }
-  console.log(answer);
   return (
     <div>
       {/* Desktop */}

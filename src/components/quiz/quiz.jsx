@@ -50,6 +50,7 @@ class Quiz extends Component {
       backFromLeaderboard: false,
       loadingNextQuestion: false,
       choseCorrectAnswer: null,
+      previousAnswers: [],
       startingTime: null,
   };
 
@@ -110,7 +111,8 @@ class Quiz extends Component {
 
   handleNext = () => {
     const { activeStep, resetVoteCount, nextQuestion, increment } = this.props;
-    this.props.stop()
+    this.setState({previousAnswers: this.props.answers});
+    this.props.stop();
     this.handleQuestionStatus(true);
     resetVoteCount();
     increment(this.props.match.params.quizId, activeStep);
@@ -191,7 +193,7 @@ class Quiz extends Component {
                 onClick={this.handleQuestionStatus}
                 questions={questions}
                 activeStep={activeStep}
-                answers={answers}
+                answers={this.state.previousAnswers}
                 quizId={this.props.match.params.quizId}
               />
             </div>
