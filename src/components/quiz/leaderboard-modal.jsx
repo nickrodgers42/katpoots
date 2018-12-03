@@ -6,16 +6,28 @@ import Typography from '@material-ui/core/Typography';
 import Modal from '@material-ui/core/Modal';
 import Button from '@material-ui/core/Button';
 import { fetchStudents } from "../../actions/student";
+import Grid from '@material-ui/core/Grid';
+import Paper from "@material-ui/core/Paper";
+
+
 
 const styles = theme => ({
   paper: {
-    position: "absolute",
-    width: theme.spacing.unit * 50,
-    backgroundColor: theme.palette.background.paper,
-    boxShadow: theme.shadows[5],
-    padding: theme.spacing.unit * 4,
-    background: "000"
+    minHeight: "100px",
+    minWidth: "300px"
   },
+  container: {
+    height: "100vh"
+  },
+  names: {
+    padding: "10px 20px"
+  },
+  title: {
+    padding: "30px 0 10px 20px"
+  },
+  itemSpace: {
+    width: "200px",
+  }
 });
 
 class LeaderboardModal extends React.Component {
@@ -39,20 +51,50 @@ class LeaderboardModal extends React.Component {
 
     return (
       <div>
-        {this.state.loadingStudents === false &&
-          <Modal
-            open={open}
-            onClose={close}
-          >
-            <div className={classes.paper}>
-              {/* Only display top 5 users */}
-              {users.map((user, index) => index <= 4 ? (
-                
-                <h3> {user.displayName} Score: {user.score} </h3>
-              ):null)}
-            </div>
-          </Modal>
-        }
+              {this.state.loadingStudents === false &&
+                <Modal
+                  open={open}
+                  onClose={close}
+                >
+                <Grid container onClick={close} className={classes.container} justify="center" alignItems="center" spacing={24}>
+                  <Grid item>
+                  <Paper >
+                    <Grid className={classes.paper} container direction="column" justify="center" alignItems="flex-start">
+                      {/* Only display top 5 users */}
+                      <Grid item>
+                        <Typography variant="h4" className={classes.title}>
+                          Leaderboard
+                        </Typography>
+                        </Grid>
+                        <Grid item className={classes.names}>
+                          <Grid container justify="space-between" alignItems="center"className={classes.itemSpace}>
+                            <Grid item>
+                              <Typography variant="h6"> Name </Typography>
+                            </Grid>
+                            <Grid item>
+                              <Typography variant="h6">Score </Typography> 
+                            </Grid>
+                          </Grid>
+                        </Grid>
+                      {users.map((user, index) => index <= 4 ? (
+                        <Grid item className={classes.names}>
+                          <Grid container justify="space-between" alignItems="center"className={classes.itemSpace}>
+                            <Grid item>
+                              <Typography variant="h6"> {index + 1}) {user.displayName} </Typography>
+                            </Grid>
+                            <Grid item>
+                              <Typography variant="h6">{user.score} </Typography> 
+                            </Grid>
+                          </Grid>
+                        </Grid>
+                      ):null)}
+                      
+                    </Grid>
+                  </Paper>
+                  </Grid>
+                </Grid>
+                </Modal>
+              }
       </div>
     );
   }
