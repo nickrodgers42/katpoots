@@ -56,7 +56,7 @@
     "start-api": "node core/api/app.js",
     "start-react": "react-scripts start",
     "start-local": "concurrently \"nodemon --exec yarn start-api\" \"nodemon --exec yarn start-socket\" \"react-scripts start\"",
-    "start": "yarn start-socket && yarn start-api",
+    "start": "concurrently \"yarn start-socket\" \"yarn start-api\"",
     "build": "react-scripts build && babel src/server -d core/server && babel src/api -d core/api && babel src/data -d core/data ",
     "heroku-postbuild": "yarn build",
     "test": "react-scripts test --env=jsdom",
