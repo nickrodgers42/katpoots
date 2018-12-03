@@ -66,4 +66,8 @@ app.listen(3004, () => {
   console.log("API listening on port 3004");
 });
 
+app.get("/", (req, res) => {
+  res.sendFile("../../build/index.html");
+});
+
 module.exports = app;

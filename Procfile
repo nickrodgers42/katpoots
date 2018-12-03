@@ -1,3 +1,2 @@
-web: yarn start-react
-worker: yarn start-api
+web: yarn start-api
 worker: yarn start-socket
