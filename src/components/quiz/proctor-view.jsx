@@ -1,10 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import PropTypes from "prop-types";
 import Button from "@material-ui/core/Button";
 import AnswerModal from "../userpage/answer-modal";
 import { addQuestion, deleteQuestion } from "../../actions/question";
-import { midQuizEdit } from "../../actions/question";
 import { Typography } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import Card from '@material-ui/core/Card';
@@ -97,8 +95,6 @@ class ProctorView extends Component {
                 i += 1;
             });
         }
-        
-
         return(
             <div>
                 <div>

@@ -10,7 +10,6 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import AnswerModal from "./answer-modal";
 import { Typography } from "@material-ui/core";
 import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CreateIcon from "@material-ui/icons/Create";
 import { withStyles } from "@material-ui/core/styles";
@@ -107,7 +106,7 @@ class QuestionsList extends Component {
     }
 
     render(){
-        const {questions, history, loadingQuestions, classes} = this.props;
+        const {questions, history, classes} = this.props;
         return (
             <div>
                 <AppBarComponent history={history}/>

@@ -155,7 +155,7 @@ class Quiz extends Component {
         :
           <Grid container justify="center" alignItems="center" className={classes.loadingContainer}>
             <Grid item>
-              <img src={catGif} />
+              <img src={catGif} alt="loading gif of cat"/>
             </Grid>
           </Grid>
         }
