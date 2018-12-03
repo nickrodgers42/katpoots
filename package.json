@@ -52,8 +52,8 @@
     "ws": "^6.1.0"
   },
   "scripts": {
-    "start-socket": "node src/core/server",
-    "start-api": "node src/core/api/app.js",
+    "start-socket": "node core/server",
+    "start-api": "node core/api/app.js",
     "start-react": "react-scripts start",
     "start-local": "concurrently \"nodemon --exec yarn start-api\" \"nodemon --exec yarn start-socket\" \"react-scripts start\"",
     "start": "yarn start-socket && yarn start-api",
