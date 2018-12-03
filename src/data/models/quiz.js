@@ -34,7 +34,9 @@ async function getNextPin() {
 }
 
 QuizSchema.pre("save", async function() {
-  this.pin = await getNextPin();
+  if(!this.pin){
+    this.pin = await getNextPin();
+  }
 });
 
 QuizSchema.pre("remove", async function() {

@@ -8,6 +8,11 @@ import {Button} from "@material-ui/core"
 const styles = theme => ({
     container: {
         height: '90vh'
+    },
+    startButton: {
+        marginBottom: '30px',
+        width: '100px',
+        height: '50px'
     }
 })
 
@@ -22,10 +27,10 @@ const PinPage = props => {
             <Grid item>
                 <PinHolder pin={currentQuiz.pin}/>
             </Grid>
+              <Button onClick={startQuiz} variant="contained" color="primary" className={classes.startButton}>Start</Button>
             <Grid item>
                 <UserList students={students}/>
             </Grid>
-            <Button onClick={startQuiz}>Start</Button>
         </Grid>
     </div>
   );

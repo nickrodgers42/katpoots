@@ -26,9 +26,9 @@ export function setQuiz(quiz) {
     });
 }
 
-export function joinQuiz(values) {
+export function joinQuiz(values, quizId) {
   return dispatch =>
-    axios.post("/api/student", { ...values }).then(data =>
+    axios.post("/api/student", { ...values, quizId }).then(data =>
       dispatch({
         type: ADD_USER,
         ...values,

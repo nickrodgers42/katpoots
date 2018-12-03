@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import PinPage from "./pin-page";
 import { fetchQuiz, questionClosed, resetIndex } from "../../actions/quiz";
+import { fetchStudents } from "../../actions/student";
 
 class Pin extends Component {
   constructor(props) {
@@ -24,6 +25,10 @@ class Pin extends Component {
       }
     } = this.props;
     fetchQuiz(this.props.quizId || quizId);
+  }
+
+  componentDidMount(){
+    this.props.fetchStudents(this.props.match.params.quizId);
   }
 
   componentDidUpdate(prevProps) {
@@ -48,7 +53,6 @@ class Pin extends Component {
 
   render() {
     const { currentQuiz, students} = this.props;
-    console.log(students);
     return (
       <div>
         {this.state.owner === true &&
@@ -77,6 +81,7 @@ export default connect(
   {
     fetchQuiz,
     questionClosed,
-    resetIndex
+    resetIndex,
+    fetchStudents
   }
 )(Pin);
