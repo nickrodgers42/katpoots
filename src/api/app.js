@@ -62,7 +62,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 require("./controllers")(app);
-app.listen(3004, () => {
+app.listen(process.env.PORT || 3004, () => {
   console.log("API listening on port 3004");
 });
 
