@@ -28,7 +28,7 @@ const styles = theme => ({
 
 const UserPage = props => {
   const {
-    classes,
+    // classes,
     quizzes,
     deleteQuiz,
     editQuiz,

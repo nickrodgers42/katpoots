@@ -12,6 +12,7 @@ import catGif from "../../assets/cat.gif"
 import Grid from '@material-ui/core/Grid';
 import { withStyles } from "@material-ui/core/styles";
 import { increaseScore, deleteStudents } from "../../actions/student";
+import { start, stop } from "../../actions/timer";
 import Typography from "@material-ui/core/Typography";
 
 
@@ -91,6 +92,21 @@ class Quiz extends Component {
       this.props.updateAllAnswers(this.props.questions[this.props.activeStep]._id);
       this.setState({backFromLeaderboard:false});
     }
+    if(this.props.closeQuestion === false && this.props.loadingAnswers === false && this.props.loadingQuestions == false){
+      if(prevProps.loadingAnswers === true || prevProps.loadingQuestions === true){
+        if(this.state.owner === true){
+          this.props.start();
+        }
+        else{
+          this.setState({startingTime: Date.now()});
+        }
+      }
+    }
+    if(this.props.timer !== prevProps.timer){
+      if(this.props.timer === 0){
+        this.handleNext();
+      }
+    }
   }
 
   handleNext = () => {
@@ -120,8 +136,10 @@ class Quiz extends Component {
 
   handleVote = answer => {
     if (answer.correctAnswer === true){
+      let totalTime = (Date.now() - this.state.startingTime) / 1000;
+      let newScore = Math.floor(1000 * (1 - ((totalTime / 20) / 2)));
       this.setState({choseCorrectAnswer: true});
-      this.props.increaseScore(this.props.user._id, this.props.user.score + 100);
+      this.props.increaseScore(this.props.user._id, this.props.user.score + newScore);
     }
     else{
       this.setState({choseCorrectAnswer: false});
@@ -130,7 +148,7 @@ class Quiz extends Component {
   };
 
   render() {
-    const { classes, questions, activeStep, voteCount, answers, closeQuestion, loadingAnswers, loadingQuestions, increaseScore, user } = this.props;
+    const { classes, questions, activeStep, voteCount, answers, closeQuestion, loadingAnswers, loadingQuestions, increaseScore, user, timer } = this.props;
     var redOrGreen = null;
     if (this.state.choseCorrectAnswer !== null) {
       if (this.state.choseCorrectAnswer === true) {
@@ -155,11 +173,12 @@ class Quiz extends Component {
             answers={answers}
             owner={this.state.owner}
             user={user}
+            timer={timer}
           />
         :
           <Grid container justify="center" alignItems="center" className={classes.loadingContainer}>
             <Grid item>
-              <img src={catGif} />
+              <img src={catGif} alt="loading gif of cat"/>
             </Grid>
           </Grid>
         }
@@ -224,7 +243,8 @@ export default connect(
     loadingAnswers: state.answer.loadingAnswers,
     loadingQuestions: state.question.loadingQuestions,
     closeQuestion: state.quiz.closeQuestion,
-    user: state.user
+    user: state.user,
+    timer: state.timer
   }),
   {
     fetchQuestions,
@@ -241,6 +261,8 @@ export default connect(
     midQuizEdit,
     updateAllAnswers,
     increaseScore,
-    deleteStudents
+    deleteStudents,
+    start,
+    stop
   }
 )(withStyles(styles)(Quiz));
