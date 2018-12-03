@@ -38,7 +38,8 @@ const styles = theme => ({
 }); 
 
 const Question = props => {
-  const { classes, question, vote, voteCount, answers, answered, questionAnswered, owner, user } = props;
+  const { classes, question, vote, voteCount, answers, answered, questionAnswered, owner, user, timer } = props;
+  var currentTime = parseInt(timer, 10);
   var answerArray = [];
   var i = 0;
   answers.forEach(function(answer) {
@@ -52,6 +53,11 @@ const Question = props => {
   
   return (
     <div>
+      {timer && owner === true ?
+      <h1> {currentTime} </h1>
+      :
+      null
+      }
       {/* Desktop */}
       <MediaQuery minDeviceWidth={1224}>
         <Grid
