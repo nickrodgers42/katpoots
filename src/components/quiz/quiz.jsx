@@ -91,12 +91,13 @@ class Quiz extends Component {
       this.props.updateAllAnswers(this.props.questions[this.props.activeStep]._id);
       this.setState({backFromLeaderboard:false});
     }
-    if(this.props.closeQuestion === false && this.props.loadingAnswers === false && this.props.loadingQuestions == false){
+    if(this.props.closeQuestion === false && this.props.loadingAnswers === false && this.props.loadingQuestions === false){
       if(prevProps.loadingAnswers === true || prevProps.loadingQuestions === true){
         if(this.state.owner === true){
           this.props.start();
         }
         else{
+          this.setState({choseCorrectAnswer: false});
           this.setState({startingTime: Date.now()});
         }
       }
@@ -143,11 +144,11 @@ class Quiz extends Component {
     else{
       this.setState({choseCorrectAnswer: false});
     }
-    this.props.increaseVoteCount();
+    this.props.increaseVoteCount(answer);
   };
 
   render() {
-    const { classes, questions, activeStep, voteCount, answers, closeQuestion, loadingAnswers, loadingQuestions, increaseScore, user, timer } = this.props;
+    const { classes, questions, activeStep, voteCount, answers, closeQuestion, loadingAnswers, loadingQuestions, user, timer } = this.props;
     var redOrGreen = null;
     if (this.state.choseCorrectAnswer !== null) {
       if (this.state.choseCorrectAnswer === true) {
@@ -193,6 +194,7 @@ class Quiz extends Component {
                 activeStep={activeStep}
                 answers={this.state.previousAnswers}
                 quizId={this.props.match.params.quizId}
+                answerVoteCount={this.props.answerVoteCount}
               />
           }
           {this.state.owner !== true &&
@@ -244,7 +246,8 @@ export default connect(
     loadingQuestions: state.question.loadingQuestions,
     closeQuestion: state.quiz.closeQuestion,
     user: state.user,
-    timer: state.timer
+    timer: state.timer,
+    answerVoteCount: state.question.answersVotedOn
   }),
   {
     fetchQuestions,
