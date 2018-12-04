@@ -4,6 +4,8 @@ import AppBarComponent from "../appbar/appbar-class";
 import PinHolder from "./pinholder"
 import UserList from "./userlist"
 import {Button} from "@material-ui/core"
+import Melee from "../sound/melee"
+import Sound from 'react-sound'
 
 const styles = theme => ({
     container: {
@@ -23,6 +25,9 @@ const PinPage = props => {
         <div>
             <AppBarComponent history={ props.history }/>
         </div>
+        <div>
+            <Melee />
+      </div>
         <Grid container justify="center" alignItems="center" direction="column" className={classes.container}>
             <Grid item>
                 <PinHolder pin={currentQuiz.pin}/>

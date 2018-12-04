@@ -11,8 +11,6 @@ import CardContent from '@material-ui/core/CardContent';
 import LeaderboardModal from "./leaderboard-modal";
 import AnswerCard from "../answer/answer-card";
 import { withStyles } from "@material-ui/core/styles";
-import Sound from 'react-sound';
-// import catGif from "../../assets/cat.gif"
 
 
 const styles = {
