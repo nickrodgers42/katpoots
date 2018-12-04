@@ -60,7 +60,7 @@ const Question = props => {
   answers.forEach(function(answer) {
     answerArray.push(
       <Grid item>
-        <AnswerCard answer={answer} vote={vote} index = {i} questionAnswered={questionAnswered} showAnswers={false} />
+        <AnswerCard answer={answer} vote={vote} index = {i} questionAnswered={questionAnswered} showAnswers={false} votesReceived={0} />
       </Grid>
     );
     i += 1;

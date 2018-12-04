@@ -86,13 +86,13 @@ class ProctorView extends Component {
         var i = 0;
         if (answers) {
             answers.forEach(function(answer) {
+                var votesReceived = 0;
+                if (answer._id in answerVoteCount) {
+                    votesReceived = answerVoteCount[answer._id];
+                }
                 answerArray.push(
                 <Grid item>
-                    <AnswerCard answer={answer} vote={null} index = {i} questionAnswered={true} showAnswers={true} />
-                    {answer._id in answerVoteCount ?
-                        <div>{answerVoteCount[answer._id]}</div>
-                    :   <div> 0</div>
-                    }
+                    <AnswerCard answer={answer} vote={null} index = {i} questionAnswered={true} showAnswers={true} votesReceived={votesReceived}/>
                 </Grid>
                 );
                 i += 1;
