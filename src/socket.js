@@ -1,40 +1,42 @@
 import { voteCounted, resetVotes, fetchQuestions } from "./actions/question";
 import { goToNextQuestion, updateQuestionStatus, userJoined } from "./actions/quiz";
 import { fetchAllAnswers } from "./actions/answer";
+import io from "socket.io-client";
 
 const setupSocket = dispatch => {
-  const HOST = location.origin.replace(/^http/, "ws");
-  const socket = new WebSocket(HOST || "ws://localhost:8989");
-
-  socket.onmessage = event => {
+  const socket = io();
+  socket.on("USER_JOINED", event => {
     const data = JSON.parse(event.data);
-    console.log(data);
-    switch (data.type) {
-      case "USER_JOINED":
-        dispatch(userJoined(data.student));
-        break;
-      case "VOTE_COUNTED":
-        dispatch(voteCounted());
-        break;
-      case "RESET_VOTES":
-        dispatch(resetVotes());
-        break;
-      case "GO_TO_NEXT_QUESTION":
-        dispatch(goToNextQuestion(data.index));
-        break;
-      case "UPDATE_QUESTION_STATUS":
-        dispatch(updateQuestionStatus(data.closeQuestion));
-        break;
-      case "REFRESH_QUESTIONS":
-        dispatch(fetchQuestions(data.quizId));
-        break;
-      case "REFRESH_ANSWERS":
-        dispatch(fetchAllAnswers(data.questionId));
-        break;
-      default:
-        break;
-    }
-  };
+    dispatch(userJoined(data.student));
+  });
+
+  socket.on("VOTE_COUNTED", () => {
+    dispatch(voteCounted());
+  });
+
+  socket.on("RESET_VOTES", () => {
+    dispatch(resetVotes());
+  });
+
+  socket.on("GO_TO_NEXT_QUESTION", event => {
+    const data = JSON.parse(event.data);
+    dispatch(goToNextQuestion(data.index));
+  });
+
+  socket.on("UPDATE_QUESTION_STATUS", event => {
+    const data = JSON.parse(event.data);
+    dispatch(updateQuestionStatus(data.closeQuestion));
+  });
+
+  socket.on("REFRESH_QUESTIONS", event => {
+    const data = JSON.parse(event.data);
+    dispatch(fetchQuestions(data.quizId));
+  });
+
+  socket.on("REFRESH_ANSWERS", event => {
+    const data = JSON.parse(event.data);
+    dispatch(fetchAllAnswers(data.questionId));
+  });
 
   return socket;
 };
