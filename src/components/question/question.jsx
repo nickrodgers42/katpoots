@@ -34,6 +34,12 @@ const styles = theme => ({
   },
   spinner: {
     margin: "100px 0"
+  },
+  score: {
+    padding: "5px"
+  },
+  votes: {
+    padding: "5px"
   }
 }); 
 
@@ -71,7 +77,7 @@ const Question = props => {
           {owner === true ?
             <Grid item xs={3}>
               <Paper elevation={1}>
-                <Typography variant="h6" color="inherit" className={classes.grow}>
+                <Typography variant="h6" color="inherit" className={[classes.grow, classes.votes]}>
                   Votes: {voteCount}
                 </Typography>
               </Paper>
@@ -80,7 +86,7 @@ const Question = props => {
             <Grid item xs={3}>
               <Paper elevation={1}>
                 {owner !== true && !answered &&
-                  <Typography variant="h6" color="inherit" className={classes.grow}>
+                  <Typography variant="h6" color="inherit" className={[classes.grow, classes.score]}>
                     Score: {user.score}
                   </Typography>
                 }
@@ -132,6 +138,13 @@ const Question = props => {
               </Typography>
             </Paper>
           </Grid> */}
+              <Paper elevation={1}>
+                {owner !== true && !answered &&
+                  <Typography variant="h6" color="inherit" className={[classes.grow, classes.score]}>
+                    Score: {user.score}
+                  </Typography>
+                }
+              </Paper>
           <Grid
             item
             container
