@@ -82,9 +82,6 @@ class ProctorView extends Component {
 
     render(){
         const {onClick, handleExit, activeStep, questions, quizId, answers, classes, answerVoteCount} = this.props;
-
-        console.log(answerVoteCount);
-
         var answerArray = [];
         var i = 0;
         if (answers) {
