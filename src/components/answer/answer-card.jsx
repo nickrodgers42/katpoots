@@ -51,7 +51,7 @@ const styles = {
 };
 
 function AnswerCard(props) {
-  const { classes, answer, vote, index, questionAnswered, showAnswers} = props;
+  const { classes, answer, vote, index, questionAnswered, showAnswers, votesReceived} = props;
   var buttonClass = null;
   var buttonClasses = [classes.blueButton, classes.redButton, classes.orangeButton, classes.greenButton, classes.purpleButton];
   if (!showAnswers) {
@@ -76,7 +76,7 @@ function AnswerCard(props) {
               <Grid container direction="row" justify="flex-start" alignItems="center" spacing={24}>
                 <Grid item>
                   <Button variant="contained" color="primary" className={[buttonClass, classes.desktopButton]}>
-                    {String.fromCharCode('a'.charCodeAt(0) + index)}.
+                    {showAnswers ? votesReceived : String.fromCharCode('a'.charCodeAt(0) + index) + "."}
                   </Button>
                 </Grid>
                 <Grid item wrap="nowrap" xs={8}>
