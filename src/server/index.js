@@ -1,49 +1,49 @@
 require("@babel/polyfill");
-import WebSocket from "ws";
+const socket = require("socket.io");
 
-const wss = new WebSocket.Server({ port: process.env.PORT || 8989 });
+export default class WS {
+  constructor(server) {
+    const io = socket(server);
+    this.io = io;
+    io.on("connection", socket => {
+      console.log("Client connected");
+      socket.on("disconnect", () => console.log("Client disconnected"));
+    });
 
-const broadcast = (data, ws) => {
-  wss.clients.forEach(client => {
-    if (client.readyState === WebSocket.OPEN && client !== ws) {
-      client.send(JSON.stringify(data));
-    }
-  });
-};
+    io.on("ADD_USER", message => {
+      const data = JSON.parse(message);
+      console.log(data);
+      io.emit({ type: "USER_JOINED", student: data.student });
+    });
 
-wss.on("connection", ws => {
-  ws.on("message", message => {
-    const data = JSON.parse(message);
-    console.log(data);
-    switch (data.type) {
-      case "ADD_USER":
-        return broadcast({ type: "USER_JOINED", student: data.student });
-      case "INCREASE_VOTE_COUNT":
-        return broadcast({ type: "VOTE_COUNTED" }, ws);
-      case "RESET_VOTE_COUNT":
-        return broadcast({ type: "RESET_VOTES" }, ws);
-      case "NEXT_QUESTION":
-        broadcast({ type: "GO_TO_NEXT_QUESTION", index: data.index }, ws);
-        break;
-      case "CHANGE_QUESTION_STATUS":
-        broadcast({ type: "UPDATE_QUESTION_STATUS", closeQuestion: data.closeQuestion }, ws);
-        break;
-      case "UPDATE_QUESTIONS":
-        broadcast({ type: "REFRESH_QUESTIONS", quizId: data.quizId }, ws);
-        break;
-      case "UPDATE_ANSWERS":
-        broadcast({ type: "REFRESH_ANSWERS", questionId: data.questionId }, ws);
-      default:
-        break;
-    }
-  });
+    io.on("INCREASE_VOTE_COUNT", message => {
+      const data = JSON.parse(message);
+      io.emit({ type: "VOTE_COUNTED" });
+    });
 
-  ws.on("close", () => {
-    broadcast(
-      {
-        type: "REMOVE_USER"
-      },
-      ws
-    );
-  });
-});
+    io.on("RESET_VOTE_COUNT", message => {
+      const data = JSON.parse(message);
+      io.emit({ type: "RESET_VOTES" });
+    });
+
+    io.on("NEXT_QUESTION", message => {
+      const data = JSON.parse(message);
+      io.emit({ type: "GO_TO_NEXT_QUESTION", index: data.index });
+    });
+
+    io.on("CHANGE_QUESTION_STATUS", message => {
+      const data = JSON.parse(message);
+      io.emit({ type: "UPDATE_QUESTION_STATUS", closeQuestion: data.closeQuestion });
+    });
+
+    io.on("UPDATE_QUESTIONS", message => {
+      const data = JSON.parse(message);
+      io.emit({ type: "REFRESH_QUESTIONS", quizId: data.quizId });
+    });
+
+    io.on("UPDATE_ANSWERS", message => {
+      const data = JSON.parse(message);
+      io.emit({ type: "REFRESH_ANSWERS", questionId: data.questionId });
+    });
+  }
+}

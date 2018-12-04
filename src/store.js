@@ -16,6 +16,7 @@ export default function configureStore() {
     composeEnhancers(applyMiddleware(thunkMiddleware), applyMiddleware(sagaMiddleware))
   );
   const socket = setupSocket(store.dispatch);
+  console.log(socket.emit);
   sagaMiddleware.run(quiz, { socket });
   sagaMiddleware.run(question, { socket });
   sagaMiddleware.run(answer, { socket });
