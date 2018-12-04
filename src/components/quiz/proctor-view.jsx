@@ -80,22 +80,25 @@ class ProctorView extends Component {
     }
 
     render(){
-        const {onClick, handleExit, activeStep, questions, quizId, answers, classes} = this.props;
-
+        const {onClick, handleExit, activeStep, questions, quizId, answers, classes, answerVoteCount} = this.props;
         var answerArray = [];
         var i = 0;
         if (answers) {
             answers.forEach(function(answer) {
+                var votesReceived = 0;
+                if (answer._id in answerVoteCount) {
+                    votesReceived = answerVoteCount[answer._id];
+                }
                 answerArray.push(
                 <Grid item>
-                    <AnswerCard answer={answer} vote={null} index = {i} questionAnswered={true} showAnswers={true} />
+                    <AnswerCard answer={answer} vote={null} index = {i} questionAnswered={true} showAnswers={true} votesReceived={votesReceived}/>
                 </Grid>
                 );
                 i += 1;
             });
         }
         return(
-            <div>
+            <Grid container justify="center" alignItems="center" style={{minHeight: "90vh"}}>
                 <div>
                     {this.state.leaderboardModalOpen === true &&
                         <LeaderboardModal
@@ -105,9 +108,8 @@ class ProctorView extends Component {
                         />
                     }
                 </div>
-                <Grid 
+                <Grid item
                     container
-                    style={{height: "90vh"}}
                     justify="center"
                     alignItems="center"
                 >
@@ -115,7 +117,7 @@ class ProctorView extends Component {
                         <Card>
                             <CardContent>
                                 <Typography variant="h4">
-                                    {answers ? "Correct Answers" : "Welcome!"}
+                                    {answers.length !== 0 ? "Correct Answers" : "Welcome!"}
                                 </Typography>
                                     <Grid 
                                         item
@@ -135,10 +137,11 @@ class ProctorView extends Component {
                                     <Button variant="contained" color="primary" onClick={() => { this.handleOpen(activeStep) }}> View Next Question</Button>
                                     <Button variant="contained" color="primary" onClick={this.handleNewQuestion}>Add Question </Button>
                                     <Button variant="contained" color="primary" onClick={this.leaderboard}>Leaderboard </Button>
+                                    <Button variant="contained" color="primary" onClick={handleExit}>Abandon Quiz </Button>
                                 </CardActions>
                                 : <CardActions>
                                     <Button variant="contained" color="primary" onClick={this.leaderboard}>Final Scores </Button>
-                                    <Button variant="contained" color="primary" onClick={handleExit}>Exit </Button>
+                                    <Button variant="contained" color="primary" onClick={handleExit}>Abandon Quiz </Button>
                                 </CardActions>
                             }
                         </Card>
@@ -152,7 +155,7 @@ class ProctorView extends Component {
                         />
                     }
                 </Grid>
-            </div>
+            </Grid>
         )
     }
 }

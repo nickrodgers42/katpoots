@@ -19,7 +19,7 @@ wss.on("connection", ws => {
       case "ADD_USER":
         return broadcast({ type: "USER_JOINED", student: data.student });
       case "INCREASE_VOTE_COUNT":
-        return broadcast({ type: "VOTE_COUNTED" }, ws);
+        return broadcast({ type: "VOTE_COUNTED", answer: data.answer }, ws);
       case "RESET_VOTE_COUNT":
         return broadcast({ type: "RESET_VOTES" }, ws);
       case "NEXT_QUESTION":

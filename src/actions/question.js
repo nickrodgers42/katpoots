@@ -57,9 +57,9 @@ export const addQuestion = (question, quizId) => dispatch => {
     .then(() => dispatch(fetchQuestions(quizId)));
 };
 
-export const increaseVoteCount = () => dispatch => dispatch({ type: INCREASE_VOTE_COUNT });
+export const increaseVoteCount = (answer) => dispatch => dispatch({ type: INCREASE_VOTE_COUNT, answer });
 export const resetVoteCount = () => dispatch => dispatch({ type: RESET_VOTE_COUNT });
-export const voteCounted = () => dispatch => dispatch({ type: VOTE_COUNTED });
+export const voteCounted = answer => dispatch => dispatch({ type: VOTE_COUNTED, answer });
 export const resetVotes = () => dispatch => dispatch({ type: RESET_VOTES });
 
 export function fetchQuestions(quizId) {
