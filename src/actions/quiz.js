@@ -5,6 +5,11 @@ import axios from "axios";
 export const GET_QUIZZES = "GET_QUIZZES";
 export const NEXT_QUESTION = "NEXT_QUESTION";
 export const GO_TO_NEXT_QUESTION = "GO_TO_NEXT_QUESTION";
+export const USER_JOINED = "USER_JOINED";
+export const ADD_USER = "ADD_USER";
+export const SET_QUIZ = "SET_QUIZ";
+export const CHANGE_QUESTION_STATUS = "CHANGE_QUESTION_STATUS";
+export const UPDATE_QUESTION_STATUS = "UPDATE_QUESTION_STATUS";
 
 // We don't need to export these because they don't have any side-effects
 // Because we will dispatch ge fetchQuizzes action after to update the state
@@ -13,27 +18,128 @@ const DELETE_QUIZ = "DELETE_QUIZ";
 const ADD_QUIZ = "ADD_QUIZ";
 const EDIT_QUIZ = "EDIT_QUIZ";
 
-export const editQuiz = (id) => dispatch => {
-  let title = prompt('New Quiz Name?');
-  const quiz = {
-    title
-  }
-  axios
-    .put(`/api/quiz/${id}`, quiz)
-    .then(res =>
-      dispatch({
-        type: EDIT_QUIZ,
-        quiz: res.data
-      })
-    )
+export function setQuiz(quiz) {
+  return dispatch =>
+    dispatch({
+      type: SET_QUIZ,
+      quiz
+    });
+}
 
-    .then(() => dispatch(fetchQuizzes()));
+export function joinQuiz(values, quizId) {
+  return dispatch =>
+    axios.post("/api/student", { ...values, quizId }).then(data =>
+      dispatch({
+        type: ADD_USER,
+        ...values,
+        student: data.data
+      })
+    );
+}
+
+export function userJoined(student) {
+  return dispatch =>
+    dispatch({
+      type: USER_JOINED,
+      student
+    });
+}
+
+export const GET_QUESTION_INDEX = "GET_QUESTION_INDEX";
+export const getQuestionIndex = id => dispatch => {
+  axios.get(`/api/quiz/${id}`).then(res =>
+    dispatch({
+      type: GET_QUESTION_INDEX,
+      index: res.data.questionIndex
+    })
+  );
+};
+
+export const INCREMENT_QUESTION = "INCREMENT_QUESTION";
+export const increment = (id, currentIndex) => dispatch => {
+  let newIndex = currentIndex + 1;
+  const quiz = {
+    questionIndex: newIndex
+  };
+  axios.put(`/api/quiz/${id}`, quiz).then(res =>
+    dispatch({
+      type: INCREMENT_QUESTION,
+      index: res.data.questionIndex
+    })
+  );
+};
+
+export const QUESTION_STATUS = "GET_QUESTION_STATUS";
+export const questionClosed = (id, status) => dispatch => {
+  let closed = status;
+  const quiz = {
+    closeQuestion: closed
+  };
+  axios.put(`/api/quiz/${id}`, quiz).then(res =>
+    dispatch({
+      type: QUESTION_STATUS,
+      closeQuestion: res.data.closeQuestion
+    })
+  );
+};
+
+export const getQuestionStatus = id => dispatch => {
+  axios.get(`/api/quiz/${id}`).then(res =>
+    dispatch({
+      type: QUESTION_STATUS,
+      closeQuestion: res.data.closeQuestion
+    })
+  );
+};
+
+export const RESET_INDEX = "RESET_INDEX";
+export const resetIndex = id => dispatch => {
+  const quiz = {
+    questionIndex: "0"
+  };
+  axios.put(`/api/quiz/${id}`, quiz).then(res =>
+    dispatch({
+      type: RESET_INDEX,
+      index: res.data.questionIndex
+    })
+  );
+};
+
+export const editQuiz = id => dispatch => {
+  let title = prompt("New Quiz Name?");
+  if (title !== "") {
+    const quiz = {
+      title
+    };
+    axios
+      .put(`/api/quiz/${id}`, quiz)
+      .then(res =>
+        dispatch({
+          type: EDIT_QUIZ,
+          quiz: res.data
+        })
+      )
+
+      .then(() => dispatch(fetchQuizzes()));
+  }
 };
 
 // This is what we dispatch internally to this file's actions
 function getQuizzes(quizzes) {
   return { type: GET_QUIZZES, quizzes };
 }
+
+export const changeQuestionStatus = status => dispatch =>
+  dispatch({
+    type: CHANGE_QUESTION_STATUS,
+    closeQuestion: status
+  });
+
+export const updateQuestionStatus = closeQuestion => dispatch =>
+  dispatch({
+    type: UPDATE_QUESTION_STATUS,
+    closeQuestion
+  });
 
 export const nextQuestion = index => dispatch =>
   dispatch({
@@ -62,9 +168,9 @@ export const deleteQuiz = id => dispatch => {
     .then(() => dispatch(fetchQuizzes()));
 };
 
-export const addQuiz = quiz => dispatch => {
+export const addQuiz = (quiz, userId) => dispatch => {
   axios
-    .post(`/api/quiz`, quiz)
+    .post(`/api/quiz/${userId}`, quiz)
     .then(res =>
       dispatch({
         type: ADD_QUIZ, // Even though we don't use it in the reducer
@@ -86,4 +192,15 @@ export function fetchQuizzes() {
         .then(quizzes => dispatch(getQuizzes(quizzes)))
     );
   };
+}
+
+export function fetchQuiz(quizId) {
+  return dispatch => {
+    return (
+      axios
+        .get(`/api/quiz/${quizId}`)
+        .then(res => res.data)
+        .then(currentQuiz => dispatch(setQuiz(currentQuiz)))
+    )
+  }
 }

@@ -1,14 +1,35 @@
 import { loadModels } from "../../data/models";
+import { ensureLoggedIn } from "connect-ensure-login";
 
 const express = require("express");
 
 module.exports = function(server) {
   server.get("/api/quiz/:quizId/", getQuiz);
-  server.post("/api/quiz/:userId/", createQuiz);
-  server.delete("/api/quiz/:quizId", deleteQuiz);
+  server.post("/api/quiz/:userId/", ensureLoggedIn(), createQuiz);
+  server.delete("/api/quiz/:quizId", ensureLoggedIn(), deleteQuiz);
   server.put("/api/quiz/:quizId/", updateQuiz);
-  server.get("/api/quizzes", getQuizzes);
+  server.get("/api/quizzes", ensureLoggedIn(), getQuizzes);
+  server.get("/api/quiz/findByPin/:pin", findByPin);
 };
+
+async function findByPin(req, res, next) {
+  try {
+    const models = await loadModels();
+    if (!req.params.pin) {
+      return next();
+    }
+    const pin = Number(req.params.pin);
+    const quiz = await models.quiz.findOne({ pin });
+    if (!quiz) {
+      res.status(404).send({ error: `Quiz with pin ${pin} not found!` });
+      return next();
+    }
+    res.json(quiz);
+    next();
+  } catch (e) {
+    return next();
+  }
+}
 
 async function getQuizzes(req, res, next) {
   try {

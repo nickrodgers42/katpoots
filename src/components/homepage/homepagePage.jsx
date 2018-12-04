@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import Homepage from "./homepage";
 import PropTypes from "prop-types";
 import { logoutUser } from "../../actions/user";
+import { joinQuiz, setQuiz } from "../../actions/quiz";
 
 class HomepagePage extends Component {
   constructor(props) {
@@ -10,6 +11,7 @@ class HomepagePage extends Component {
     this.signUpRedirect = this.signUpRedirect.bind(this);
     this.loginRedirect = this.loginRedirect.bind(this);
     this.logout = this.logout.bind(this);
+    this.joinQuizAndRedirect = this.joinQuizAndRedirect.bind(this);
   }
 
   signUpRedirect() {
@@ -21,7 +23,12 @@ class HomepagePage extends Component {
   }
 
   logout() {
-    this.props.dispatch(logoutUser());
+    this.props.logoutUser();
+  }
+
+  joinQuizAndRedirect(values) {
+    this.props.joinQuiz(values, this.props.quizId);
+    this.props.history.push(`/quiz/${this.props.quizId}`);
   }
 
   render() {
@@ -30,8 +37,10 @@ class HomepagePage extends Component {
       <div>
         <Homepage
           logout={this.logout}
-          history= {this.props.history}
+          history={this.props.history}
+          joinQuiz={this.joinQuizAndRedirect}
           user={user}
+          setQuiz={this.props.setQuiz}
         />
       </div>
     );
@@ -39,10 +48,19 @@ class HomepagePage extends Component {
 }
 
 HomepagePage.propTypes = {
-  user: PropTypes.object,
-  dispatch: PropTypes.func.isRequired
+  user: PropTypes.object
 };
 
-export default connect(state => {
-  return { user: state.user };
-})(HomepagePage);
+export default connect(
+  state => {
+    return {
+      user: state.user,
+      quizId: state.quiz.currentQuiz._id
+    };
+  },
+  {
+    joinQuiz,
+    logoutUser,
+    setQuiz
+  }
+)(HomepagePage);

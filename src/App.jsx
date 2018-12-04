@@ -7,7 +7,9 @@ import HomepagePage from "./components/homepage/homepagePage";
 import Register from "./components/register/register";
 import Login from "./components/login/login";
 import User from "./components/userpage/user";
+import Pin from "./components/pinpage/pin";
 import Quiz from "./components/quiz/quiz";
+import QuestionsList from "./components/userpage/questions-list";
 
 class App extends Component {
   constructor(props) {
@@ -17,6 +19,7 @@ class App extends Component {
 
   componentDidMount() {
     this.checkForUser();
+    document.title = "KatPoots";
   }
 
   checkForUser() {
@@ -32,6 +35,8 @@ class App extends Component {
           <Route path="/login" component={Login} />
           <Route path="/user" component={User} />
           <Route path="/quiz/:quizId" component={Quiz} />
+          <Route path="/pin/:quizId" component={Pin}/>
+          <Route path="/create/:quizId" component={QuestionsList} />
         </div>
       </Router>
     );

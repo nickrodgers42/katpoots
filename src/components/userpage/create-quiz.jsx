@@ -1,31 +1,33 @@
-import React from 'react'
-import Grid from '@material-ui/core/Grid'
-import { withStyles, TextField, FormHelperText } from '@material-ui/core';
+import React from "react";
+import Grid from "@material-ui/core/Grid";
+import { withStyles, TextField } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
-import AddIcon from "@material-ui/icons/Add"
-import { Field } from 'react-final-form';
+import AddIcon from "@material-ui/icons/Add";
+import { Field } from "react-final-form";
 
 const styles = theme => ({
-    base: {
-        backgroundColor: "#BA68C8",
-    },
-    title: {
-        fontSize: 25,
-        textAlign: "center",
-        gutterBottom: "true",
-        backgroundColor: "#AB47BC",
-        padding: 10
-    },
-    responsive: {
-        margin: 20,
-    },
-    button: {
-        backgroundColor: "#99fd00"
-    },
-})
+  base: {
+    backgroundColor: "#757de8",
+    margin: '10px'
+  },
+  title: {
+    fontSize: 25,
+    textAlign: "center",
+    gutterBottom: "true",
+    backgroundColor: "#3f51b5",
+    padding: 10,
+    color: '#fff',
+  },
+  responsive: {
+    margin: 20
+  },
+  button: {
+    backgroundColor: "#f44336"
+  },
+});
 
 const CreateQuiz = props => {
-    const { classes } = props;
+    const { classes, handleNewQuiz, handleChangeQuiz } = props;
     return (
         <div className={classes.base}>
             <Grid>
@@ -35,10 +37,17 @@ const CreateQuiz = props => {
             </Grid>
             <Grid container className={classes.responsive} spacing={16}>
                 <Grid item>
-                    <Field name="quizTitle" component={TextField} type="text" label="New Quiz Name"/>
+                    <Field
+                        name="quizTitle" 
+                        component={TextField}
+                        type="text" 
+                        label="New Quiz Name"
+                        onChange={handleChangeQuiz()}/>   
                 </Grid>
                 <Grid item >
-                    <Button variant="fab" className={classes.button}>
+                    <Button variant="fab" 
+                        className={classes.button} 
+                        onClick={handleNewQuiz}>
                         <AddIcon />
                     </Button>
                 </Grid>
