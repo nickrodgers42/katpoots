@@ -81,7 +81,9 @@ class ProctorView extends Component {
     }
 
     render(){
-        const {onClick, handleExit, activeStep, questions, quizId, answers, classes} = this.props;
+        const {onClick, handleExit, activeStep, questions, quizId, answers, classes, answerVoteCount} = this.props;
+
+        console.log(answerVoteCount);
 
         var answerArray = [];
         var i = 0;
@@ -90,6 +92,10 @@ class ProctorView extends Component {
                 answerArray.push(
                 <Grid item>
                     <AnswerCard answer={answer} vote={null} index = {i} questionAnswered={true} showAnswers={true} />
+                    {answer._id in answerVoteCount ?
+                        <div>{answerVoteCount[answer._id]}</div>
+                    :   <div> 0</div>
+                    }
                 </Grid>
                 );
                 i += 1;
@@ -136,10 +142,11 @@ class ProctorView extends Component {
                                     <Button variant="contained" color="primary" onClick={() => { this.handleOpen(activeStep) }}> View Next Question</Button>
                                     <Button variant="contained" color="primary" onClick={this.handleNewQuestion}>Add Question </Button>
                                     <Button variant="contained" color="primary" onClick={this.leaderboard}>Leaderboard </Button>
+                                    <Button variant="contained" color="primary" onClick={handleExit}>Abandon Quiz </Button>
                                 </CardActions>
                                 : <CardActions>
                                     <Button variant="contained" color="primary" onClick={this.leaderboard}>Final Scores </Button>
-                                    <Button variant="contained" color="primary" onClick={handleExit}>Exit </Button>
+                                    <Button variant="contained" color="primary" onClick={handleExit}>Abandon Quiz </Button>
                                 </CardActions>
                             }
                         </Card>

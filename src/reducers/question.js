@@ -3,7 +3,8 @@ import { GET_QUESTIONS, INCREASE_VOTE_COUNT, RESET_VOTE_COUNT, VOTE_COUNTED, RES
 const initialState = {
   questions: [],
   voteCount: 0,
-  loadingQuestions: true
+  loadingQuestions: true,
+  answersVotedOn: {}
 };
 
 export default function question(state = initialState, action) {
@@ -13,7 +14,14 @@ export default function question(state = initialState, action) {
       return { ...state, questions: action.questions, loadingQuestions: false };
     case INCREASE_VOTE_COUNT:
     case VOTE_COUNTED:
-      return { ...state, voteCount: state.voteCount + 1 };
+      let newAnswersVotedOn = {...state.answersVotedOn}
+      if (action.answer._id in state.answersVotedOn){
+        newAnswersVotedOn[action.answer._id] = state.answersVotedOn[action.answer._id] + 1;
+      }
+      else{
+        newAnswersVotedOn[action.answer._id] = 1;
+      }
+      return { ...state, voteCount: state.voteCount + 1, answersVotedOn: newAnswersVotedOn }
     case RESET_VOTE_COUNT:
     case RESET_VOTES:
       return { ...state, voteCount: 0, loadingQuestions:true };

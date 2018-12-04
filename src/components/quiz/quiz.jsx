@@ -71,6 +71,9 @@ class Quiz extends Component {
     //load the answers for the given question
     if (this.props.activeStep !== this.props.questions.length && this.props.activeStep !== -1){
       if (prevProps.activeStep !== this.props.activeStep || this.state.newQuiz){
+        if(this.props.activeStep !== 0){
+          this.setState({choseCorrectAnswer: false});
+        }
         this.props.fetchAllAnswers(this.props.questions[this.props.activeStep]._id);
       }
     }
@@ -144,11 +147,11 @@ class Quiz extends Component {
     else{
       this.setState({choseCorrectAnswer: false});
     }
-    this.props.increaseVoteCount();
+    this.props.increaseVoteCount(answer);
   };
 
   render() {
-    const { classes, questions, activeStep, voteCount, answers, closeQuestion, loadingAnswers, loadingQuestions, increaseScore, user, timer } = this.props;
+    const { classes, questions, activeStep, voteCount, answers, closeQuestion, loadingAnswers, loadingQuestions, user, timer } = this.props;
     var redOrGreen = null;
     if (this.state.choseCorrectAnswer !== null) {
       if (this.state.choseCorrectAnswer === true) {
@@ -195,6 +198,7 @@ class Quiz extends Component {
                 activeStep={activeStep}
                 answers={this.state.previousAnswers}
                 quizId={this.props.match.params.quizId}
+                answerVoteCount={this.props.answerVoteCount}
               />
             </div>
           }
@@ -244,7 +248,8 @@ export default connect(
     loadingQuestions: state.question.loadingQuestions,
     closeQuestion: state.quiz.closeQuestion,
     user: state.user,
-    timer: state.timer
+    timer: state.timer,
+    answerVoteCount: state.question.answersVotedOn
   }),
   {
     fetchQuestions,

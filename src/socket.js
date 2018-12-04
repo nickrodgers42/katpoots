@@ -13,7 +13,7 @@ const setupSocket = dispatch => {
         dispatch(userJoined(data.student));
         break;
       case "VOTE_COUNTED":
-        dispatch(voteCounted());
+        dispatch(voteCounted(data.answer));
         break;
       case "RESET_VOTES":
         dispatch(resetVotes());
