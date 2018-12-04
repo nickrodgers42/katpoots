@@ -27,6 +27,9 @@ const styles = theme => ({
   },
   itemSpace: {
     width: "400px",
+  },
+  leaderboardName: {
+    wordWrap: "break-word"
   }
 });
 
@@ -79,11 +82,11 @@ class LeaderboardModal extends React.Component {
                       {users.map((user, index) => index <= 4 ? (
                         <Grid item className={classes.names}>
                           <Grid container justify="space-between" alignItems="center"className={classes.itemSpace}>
-                            <Grid item>
-                              <Typography variant="h6"> {index + 1}) {user.displayName} </Typography>
+                            <Grid item xs={9} >
+                              <Typography variant="h6"className={classes.leaderboardName}> {index + 1})&nbsp;{user.displayName} </Typography>
                             </Grid>
-                            <Grid item>
-                              <Typography variant="h6">{user.score} </Typography> 
+                            <Grid item xs={3}>
+                              <Typography variant="h6" align='right'>{user.score} </Typography> 
                             </Grid>
                           </Grid>
                         </Grid>
