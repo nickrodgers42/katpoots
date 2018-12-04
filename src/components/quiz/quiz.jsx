@@ -71,9 +71,6 @@ class Quiz extends Component {
     //load the answers for the given question
     if (this.props.activeStep !== this.props.questions.length && this.props.activeStep !== -1){
       if (prevProps.activeStep !== this.props.activeStep || this.state.newQuiz){
-        if(this.props.activeStep !== 0){
-          this.setState({choseCorrectAnswer: false});
-        }
         this.props.fetchAllAnswers(this.props.questions[this.props.activeStep]._id);
       }
     }
@@ -95,12 +92,13 @@ class Quiz extends Component {
       this.props.updateAllAnswers(this.props.questions[this.props.activeStep]._id);
       this.setState({backFromLeaderboard:false});
     }
-    if(this.props.closeQuestion === false && this.props.loadingAnswers === false && this.props.loadingQuestions == false){
+    if(this.props.closeQuestion === false && this.props.loadingAnswers === false && this.props.loadingQuestions === false){
       if(prevProps.loadingAnswers === true || prevProps.loadingQuestions === true){
         if(this.state.owner === true){
           this.props.start();
         }
         else{
+          this.setState({choseCorrectAnswer: false});
           this.setState({startingTime: Date.now()});
         }
       }
