@@ -41,6 +41,9 @@ const styles = theme => ({
         padding: "10px 0"
     },
     container: {
+        minHeight: "85vh"
+    },
+    card: {
         minWidth: "400px"
     }
 });
@@ -110,9 +113,9 @@ class QuestionsList extends Component {
         return (
             <div>
                 <AppBarComponent history={history}/>
-                <Grid container className={classes.container} justify="center" >
+                <Grid container className={classes.container} justify="center" alignItems="center">
                     <Grid item>
-                        <Card className={classes.container}>
+                        <Card className={classes.card}>
                             <CardContent>
                                 <Grid container direction="column" justify="space-between">
                                     <Grid item className={classes.gridItem}>
