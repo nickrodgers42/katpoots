@@ -40,6 +40,15 @@ const styles = theme => ({
   },
   votes: {
     padding: "5px"
+  },
+  time: {
+    padding: "10px"
+  },
+  red: {
+    backgroundColor: "#f6685e"
+  },
+  yellow: {
+    backgroundColor: "#ffeb3b"
   }
 }); 
 
@@ -56,14 +65,15 @@ const Question = props => {
     );
     i += 1;
   });
-  
+  var timerBackground = null;
+  if (currentTime <= 5) {
+    timerBackground = classes.red;
+  }
+  else if (currentTime <= 10) {
+    timerBackground = classes.yellow;
+  }
   return (
     <div>
-      {timer && owner === true ?
-      <h1> {currentTime} </h1>
-      :
-      null
-      }
       {/* Desktop */}
       <MediaQuery minDeviceWidth={1224}>
         <Grid
@@ -75,12 +85,28 @@ const Question = props => {
           spacing={24}
         >
           {owner === true ?
+            <Grid item 
+              container
+              direction="row"
+              justify="space-between"
+              alignItems="center"
+            >
+            <Grid item>
+                  {timer ?
+                    <Paper elevation={1} className={timerBackground}>
+                      <Typography variant="h4" className={classes.time}> {currentTime} </Typography>
+                    </Paper>
+                  :
+                    null
+                  }
+            </Grid>
             <Grid item xs={3}>
               <Paper elevation={1}>
                 <Typography variant="h6" color="inherit" className={[classes.grow, classes.votes]}>
                   Votes: {voteCount}
                 </Typography>
               </Paper>
+            </Grid>
             </Grid>
           :
             <Grid item xs={3}>
