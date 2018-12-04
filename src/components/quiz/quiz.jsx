@@ -20,11 +20,7 @@ const styles = {
   loadingContainer: {
     height: "90vh"
   },
-  right: {
-    padding: "10px",
-    color: "white"
-  },
-  wrong: {
+  rightWrong: {
     padding: "10px",
     color: "white"
   },
@@ -33,6 +29,9 @@ const styles = {
   },
   green: {
     backgroundColor: "#4caf50"
+  },
+  smallerGif: {
+    height: "200px"
   }
 }
 
@@ -92,12 +91,13 @@ class Quiz extends Component {
       this.props.updateAllAnswers(this.props.questions[this.props.activeStep]._id);
       this.setState({backFromLeaderboard:false});
     }
-    if(this.props.closeQuestion === false && this.props.loadingAnswers === false && this.props.loadingQuestions == false){
+    if(this.props.closeQuestion === false && this.props.loadingAnswers === false && this.props.loadingQuestions === false){
       if(prevProps.loadingAnswers === true || prevProps.loadingQuestions === true){
         if(this.state.owner === true){
           this.props.start();
         }
         else{
+          this.setState({choseCorrectAnswer: false});
           this.setState({startingTime: Date.now()});
         }
       }
@@ -144,11 +144,11 @@ class Quiz extends Component {
     else{
       this.setState({choseCorrectAnswer: false});
     }
-    this.props.increaseVoteCount();
+    this.props.increaseVoteCount(answer);
   };
 
   render() {
-    const { classes, questions, activeStep, voteCount, answers, closeQuestion, loadingAnswers, loadingQuestions, increaseScore, user, timer } = this.props;
+    const { classes, questions, activeStep, voteCount, answers, closeQuestion, loadingAnswers, loadingQuestions, user, timer } = this.props;
     var redOrGreen = null;
     if (this.state.choseCorrectAnswer !== null) {
       if (this.state.choseCorrectAnswer === true) {
@@ -187,7 +187,6 @@ class Quiz extends Component {
       {closeQuestion === true &&
         <div>
           {this.state.owner === true && this.state.loadingNextQuestion === false &&
-            <div>
               <ProctorView
                 handleExit={this.handleExit}
                 onClick={this.handleQuestionStatus}
@@ -195,26 +194,29 @@ class Quiz extends Component {
                 activeStep={activeStep}
                 answers={this.state.previousAnswers}
                 quizId={this.props.match.params.quizId}
+                answerVoteCount={this.props.answerVoteCount}
               />
-            </div>
           }
           {this.state.owner !== true &&
             <Grid container direction="column" justify="center" alignItems="center" className={[classes.loadingContainer, redOrGreen] }>
               <Grid item>
                 {this.state.choseCorrectAnswer === true &&
                   /* Maybe make the background green here and do it like kahoot */
-                  <Typography variant="h4" className={classes.right}>
+                  <Typography variant="h4" className={classes.rightWrong}>
                     You got it right!
                   </Typography>
                 }
                 {this.state.choseCorrectAnswer === false &&
                   /* make it red... play a sad sound idk */
-                  <Typography variant="h4" className={classes.wrong}>
+                  <Typography variant="h4" className={classes.rightWrong}>
                     You got it wrong :(
                   </Typography>
                 }
+                <Typography variant="h4" className={classes.rightWrong}>
+                  Your score: {user.score}
+                </Typography>
               </Grid>
-              <Grid item>
+              <Grid item className={classes.smallerGif}>
                 <img src={catGif} />
               </Grid>
             </Grid>
@@ -244,7 +246,8 @@ export default connect(
     loadingQuestions: state.question.loadingQuestions,
     closeQuestion: state.quiz.closeQuestion,
     user: state.user,
-    timer: state.timer
+    timer: state.timer,
+    answerVoteCount: state.question.answersVotedOn
   }),
   {
     fetchQuestions,

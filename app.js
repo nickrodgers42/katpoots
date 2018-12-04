@@ -27,9 +27,9 @@ io.on("connection", socket => {
     io.emit("user joined", data.student);
   });
 
-  socket.on("increase vote count", () => {
-    console.log("here");
-    socket.broadcast.emit("vote counted");
+  socket.on("increase vote count", message => {
+    const data = JSON.parse(message);
+    socket.broadcast.emit("vote counted", data.answer);
   });
 
   socket.on("reset vote count", () => {

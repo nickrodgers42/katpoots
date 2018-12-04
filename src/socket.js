@@ -14,9 +14,9 @@ const setupSocket = dispatch => {
     dispatch(userJoined(event));
   });
 
-  socket.on("vote counted", () => {
+  socket.on("vote counted", event => {
     console.log("here");
-    dispatch(voteCounted());
+    dispatch(voteCounted(event));
   });
 
   socket.on("reset votes", () => {

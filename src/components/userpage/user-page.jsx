@@ -40,12 +40,10 @@ const UserPage = props => {
   } = props;
   return (
     <div>
-      <Grid>
-        <AppBarComponent history={history} />
-      </Grid>
-      <Grid container spacing={24}>
-      <Grid item>
-        <CreateQuiz handleNewQuiz={handleNewQuiz} handleChangeQuiz={handleChangeQuiz} />
+      <AppBarComponent history={history} />
+      <Grid container direction="row" justify="center" alignItems="flex-start">
+        <Grid item>
+          <CreateQuiz handleNewQuiz={handleNewQuiz} handleChangeQuiz={handleChangeQuiz} />
         </Grid>
         <Grid item>
           <ObjList

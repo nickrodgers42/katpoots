@@ -34,6 +34,21 @@ const styles = theme => ({
   },
   spinner: {
     margin: "100px 0"
+  },
+  score: {
+    padding: "5px"
+  },
+  votes: {
+    padding: "5px"
+  },
+  time: {
+    padding: "10px"
+  },
+  red: {
+    backgroundColor: "#f6685e"
+  },
+  yellow: {
+    backgroundColor: "#ffeb3b"
   }
 }); 
 
@@ -45,19 +60,20 @@ const Question = props => {
   answers.forEach(function(answer) {
     answerArray.push(
       <Grid item>
-        <AnswerCard answer={answer} vote={vote} index = {i} questionAnswered={questionAnswered} showAnswers={false} />
+        <AnswerCard answer={answer} vote={vote} index = {i} questionAnswered={questionAnswered} showAnswers={false} votesReceived={0} />
       </Grid>
     );
     i += 1;
   });
-  
+  var timerBackground = null;
+  if (currentTime <= 5) {
+    timerBackground = classes.red;
+  }
+  else if (currentTime <= 10) {
+    timerBackground = classes.yellow;
+  }
   return (
     <div>
-      {timer && owner === true ?
-      <h1> {currentTime} </h1>
-      :
-      null
-      }
       {/* Desktop */}
       <MediaQuery minDeviceWidth={1224}>
         <Grid
@@ -69,18 +85,34 @@ const Question = props => {
           spacing={24}
         >
           {owner === true ?
+            <Grid item 
+              container
+              direction="row"
+              justify="space-between"
+              alignItems="center"
+            >
+            <Grid item>
+                  {timer ?
+                    <Paper elevation={1} className={timerBackground}>
+                      <Typography variant="h4" className={classes.time}> {currentTime} </Typography>
+                    </Paper>
+                  :
+                    null
+                  }
+            </Grid>
             <Grid item xs={3}>
               <Paper elevation={1}>
-                <Typography variant="h6" color="inherit" className={classes.grow}>
+                <Typography variant="h6" color="inherit" className={[classes.grow, classes.votes]}>
                   Votes: {voteCount}
                 </Typography>
               </Paper>
+            </Grid>
             </Grid>
           :
             <Grid item xs={3}>
               <Paper elevation={1}>
                 {owner !== true && !answered &&
-                  <Typography variant="h6" color="inherit" className={classes.grow}>
+                  <Typography variant="h6" color="inherit" className={[classes.grow, classes.score]}>
                     Score: {user.score}
                   </Typography>
                 }
@@ -132,6 +164,13 @@ const Question = props => {
               </Typography>
             </Paper>
           </Grid> */}
+              <Paper elevation={1}>
+                {owner !== true && !answered &&
+                  <Typography variant="h6" color="inherit" className={[classes.grow, classes.score]}>
+                    Score: {user.score}
+                  </Typography>
+                }
+              </Paper>
           <Grid
             item
             container
