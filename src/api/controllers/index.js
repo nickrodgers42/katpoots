@@ -1,3 +1,4 @@
+require("@babel/polyfill");
 import glob from "glob-promise";
 
 async function load(server) {
