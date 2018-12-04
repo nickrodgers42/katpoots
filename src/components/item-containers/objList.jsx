@@ -2,14 +2,22 @@ import React from "react";
 import { withStyles } from "@material-ui/core";
 import ObjLink from "./objLink";
 import PropTypes from "prop-types";
+import Grid from "@material-ui/core/Grid";
+
 const styles = theme => ({});
 
 
 const ObjList = props => {
   const { items } = props;
   return (
-    <div>
+    <Grid
+      container
+      direction="column"
+      justify="center"
+      alignItems="center"
+    >
       {items.map(item => (
+        <Grid item>
         <ObjLink
           key={item._id}
           title={item.title}
@@ -18,8 +26,9 @@ const ObjList = props => {
           editRedirect={() => props.editRedirect(item._id)}
           pinRedirect={() => props.pinRedirect(item._id)}
         />
+        </Grid>
       ))}
-    </div>
+    </Grid>
   );
 };
 
