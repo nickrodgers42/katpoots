@@ -25,10 +25,11 @@ class Melee extends Component {
   render() {
     return (
       <Sound
-        url="melee.mp3"
+        url="./melee.mp3"
         playStatus={Sound.status.PLAYING}
-        volume='100'
-        loop='true'
+        onLoading={this.handleSongLoading}
+        onPlaying={this.handleSongPlaying}
+        onFinishedPlaying={this.handleSongFinishedPlaying}
       />
     );
   }
