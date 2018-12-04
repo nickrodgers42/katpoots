@@ -5,6 +5,7 @@ import PinHolder from "./pinholder"
 import UserList from "./userlist"
 import {Button} from "@material-ui/core"
 import Melee from "../sound/melee.mp3"
+import Sounder from "../sound/sounder"
 import Sound from 'react-sound'
 
 const styles = theme => ({
@@ -22,10 +23,6 @@ const PinPage = props => {
   const { classes, currentQuiz, startQuiz, students, playAudio } = props;
   return (
     <div id = "pinGridDiv">
-        <Sound
-            url={Melee}
-            playStatus={Sound.status.PLAYING}
-        />  
         <div>
             <AppBarComponent history={ props.history }/>
         </div>
@@ -38,7 +35,7 @@ const PinPage = props => {
                 <UserList students={students}/>
             </Grid>
             <Grid item>
-                <Button onClick={playAudio}>SOUND</Button>
+                <Sounder player={Melee} />
             </Grid>
         </Grid>
     </div>
