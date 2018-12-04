@@ -14,7 +14,7 @@ import Paper from "@material-ui/core/Paper";
 const styles = theme => ({
   paper: {
     minHeight: "100px",
-    minWidth: "300px"
+    minWidth: "500px"
   },
   container: {
     height: "100vh"
@@ -26,7 +26,7 @@ const styles = theme => ({
     padding: "30px 0 10px 20px"
   },
   itemSpace: {
-    width: "200px",
+    width: "400px",
   }
 });
 
