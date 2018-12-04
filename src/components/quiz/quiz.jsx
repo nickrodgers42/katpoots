@@ -20,11 +20,7 @@ const styles = {
   loadingContainer: {
     height: "90vh"
   },
-  right: {
-    padding: "10px",
-    color: "white"
-  },
-  wrong: {
+  rightWrong: {
     padding: "10px",
     color: "white"
   },
@@ -33,6 +29,9 @@ const styles = {
   },
   green: {
     backgroundColor: "#4caf50"
+  },
+  smallerGif: {
+    height: "200px"
   }
 }
 
@@ -187,7 +186,6 @@ class Quiz extends Component {
       {closeQuestion === true &&
         <div>
           {this.state.owner === true && this.state.loadingNextQuestion === false &&
-            <div>
               <ProctorView
                 handleExit={this.handleExit}
                 onClick={this.handleQuestionStatus}
@@ -196,25 +194,27 @@ class Quiz extends Component {
                 answers={this.state.previousAnswers}
                 quizId={this.props.match.params.quizId}
               />
-            </div>
           }
           {this.state.owner !== true &&
             <Grid container direction="column" justify="center" alignItems="center" className={[classes.loadingContainer, redOrGreen] }>
               <Grid item>
                 {this.state.choseCorrectAnswer === true &&
                   /* Maybe make the background green here and do it like kahoot */
-                  <Typography variant="h4" className={classes.right}>
+                  <Typography variant="h4" className={classes.rightWrong}>
                     You got it right!
                   </Typography>
                 }
                 {this.state.choseCorrectAnswer === false &&
                   /* make it red... play a sad sound idk */
-                  <Typography variant="h4" className={classes.wrong}>
+                  <Typography variant="h4" className={classes.rightWrong}>
                     You got it wrong :(
                   </Typography>
                 }
+                <Typography variant="h4" className={classes.rightWrong}>
+                  Your score: {user.score}
+                </Typography>
               </Grid>
-              <Grid item>
+              <Grid item className={classes.smallerGif}>
                 <img src={catGif} />
               </Grid>
             </Grid>

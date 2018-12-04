@@ -96,7 +96,7 @@ class ProctorView extends Component {
             });
         }
         return(
-            <div>
+            <Grid container justify="center" alignItems="center" style={{minHeight: "90vh"}}>
                 <div>
                     {this.state.leaderboardModalOpen === true &&
                         <LeaderboardModal
@@ -106,9 +106,8 @@ class ProctorView extends Component {
                         />
                     }
                 </div>
-                <Grid 
+                <Grid item
                     container
-                    style={{height: "90vh"}}
                     justify="center"
                     alignItems="center"
                 >
@@ -153,7 +152,7 @@ class ProctorView extends Component {
                         />
                     }
                 </Grid>
-            </div>
+            </Grid>
         )
     }
 }
