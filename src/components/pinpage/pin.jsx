@@ -4,13 +4,12 @@ import PropTypes from "prop-types";
 import PinPage from "./pin-page";
 import { fetchQuiz, questionClosed, resetIndex } from "../../actions/quiz";
 import { fetchStudents } from "../../actions/student";
-import { Button } from "@material-ui/core";
 
 class Pin extends Component {
   constructor(props) {
     super(props);
     this.startQuiz = this.startQuiz.bind(this);
-    this.playAudio = this.playAudio.bind(this);
+    this.toggleMusic = this.toggleMusic.bind(this);
   }
 
   state = {
@@ -50,14 +49,13 @@ class Pin extends Component {
     }
   }
 
-  startQuiz(){
-    this.props.history.push(`/quiz/${this.props.currentQuiz._id}`);
+  toggleMusic() {
+    this.setState({playing: !this.state.playing})
+    // console.log(this.state.playing)
   }
 
-  playAudio() {
-    let audio = new Audio();
-    audio.src = "../sound/melee.mp3";
-    audio.play();
+  startQuiz(){
+    this.props.history.push(`/quiz/${this.props.currentQuiz._id}`);
   }
 
   render() {
@@ -67,7 +65,14 @@ class Pin extends Component {
         {this.state.owner === true &&
           <div>
             {this.state.loadingPin === false &&
-              <PinPage history={this.props.history} currentQuiz={currentQuiz} startQuiz={this.startQuiz} students={students} playAudio={this.playAudio}/>
+              <PinPage
+                history={this.props.history}
+                currentQuiz={currentQuiz}
+                startQuiz={this.startQuiz}
+                students={students}
+                toggleMusic={this.toggleMusic}
+                playing={this.state.playing}
+              />
             }
           </div>
         }
@@ -85,7 +90,7 @@ export default connect(
   state => ({
     currentQuiz: state.quiz.currentQuiz,
     user: state.user,
-    students: state.quiz.users
+    students: state.quiz.users,
   }),
   {
     fetchQuiz,

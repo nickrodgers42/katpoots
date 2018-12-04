@@ -20,7 +20,7 @@ const styles = theme => ({
 })
 
 const PinPage = props => {
-  const { classes, currentQuiz, startQuiz, students, playAudio } = props;
+  const { classes, currentQuiz, startQuiz, students, toggleMusic, playing } = props;
   return (
     <div id = "pinGridDiv">
         <div>
@@ -35,7 +35,7 @@ const PinPage = props => {
                 <UserList students={students}/>
             </Grid>
             <Grid item>
-                <Sounder player={Melee} />
+                <Sounder player={Melee} toggleMusic={toggleMusic} playing={playing} delay={600}/>
             </Grid>
         </Grid>
     </div>
