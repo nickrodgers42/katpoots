@@ -3,7 +3,8 @@ import { goToNextQuestion, updateQuestionStatus, userJoined } from "./actions/qu
 import { fetchAllAnswers } from "./actions/answer";
 
 const setupSocket = dispatch => {
-  const socket = new WebSocket("ws://localhost:8989");
+  const HOST = location.origin.replace(/^http/, "ws");
+  const socket = new WebSocket(HOST || "ws://localhost:8989");
 
   socket.onmessage = event => {
     const data = JSON.parse(event.data);

@@ -1,7 +1,7 @@
 require("@babel/polyfill");
 import WebSocket from "ws";
 
-const wss = new WebSocket.Server({ port: 8989 });
+const wss = new WebSocket.Server({ port: process.env.PORT || 8989 });
 
 const broadcast = (data, ws) => {
   wss.clients.forEach(client => {
