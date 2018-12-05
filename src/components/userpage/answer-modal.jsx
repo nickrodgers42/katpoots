@@ -11,7 +11,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import TextField from "@material-ui/core/TextField";
 import Checkbox from "@material-ui/core/Checkbox";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
-import CircularProgress from '@material-ui/core/CircularProgress';
+// import CircularProgress from '@material-ui/core/CircularProgress';
 import { fetchAllAnswers, addAnswer, deleteAnswer, editAnswer } from "../../actions/answer";
 import { editQuestion } from "../../actions/question";
 import DeleteIcon from '@material-ui/icons/Delete';

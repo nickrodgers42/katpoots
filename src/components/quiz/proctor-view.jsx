@@ -11,7 +11,6 @@ import CardContent from '@material-ui/core/CardContent';
 import LeaderboardModal from "./leaderboard-modal";
 import AnswerCard from "../answer/answer-card";
 import { withStyles } from "@material-ui/core/styles";
-import catGif from "../../assets/cat.gif"
 
 
 const styles = {
@@ -142,6 +141,7 @@ class ProctorView extends Component {
                                 </CardActions>
                                 : <CardActions>
                                     <Button variant="contained" color="primary" onClick={this.leaderboard}>Final Scores </Button>
+                                    <Button variant="contained" color="primary" onClick={this.handleNewQuestion}>Add Question </Button>
                                     <Button variant="contained" color="primary" onClick={handleExit}>Abandon Quiz </Button>
                                 </CardActions>
                             }

@@ -6,7 +6,8 @@ import Typography from "@material-ui/core/Typography";
 
 const styles = theme => ({
     displayName: {
-        padding: "20px"
+        padding: "20px",
+        wordWrap: "break-word"
     },
     container: {
         width: "800px"
@@ -24,10 +25,11 @@ const UserList = props => {
                 alignItems="center"
                 className={classes.container}
                 spacing={24}
+                wrap="nowrap"
             >
             {students.map(student =>{
                 return(
-                    <Grid item xs={3}>
+                    <Grid item xs={3}>  
                         <Paper elevation={4}>
                             <Typography variant="h6" align="center" className={classes.displayName}>
                                 {student.displayName}
@@ -35,7 +37,7 @@ const UserList = props => {
                         </Paper>
                     </Grid>
                 )
-            })}
+            }).reverse()}
             </Grid>
         </div>
     )

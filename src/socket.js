@@ -1,39 +1,43 @@
 import { voteCounted, resetVotes, fetchQuestions } from "./actions/question";
 import { goToNextQuestion, updateQuestionStatus, userJoined } from "./actions/quiz";
 import { fetchAllAnswers } from "./actions/answer";
+import io from "socket.io-client";
 
 const setupSocket = dispatch => {
-  const socket = new WebSocket("ws://localhost:8989");
+  console.log("here");
+  const socket = io();
 
-  socket.onmessage = event => {
-    const data = JSON.parse(event.data);
-    console.log(data);
-    switch (data.type) {
-      case "USER_JOINED":
-        dispatch(userJoined(data.student));
-        break;
-      case "VOTE_COUNTED":
-        dispatch(voteCounted(data.answer));
-        break;
-      case "RESET_VOTES":
-        dispatch(resetVotes());
-        break;
-      case "GO_TO_NEXT_QUESTION":
-        dispatch(goToNextQuestion(data.index));
-        break;
-      case "UPDATE_QUESTION_STATUS":
-        dispatch(updateQuestionStatus(data.closeQuestion));
-        break;
-      case "REFRESH_QUESTIONS":
-        dispatch(fetchQuestions(data.quizId));
-        break;
-      case "REFRESH_ANSWERS":
-        dispatch(fetchAllAnswers(data.questionId));
-        break;
-      default:
-        break;
-    }
-  };
+  socket.on("test", event => console.log(event));
+
+  socket.on("user joined", event => {
+    console.log(event);
+    dispatch(userJoined(event));
+  });
+
+  socket.on("vote counted", event => {
+    console.log("here");
+    dispatch(voteCounted(event));
+  });
+
+  socket.on("reset votes", () => {
+    dispatch(resetVotes());
+  });
+
+  socket.on("go to next question", event => {
+    dispatch(goToNextQuestion(event));
+  });
+
+  socket.on("update question status", event => {
+    dispatch(updateQuestionStatus(event));
+  });
+
+  socket.on("refresh questions", event => {
+    dispatch(fetchQuestions(event));
+  });
+
+  socket.on("refresh answers", event => {
+    dispatch(fetchAllAnswers(event));
+  });
 
   return socket;
 };

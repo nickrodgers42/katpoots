@@ -9,12 +9,14 @@ class Pin extends Component {
   constructor(props) {
     super(props);
     this.startQuiz = this.startQuiz.bind(this);
+    this.toggleMusic = this.toggleMusic.bind(this);
   }
 
   state = {
     loadingPin: true,
     usersConnected: false,
-    owner: null
+    owner: null,
+    playing: true,
   };
 
   componentWillMount() {
@@ -47,6 +49,11 @@ class Pin extends Component {
     }
   }
 
+  toggleMusic() {
+    this.setState({playing: !this.state.playing})
+    // console.log(this.state.playing)
+  }
+
   startQuiz(){
     this.props.history.push(`/quiz/${this.props.currentQuiz._id}`);
   }
@@ -58,7 +65,14 @@ class Pin extends Component {
         {this.state.owner === true &&
           <div>
             {this.state.loadingPin === false &&
-              <PinPage history={this.props.history} currentQuiz={currentQuiz} startQuiz={this.startQuiz} students={students} />
+              <PinPage
+                history={this.props.history}
+                currentQuiz={currentQuiz}
+                startQuiz={this.startQuiz}
+                students={students}
+                toggleMusic={this.toggleMusic}
+                playing={this.state.playing}
+              />
             }
           </div>
         }
@@ -76,7 +90,7 @@ export default connect(
   state => ({
     currentQuiz: state.quiz.currentQuiz,
     user: state.user,
-    students: state.quiz.users
+    students: state.quiz.users,
   }),
   {
     fetchQuiz,

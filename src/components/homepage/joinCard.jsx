@@ -18,12 +18,17 @@ const styles = {
   }
 };
 
+var currentPin = ""
+var invalid = null;
+
 const isPinValid = async (values, errors, setQuiz) => {
   try {
     const res = await axios.get(`/api/quiz/findByPin/${values.pin}`);
     await setQuiz(res.data);
+    invalid = false;
     return errors;
   } catch (e) {
+    invalid = true;
     return Object.assign({}, errors, { pin: "Pin Is Invalid" });
   }
 };
@@ -37,7 +42,18 @@ function JoinCard(props) {
         errors[key] = "Required";
       }
     });
-    return isPinValid(values, errors, setQuiz);
+    if(values.displayName){
+      if(values.displayName.length > 15){
+        return Object.assign({}, errors, { displayName: "Too Long" });
+      }
+    }
+    if(values.pin !== currentPin){
+      currentPin = values.pin;
+      return isPinValid(values, errors, setQuiz);
+    }
+    if(invalid){
+      return Object.assign({}, errors, { pin: "Pin Is Invalid" });
+    }
   };
   return (
     <Grid container className={classes.root} spacing={16}>
