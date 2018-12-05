@@ -142,6 +142,7 @@ class ProctorView extends Component {
                                 </CardActions>
                                 : <CardActions>
                                     <Button variant="contained" color="primary" onClick={this.leaderboard}>Final Scores </Button>
+                                    <Button variant="contained" color="primary" onClick={this.handleNewQuestion}>Add Question </Button>
                                     <Button variant="contained" color="primary" onClick={handleExit}>Abandon Quiz </Button>
                                 </CardActions>
                             }
