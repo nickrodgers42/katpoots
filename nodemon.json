@@ -1,6 +1,6 @@
 {
   "ignore": [
-    "src/core/*",
+    "core/*",
     "src/actions",
     "src/reducers",
     "src/sagas",
