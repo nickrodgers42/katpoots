@@ -11,7 +11,7 @@ const styles = {
     // flexGrow: 1,
   },
   grid: {
-    height: "90vh"
+    height: "85vh"
   },
   grow: {
     flexGrow: 1
