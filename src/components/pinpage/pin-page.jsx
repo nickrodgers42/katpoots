@@ -6,6 +6,7 @@ import UserList from "./userlist"
 import {Button} from "@material-ui/core"
 import Melee from "../sound/melee.mp3"
 import Sounder from "../sound/sounder"
+import Wow from "../sound/wow.mp3"
 import Sound from 'react-sound'
 
 const styles = theme => ({
@@ -35,7 +36,7 @@ const PinPage = props => {
                 <UserList students={students}/>
             </Grid>
             <Grid item>
-                <Sounder player={Melee} toggleMusic={toggleMusic} playing={playing} delay={600}/>
+                <Sounder player={Wow} toggleMusic={toggleMusic} playing={playing} delay={600}/>
             </Grid>
         </Grid>
     </div>

@@ -21,7 +21,7 @@ const Sounder = props => {
           <Button onClick={toggleMusic}>
             <VolumeUpIcon />
           </Button>
-          <Sound url={player} playStatus={Sound.status.PLAYING} loop="true" playFromPosition={delay}/>
+          <Sound url={player} playStatus={Sound.status.PLAYING} playFromPosition={delay}/>
         </div>
       )}
     </div>
