@@ -4,6 +4,7 @@ export const TIMER_STOP = "TIMER_STOP";
 
 let timer = null;
 export const start = () => dispatch => {
+    clearInterval(timer);
     dispatch({ type: TIMER_START });
     timer = setInterval(() => dispatch(tick()), 1000);
 }
